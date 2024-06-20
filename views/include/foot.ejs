@@ -1,0 +1,371 @@
+
+</article>
+</main>
+
+
+<footer class="footer">
+
+<div class="footer-top section">
+  <div class="container">
+
+    <div class="footer-brand">
+
+      <a href="#" class="logo">
+        <img src="../public/imgee/bro-logo-bro-letter-bro-letter-logo-design-initials-bro-logo-linked-bro.jpg"
+          width="90" height="50" alt="Footcap logo">
+      </a>
+
+      <ul class="social-list">
+
+        <li>
+          <a href="#" class="social-link">
+            <ion-icon name="logo-facebook"></ion-icon>
+          </a>
+        </li>
+
+        <li>
+          <a href="#" class="social-link">
+            <ion-icon name="logo-twitter"></ion-icon>
+          </a>
+        </li>
+
+        <li>
+          <a href="#" class="social-link">
+            <ion-icon name="logo-pinterest"></ion-icon>
+          </a>
+        </li>
+
+        <li>
+          <a href="#" class="social-link">
+            <ion-icon name="logo-linkedin"></ion-icon>
+          </a>
+        </li>
+
+      </ul>
+
+    </div>
+
+    <div class="footer-link-box">
+
+      <ul class="footer-list">
+
+        <li>
+          <p class="footer-list-title">Contact Us</p>
+        </li>
+
+        <li>
+          <address class="footer-link">
+            <ion-icon name="location"></ion-icon>
+
+            <span class="footer-link-text">
+              BRODWAY, Arappura street 123
+            </span>
+          </address>
+        </li>
+
+        <li>
+          <a href="tel:+557343673257" class="footer-link">
+            <ion-icon name="call"></ion-icon>
+
+            <span class="footer-link-text">9048601090</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="mailto:footcap@help.com" class="footer-link">
+            <ion-icon name="mail"></ion-icon>
+
+            <span class="footer-link-text">brodway@help.com</span>
+          </a>
+        </li>
+
+      </ul>
+
+      <ul class="footer-list">
+
+        <li>
+          <p class="footer-list-title">My Account</p>
+        </li>
+
+        <li>
+          <a href="/profile" class="footer-link">
+            <ion-icon name="chevron-forward-outline"></ion-icon>
+
+            <span class="footer-link-text">My Account</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="/cart" class="footer-link">
+            <ion-icon name="chevron-forward-outline"></ion-icon>
+
+            <span class="footer-link-text">View Cart</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="/wishlist" class="footer-link">
+            <ion-icon name="chevron-forward-outline"></ion-icon>
+
+            <span class="footer-link-text">Wishlist</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="#" class="footer-link">
+            <ion-icon name="chevron-forward-outline"></ion-icon>
+
+            <span class="footer-link-text">Compare</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="#" class="footer-link">
+            <ion-icon name="chevron-forward-outline"></ion-icon>
+
+            <span class="footer-link-text">New Products</span>
+          </a>
+        </li>
+
+      </ul>
+
+      <div class="footer-list">
+
+        <p class="footer-list-title">Offer Time</p>
+
+        <table class="footer-table">
+          <tbody>
+
+            <tr class="table-row">
+              <th class="table-head" scope="row">Mon - Tue:</th>
+
+              <td class="table-data">8AM </td>
+            </tr>
+
+            <tr class="table-row">
+              <th class="table-head" scope="row">Wed:</th>
+
+              <td class="table-data">7PM</td>
+            </tr>
+
+            <tr class="table-row">
+              <th class="table-head" scope="row">Fri:</th>
+
+              <td class="table-data">12PM</td>
+            </tr>
+
+            <tr class="table-row">
+              <th class="table-head" scope="row">Sat:</th>
+
+              <td class="table-data">12 Am</td>
+            </tr>
+
+            <tr class="table-row">
+              <th class="table-head" scope="row">Sun:</th>
+
+              <td class="table-data">Special</td>
+            </tr>
+
+          </tbody>
+        </table>
+
+      </div>
+
+      <div class="footer-list">
+
+        <p class="footer-list-title">Newsletter</p>
+
+        <p class="newsletter-text">
+          Authoritatively morph 24/7 potentialities with error-free partnerships.
+        </p>
+
+       
+
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<div class="footer-bottom">
+  <div class="container">
+
+    <p class="copyright">
+      &copy; 2024 <a href="#" class="copyright-link">BRODWAY</a>. All Rights Reserved
+    </p>
+
+  </div>
+</div>
+
+
+</footer>
+
+
+
+
+
+<!-- 
+- #GO TO TOP
+-->
+
+<a href="#top" class="go-top-btn" data-go-top>
+<ion-icon name="arrow-up-outline"></ion-icon>
+</a>
+
+
+<script>
+	const quantity = async (type, item) => {
+    let quantityElement = document.getElementById(`quantity_${item._id}`);
+    let totalPriceElement = document.getElementById(`total_price_${item._id}`);
+
+    let quantityValue = parseInt(quantityElement.value);
+
+    if (type === 'inc' ) {
+		if(quantityValue  < item.productId.stock){
+        quantityValue++;
+		}else{
+		     Swal.fire({
+				title:'Stock Exceeded!',
+				text:'Cannot add more than available Stock',
+				icon:'warning',
+				confirmButtonText: 'OK'
+			 });
+			 return;
+		}
+    } else {
+        if (quantityValue > 1) {
+            quantityValue--;
+        }
+    }
+
+    quantityElement.value = quantityValue;
+
+    let totalPrice = quantityValue * item.productId.price;
+    totalPriceElement.innerText = `$${totalPrice}`;
+
+    try {
+        const res = await fetch('/quantity', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ qua: quantityValue, id: item._id })
+        });
+
+        if (!res.ok) {
+            throw new Error('Failed to fetch');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    }
+};
+
+
+</script>
+
+
+   <script>
+    document.getElementById('sortBySelect').addEventListener("change", async () => {
+      console.log("hi");
+        const sortBySelect = document.getElementById('sortBySelect').value;
+        console.log('sortBySelect',sortBySelect);
+        const categoryId = document.getElementById('catt').value;
+        console.log(categoryId, "selectedOption");
+
+        try {
+          console.log("hi1");
+            const response = await fetch('/priceFilter', {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify({ sortBySelect,categoryId })
+            });
+            const sortedProducts = await response.json();
+            console.log(sortedProducts, "response");
+
+            // Function to render products in the DOM
+            renderProducts(sortedProducts);
+        } catch (error) {
+            console.error("Error fetching sorted products:", error);
+        }
+    });
+
+    function renderProducts(products) {
+        console.log("render");
+        const productsContainer = document.getElementById('productsContainer');
+        productsContainer.innerHTML = ''; // Clear existing products
+
+        products.forEach(product => {
+            console.log("products");
+            const productHTML = `
+                <div class="col-lg-3 col-md-4 col-sm-6 mb-4 text-center " data-price="${product.price}">
+                
+                <div class="card product-card h-100" style="height: 500px;">
+                    <div class="pro-img" >
+                    <a href="/productdetail?id=${product._id}" class="prod-img">
+                        <img src="${ product.images[0] }" class="card-img-top " alt="${ product.product_name }" >
+                    </a>
+                </div>
+                    <div class="card-body product-details">
+                        <h5 class="card-title product-title">
+                            <a href="/productdetail?id=${ product._id }">
+                                ${ product.product_name }
+                            </a>
+                        </h5>
+                        ${product.offerPrice && product.offerPrice < product.price ? `
+                        <p class="card-text product-price">
+                            <span class="original-price" style="text-decoration: line-through;">&#8377;${product.price}</span>
+                            <span class="offer-price">&#8377;${product.offerPrice}</span>
+                            <span class="discount-percentage text-success">(${Math.round(((product.price - product.offerPrice) / product.price) * 100)}% off)</span>
+                        </p>` : `
+                        <p class="card-text product-price">&#8377;${product.price}</p>`
+                    }
+                        <p class="card-text product-brand">${ product.brand }</p>
+                ${product.stock > 0 ? `
+                                <button class="btn btn-primary btn-add-cart">
+                                    <a href="/cart/${product._id}" class="text-white">Add to Cart</a>
+                                </button>` : `
+                                <p class="out-of-stock text-danger">Out of Stock</p>`
+                            }
+                    </div>
+                </div>
+            </div>`;
+            productsContainer.innerHTML += productHTML;
+        });
+        productsContainer.appendChild(rowDiv);
+    }
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const sections = document.querySelectorAll('.filter-section');
+  
+      sections.forEach(section => {
+        const header = section.querySelector('h3');
+        header.addEventListener('click', function() {
+          const content = section.querySelector('.filter-section-content');
+          content.classList.toggle('active');
+        });
+      });
+    });
+  </script>
+  
+
+
+
+
+<!-- 
+- custom js link
+-->
+<script src="./assets/js/script.js"></script>
+
+<!-- 
+- ionicon link
+-->
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,121 @@
+
+<%-include('header')-%> 
+
+<div class="container-fluid ali"> <button class="btn btn-light align-items-end"><a href="/login">login</a></button></div>
+<div class="text-center " id="login">
+<div class="container w-25 border py-5 shadow mt-5">
+<div class="title pb-5">
+<h2 class="font-weight-bold text-light">Sign Up</h2>
+
+ <%if(locals.logout){%>
+            <div class="aleret alert-success text-center">
+                <%= logout %>
+            </div>
+            <%}%>
+
+            <%if(locals.message){%>
+                <div class="alert alert-sucess text-center" style="color:red;">
+                    <%=message%>
+                </div>          
+            <%}%>       
+
+
+</div>
+<script>
+  function validate() {
+    document.getElementById('nameError').textContent = "";
+    document.getElementById('emailError').textContent = "";
+    document.getElementById('passwordError').textContent = "";
+    document.getElementById('confirmPasswordError').textContent = "";
+
+    var username = document.getElementById('name').value.trim();
+    var email = document.getElementById('email').value.trim();
+    var password = document.getElementById('password').value.trim();
+    var cpassword = document.getElementById('cpassword').value.trim();
+
+    if (email === "") {
+        document.getElementById('emailError').textContent = "Email cannot be empty";
+        return false;
+    }
+    if (!/^\S+@\S+\.\S+$/.test(email)) {
+        document.getElementById("emailError").textContent = "Email should be in specific format..!";
+        return false;
+    }
+
+    if (username === "") {
+        document.getElementById('nameError').textContent = "Username cannot be empty";
+        return false;
+    }
+    if (username.length < 4) {
+        document.getElementById('nameError').textContent = "Username must contain at least 4 characters";
+        return false;
+    }
+
+    if (!/^[a-zA-Z]+$/.test(username)) {
+        document.getElementById("nameError").textContent = "Username cannot contain symbols or numbers";
+        return false;
+    }
+
+    if (password === "") {
+        document.getElementById('passwordError').textContent = "Password cannot be empty";
+        return false;
+    }
+    if (password.length < 5) {
+        document.getElementById('passwordError').textContent = "Password should contain at least 5 characters";
+        return false;
+    }
+
+    if (!/(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/.test(password)) {
+        document.getElementById('passwordError').textContent = "Password must contain at least one letter, one number, and one special character";
+        return false;
+    }
+
+    if (password !== cpassword) {
+        document.getElementById('confirmPasswordError').textContent = "Passwords don't match";
+        return false;
+    }
+
+    if (cpassword === "") {
+        document.getElementById('confirmPasswordError').textContent = "Confirm password cannot be empty";
+        return false;
+    }
+
+    return true;
+}
+
+
+    
+</script>
+
+<form action="/signup" method= "post" class="pt-3" name="formval" onsubmit="return validate()">
+    
+<div class="form-group">
+<input type="email" class= "form-control" placeholder="email" name="email" id="email">
+<span id="emailError" class="error" style="color:red"> <%=message%></span>
+<small class="form-text text-muted text-left"></small>
+</div>
+<div class="form-group mt-4">
+    <input type="name" class="form-control" name="name" placeholder="username" id="name">
+    <span id="nameError" class="error" style="color:red"></span>
+    </div>
+
+<div class="form-group mt-4">
+<input type="password" class="form-control" name="password" placeholder="password" id="password">
+<span id="passwordError" class="error" style="color:red"></span>
+</div>
+
+<div class="form-group mt-4">
+    <input type="password" class="form-control" name="cpassword" placeholder="confirm password" id="cpassword">
+    <span id="confirmPasswordError" class="error" style="color:red"></span>
+    </div>
+<button type="submit" class="btn btn-success mt-3 rounded-pill">Submit</button>
+<div>
+    <a href="/auth/google" class="btn btn-primary mt-3"><img class="w-10" style="width: 20px;" src="images/1657952641google-logo-png-image.webp" > SignUp with google</a>
+</div>
+
+</form>
+</div>
+</div>
+
+
+<%-include('footer')-%>

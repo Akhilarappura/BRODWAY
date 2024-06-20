@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BRODWAY</title>
+
+  <!-- 
+    - favicon
+  -->
+  <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
+
+  <!-- 
+    - custom css link
+  -->
+  
+  <!-- 
+    - google font link
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&family=Roboto:wght@400;500;700&display=swap"
+    rel="stylesheet">
+    <link rel="stylesheet" href="/public/css/style.css">
+    <link rel="stylesheet" href="/public/css/newIndex.css">
+
+  <!-- 
+    - preload banner
+  -->
+  <link rel="preload" href="/footwear-master/public/imgee/hero-banner.png" as="image">
+
+</head>
+
+<body id="top">
+
+  <!-- 
+    - #HEADER
+  -->
+
+  <header class="header" data-header>
+	<div class="container">
+
+		<div class="overlay" data-overlay></div>
+  
+		<h1>BRODWAY</h1>
+  
+		<button class="nav-open-btn" data-nav-open-btn aria-label="Open Menu">
+		  <ion-icon name="menu-outline"></ion-icon>
+		</button>
+  
+		<nav class="navbar" data-navbar>
+  
+		  <button class="nav-close-btn" data-nav-close-btn aria-label="Close Menu">
+			<ion-icon name="close-outline"></ion-icon>
+		  </button>
+  
+		  <a href="#" class="logo">
+			<img src="./assets/images/logo.svg" width="190" height="50" alt="Footcap logo">
+		  </a>
+  
+		  <ul class="navbar-list">
+  
+			<li class="navbar-item">
+			  <a href="/" class="navbar-link">Home</a>
+			</li>
+  
+			<li class="navbar-item">
+			  <%Category?.forEach(category=>{%>
+				<a href="/productCategory?id=<%=category._id%>" class="navbar-link">
+				  <span>
+					<%=category.categoryName%>
+				  </span></a>
+			</li>
+			<%})%>
+  
+			  <li class="navbar-item">
+				<a href="/about" class="navbar-link">About</a>
+			  </li>
+			  <li class="navbar-item">
+				<a href="/contact" class="navbar-link">Contact</a>
+			  </li>
+  
+  
+  
+		  </ul>
+  
+		  <ul class="nav-action-list">
+  
+			<li>
+			  <button class="nav-action-btn">
+				<ion-icon name="search-outline" aria-hidden="true"></ion-icon>
+  
+				<span class="nav-action-text">Search</span>
+			  </button>
+			</li>
+  
+  
+			<% if (!userToken) { %>
+			  <li>
+				<a href="/login" class="nav-action-btn">
+				  <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
+  
+				  <span class="nav-action-text">Login </span>
+				</a>
+			  </li>
+			  <% } %>
+  
+				<% if (userToken) { %>
+				  <li>
+					<a href="/profile" class="nav-action-btn">
+					  <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
+  
+					  <span class="nav-action-text">Login </span>
+					</a>
+				  </li>
+				  <% } %>
+					<li>
+					  <a href="/wishlist" class="nav-action-btn">
+						<ion-icon name="heart-outline" aria-hidden="true"></ion-icon>
+						<span class="nav-action-text">Wishlist</span>
+					  </a>
+					</li>
+					<% if (userToken) { %>
+					  <li>
+						<a href="/cart" class="nav-action-btn">
+						  <ion-icon name="cart-outline" aria-hidden="true"></ion-icon>
+						  <span class="nav-action-text">cart</span>
+						  <data class="nav-action-badge" value="" aria-hidden="true">
+							<%= cartCount %>
+						  </data>
+						</a>
+					  </li>
+					  <% } %>
+						<% if (!userToken) { %>
+						  <li>
+							<a href="/login" class="nav-action-btn">
+							  <ion-icon name="cart-outline" aria-hidden="true"></ion-icon>
+  
+							  <span class="nav-action-text">Login </span>
+							</a>
+						  </li>
+						  <% } %>
+  
+  
+  
+
+        </ul>
+
+      </nav>
+
+    </div>
+  </header>
+
+
+
+
+
+  <main>
+    <article>
+
+      <!-- 
+        - #HERO
+      -->
+
+      
+      <!-- <div class="breadcrumbs">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <p class="bread"><span><a href="/">Home</a></span> / <span>Shopping Cart</span></p>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+
+
+    <div class="colorlib-product">
+        <div class="container">
+            <div class="row row-pb-lg">
+                <div class="col-md-10 offset-md-1">
+                    <div class="process-wrap">
+                        <div class="process text-center active">
+                            <p><span>01</span></p>
+                            <h3>Shopping Cart</h3>
+                        </div>
+                        <div class="process text-center">
+                            <p><span>02</span></p>
+                            <h3>Checkout</h3>
+                        </div>
+                        <div class="process text-center">
+                            <p><span>03</span></p>
+                            <h3>Order Complete</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-pb-lg">
+                <div class="col-md-12">
+                    <div class="product-name d-flex">
+                        <div class="one-forth text-left px-4">
+                            <span>Product Details</span>
+                        </div> 
+                        <div class="one-eight text-center">
+                            <span>Price</span>
+                        </div>
+                        <div class="one-eight text-center">
+                            <span>Quantity</span>
+                        </div>
+                        <div class="one-eight text-center">
+                            <span>Total</span>
+                        </div>
+                        <div class="one-eight text-center px-4">
+                            <span>Remove</span>
+                        </div>
+                    </div>
+                    <div></div>
+                    
+
+    
+<% if (!user || user.items.length === 0) { %>
+    <div class="container" >
+        <div> <h1>  Your cart is empty.</h1></div>
+       
+    </div>
+<% } else { %>
+  <div class="container">
+    <div class="row row-pb-lg">
+        <% user.items.forEach((item, index) => { %>
+            <div class="product-cart d-flex">
+                <div class="one-forth">
+                    <div class="display-tc">
+                        <h3><%= item.productId.product_name %></h3>
+                        <img src="<%= item.productId.images[0] %>" alt="" style="width:100px;">
+                    </div>
+                </div>
+                <div class="one-eight text-center">
+                    <div class="display-tc">
+                        <span class="original-price" style="text-decoration: line-through; color: grey;">&#8377; <%= item.productId.originalPrice %></span>
+                        <span class="offer-price" style="color: green;">&#8377; <%= item.productId.offerPrice %></span>
+                    </div>
+                </div>
+                <div class="one-eight text-center">
+                    <div class="input-group mb-4">
+                        <span class="input-group-btn">
+                            <button type="button" class="quantity-left-minus btn" onclick="quantity('dec', <%= JSON.stringify(item) %>)" id="decrese">
+                                <i class="icon-minus2"></i>-
+                            </button>
+                        </span>
+                        <input type="number" id="quantity_<%= item._id %>" name="quantity" class="form-control input-number" value="<%= item.quantity %>" min="1" max="20" disabled>
+                        <span class="input-group-btn ml-1">
+                            <button type="button" class="quantity-right-plus btn" onclick="quantity('inc', <%= JSON.stringify(item) %>)" data-type="plus">+
+                                <i class="icon-plus2"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+                <div class="one-eight text-center">
+                    <div class="display-tc">
+                        <span class="total-price" id="total_price_<%= item._id %>">&#8377; <%= item.productId.offerPrice * item.quantity %></span>
+                    </div>
+                </div>
+                <div class="one-eight text-center">
+                    <div class="display-tc">
+                        <a class="btn btn-danger delete" data-id="<%= item.productId._id %>">
+                            <i class="bi bi-trash">Remove</i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+              <!-- Display total amount based on offer prices -->
+        <div class="total-amount">
+          <span class="total-price" id="total_price_<%= item._id %>">&#8377; <%= item.productId.offerPrice * item.quantity %></span>
+        </div>
+        <% }) %>
+      
+    </div>
+    <div class="row">
+        <div class="col-sm-8 offset-sm-2 text-center colorlib-heading colorlib-heading-sm border shadow rounded-pill">
+            <h2 class="text-success mt-5">Place Your Order</h2>
+            <div class="row">
+                <div class="col-md-8 offset-md-2">
+                    <div class="total-wrap">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="subtotal">
+                                    <p><span class="total-price">Sub Total: &#8377; <%= totalAmount %></span></p>
+                                    <p><span>Delivery Charge: &#8377; 0.00</span></p>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 text-center">
+                                <div class="total">
+                                    <div class="grand-total text">
+                                        <p><span ><strong>Total: &#8377; <%= totalAmount %></strong></span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 text-center mb-4">
+                                <button type="submit" class="btn btn-primary btn-lg"><a href="/checkout" style="color: orange;">CheckOut</a></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<% } %>
+
+
+<script>
+    const deleteButtons=document.querySelectorAll(".delete");
+    deleteButtons.forEach(function(button){
+        button.addEventListener("click",function(){
+            const productId=this.getAttribute("data-id")
+
+                // Display SweetAlert confirmation dialog
+                Swal.fire({
+                  title: "Are you sure?",
+                  text: "Remove this item from the cart?",
+                  icon: "warning",
+                  showCancelButton: true,
+                  confirmButtonColor: "#3085d6",
+                  cancelButtonColor: "#d33",
+                  confirmButtonText: "Remove!",
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    // User confirmed deletion, send request to delete address
+                    fetch(`/delete/${productId}`, {
+                      method: "DELETE",
+                    })
+                      .then((response) => {
+                        if (response.ok) {
+                          // Show success message using SweetAlert
+                          Swal.fire({
+                            title: "Removed!",
+                            text: "Product has been removed.",
+                            icon: "success",
+                          }).then(() => {
+                            // Reload the page  
+                            window.location.reload();
+                          });
+                        } else {
+                          // Failed to delete address
+                          console.error("Failed to delete address");
+                          // Show error message using SweetAlert
+                          Swal.fire({
+                            title: "Failed!",
+                            text: "Product cannot be removed.",
+                            icon: "error",
+                          });
+                        }
+                      })
+
+                      .catch((error) => {
+                        console.error("Error:", error);
+                        // Show error message using SweetAlert
+                        Swal.fire({
+                          title: "Error!",
+                          text: "An error occurred while removing the product.",
+                          icon: "error",
+                        });
+                      });
+                  }
+                });
+              });
+            });
+          </script>
+          <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+		  
+<script>
+	const quantity = async (type, item) => {
+    let quantityElement = document.getElementById(`quantity_${item._id}`);
+    let totalPriceElement = document.getElementById(`total_price_${item._id}`);
+
+    let quantityValue = parseInt(quantityElement.value);
+
+    if (type === 'inc' ) {
+		if(quantityValue  < item.productId.stock){
+        quantityValue++;
+		}else{
+		     Swal.fire({
+				title:'Stock Exceeded!',
+				text:'Cannot add more than available Stock',
+				icon:'warning',
+				confirmButtonText: 'OK'
+			 });
+			 return;
+		}
+    } else {
+        if (quantityValue > 1) {
+            quantityValue--;
+        }
+    }
+
+    quantityElement.value = quantityValue;
+
+    let totalPrice = quantityValue * item.productId.offerPrice;
+    totalPriceElement.innerText = `$${totalPrice}`;
+
+    try {
+        const res = await fetch('/quantity', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ qua: quantityValue, id: item._id })
+        });
+
+        if (!res.ok) {
+            throw new Error('Failed to fetch');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    }
+};
+
+
+</script>
+
+
+    
+
+    </article>
+  </main>
+
+
+
+
+
+  <!-- 
+    - #FOOTER
+  -->
+
+  <footer class="footer">
+
+    <div class="footer-top section">
+      <div class="container">
+
+        <div class="footer-brand">
+
+          <a href="#" class="logo">
+            <img src="./assets/images/logo.svg" width="160" height="50" alt="Footcap logo">
+          </a>
+
+          <ul class="social-list">
+
+            <li>
+              <a href="#" class="social-link">
+                <ion-icon name="logo-facebook"></ion-icon>
+              </a>
+            </li>
+
+            <li>
+              <a href="#" class="social-link">
+                <ion-icon name="logo-twitter"></ion-icon>
+              </a>
+            </li>
+
+            <li>
+              <a href="#" class="social-link">
+                <ion-icon name="logo-pinterest"></ion-icon>
+              </a>
+            </li>
+
+            <li>
+              <a href="#" class="social-link">
+                <ion-icon name="logo-linkedin"></ion-icon>
+              </a>
+            </li>
+
+          </ul>
+
+        </div>
+
+        <div class="footer-link-box">
+
+          <ul class="footer-list">
+
+            <li>
+              <p class="footer-list-title">Contact Us</p>
+            </li>
+
+            <li>
+              <address class="footer-link">
+                <ion-icon name="location"></ion-icon>
+
+                <span class="footer-link-text">
+                  2751 S Parker Rd, Aurora, CO 80014, United States
+                </span>
+              </address>
+            </li>
+
+            <li>
+              <a href="tel:+557343673257" class="footer-link">
+                <ion-icon name="call"></ion-icon>
+
+                <span class="footer-link-text">+557343673257</span>
+              </a>
+            </li>
+
+            <li>
+              <a href="mailto:footcap@help.com" class="footer-link">
+                <ion-icon name="mail"></ion-icon>
+
+                <span class="footer-link-text">footcap@help.com</span>
+              </a>
+            </li>
+
+          </ul>
+
+          <ul class="footer-list">
+
+            <li>
+              <p class="footer-list-title">My Account</p>
+            </li>
+
+            <li>
+              <a href="#" class="footer-link">
+                <ion-icon name="chevron-forward-outline"></ion-icon>
+
+                <span class="footer-link-text">My Account</span>
+              </a>
+            </li>
+
+            <li>
+              <a href="#" class="footer-link">
+                <ion-icon name="chevron-forward-outline"></ion-icon>
+
+                <span class="footer-link-text">View Cart</span>
+              </a>
+            </li>
+
+            <li>
+              <a href="#" class="footer-link">
+                <ion-icon name="chevron-forward-outline"></ion-icon>
+
+                <span class="footer-link-text">Wishlist</span>
+              </a>
+            </li>
+
+            <li>
+              <a href="#" class="footer-link">
+                <ion-icon name="chevron-forward-outline"></ion-icon>
+
+                <span class="footer-link-text">Compare</span>
+              </a>
+            </li>
+
+            <li>
+              <a href="#" class="footer-link">
+                <ion-icon name="chevron-forward-outline"></ion-icon>
+
+                <span class="footer-link-text">New Products</span>
+              </a>
+            </li>
+
+          </ul>
+
+          <div class="footer-list">
+
+            <p class="footer-list-title">Opening Time</p>
+
+            <table class="footer-table">
+              <tbody>
+
+                <tr class="table-row">
+                  <th class="table-head" scope="row">Mon - Tue:</th>
+
+                  <td class="table-data">8AM - 10PM</td>
+                </tr>
+
+                <tr class="table-row">
+                  <th class="table-head" scope="row">Wed:</th>
+
+                  <td class="table-data">8AM - 7PM</td>
+                </tr>
+
+                <tr class="table-row">
+                  <th class="table-head" scope="row">Fri:</th>
+
+                  <td class="table-data">7AM - 12PM</td>
+                </tr>
+
+                <tr class="table-row">
+                  <th class="table-head" scope="row">Sat:</th>
+
+                  <td class="table-data">9AM - 8PM</td>
+                </tr>
+
+                <tr class="table-row">
+                  <th class="table-head" scope="row">Sun:</th>
+
+                  <td class="table-data">Closed</td>
+                </tr>
+
+              </tbody>
+            </table>
+
+          </div>
+
+          <div class="footer-list">
+
+            <p class="footer-list-title">Newsletter</p>
+
+            <p class="newsletter-text">
+              Authoritatively morph 24/7 potentialities with error-free partnerships.
+            </p>
+
+            <form action="" class="newsletter-form">
+              <input type="email" name="email" required placeholder="Email Address" class="newsletter-input">
+
+              <button type="submit" class="btn btn-primary">Subscribe</button>
+            </form>
+
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container">
+
+        <p class="copyright">
+          &copy; 2022 <a href="#" class="copyright-link">codewithsadee</a>. All Rights Reserved
+        </p>
+
+      </div>
+    </div>
+
+  </footer>
+
+
+
+
+
+  <!-- 
+    - #GO TO TOP
+  -->
+
+  <a href="#top" class="go-top-btn" data-go-top>
+    <ion-icon name="arrow-up-outline"></ion-icon>
+  </a>
+
+
+
+
+
+  <!-- 
+    - custom js link
+  -->
+  <script src="./assets/js/script.js"></script>
+
+  <!-- 
+    - ionicon link
+  -->
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+</body>
+
+</html>

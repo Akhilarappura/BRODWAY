@@ -1,0 +1,75 @@
+<%- include('header') -%> 
+
+<div class="container-fluid ali"> 
+   
+</div>
+
+<div class="text-center" id="login">
+    <div class="container w-25 border py-5 shadow mt-5">
+        <div class="title pb-5">
+            <h2 class="font-weight-bold text-light">OTP</h2>
+        </div>
+
+     
+            <div class="alert text-danger" role="alert">
+                <%= message %>
+            </div>  
+    
+            <div class="alert text-success" role="alert">
+                <%= error %>
+            </div>
+  
+
+        <form action="/forgototp" method="post" class="pt-3" name="formlogin">
+            <div class="form-group">
+                <input type="number" class="form-control" placeholder="Enter the number" name="otp" required>
+                <small class="form-text text-muted text-left"></small>
+            </div>
+            
+            <div class="resend">
+                <small style="color: white;">
+                    Didn't get the OTP? ..
+                    <span id="timer" class="text-decoration-none"></span>
+                    <a href="/resend" id="resendLink" class="text-decoration-none text-white">Resend</a>
+                </small>
+            </div>
+
+            <div class="mt-3 mb-5">
+                <button class="btn btn-success px-4" type="submit">Verify</button>
+                <div id="countdowntimer" style="color: red; font-size: x-large;">00:30</div>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    // Initialize timeleft with the total number of seconds for the timer
+    var timeleft = 1 / 2 * 60; // For 30 minutes
+
+    var downloadTimer = setInterval(function () {
+        var minutes = Math.floor(timeleft / 60);
+        var seconds = timeleft % 60;
+
+        // Pad with leading zeros if less than 10
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        // Display updated time left
+        document.getElementById("countdowntimer").textContent = minutes + ":" + seconds;
+
+        // Decrease time left by one second
+        timeleft--;
+
+        // Clear interval and enable resend button when time runs out
+        if (timeleft < 0) {
+            clearInterval(downloadTimer);
+            document.getElementById("countdowntimer").textContent = "Expired";
+            document.getElementById("resendLink").style.pointerEvents = "auto";
+            document.getElementById("resendLink").style.opacity = "1";
+        }
+    }, 1000);
+    document.getElementById("resendLink").style.pointerEvents = "none";
+    document.getElementById("resendLink").style.opacity = "0.5";
+    </script>
+
+
+<%-include ('footer')-%>

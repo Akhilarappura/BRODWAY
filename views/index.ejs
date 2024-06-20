@@ -1,0 +1,648 @@
+<%-include('include/nav')-%>
+
+  <main>
+    <article>
+      <style>
+
+.product_details-card {
+    width: 300px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.product_details-card-header {
+    position: relative;
+}
+
+.product_details-image {
+    width: 100%;
+    height: auto;
+}
+
+.product_details-colors {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 0.9em;
+}
+
+.product_details-card-body {
+    padding: 15px;
+    text-align: center;
+}
+
+.product_details-sponsored {
+    color: #888;
+    font-size: 0.8em;
+    margin-bottom: 5px;
+}
+
+.product_details-title {
+    font-size: 1.2em;
+    margin: 0;
+    color: #333;
+}
+
+.product_details-description {
+    font-size: 0.9em;
+    color: #555;
+    margin: 10px 0;
+}
+
+.product_details-rating {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.product_details-stars {
+    color: #f5a623;
+    margin-right: 5px;
+}
+
+.product_details-reviews {
+    color: #888;
+    font-size: 0.9em;
+}
+
+.product_details-pricing {
+    font-size: 1em;
+    color: #333;
+    margin: 10px 0;
+}
+
+.product_details-offer-price {
+    font-size: 1.5em;
+    color: #B12704;
+    display: block;
+}
+
+.product_details-original-price {
+    font-size: 0.9em;
+    color: #888;
+    text-decoration: line-through;
+    display: block;
+}
+
+.product_details-discount {
+    font-size: 0.9em;
+    color: #B12704;
+}
+
+.product_details-prime {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    color: #555;
+}
+
+.product_details-prime-icon {
+    color: #00a8e1;
+    margin-right: 5px;
+}
+
+.product_details-delivery {
+    font-size: 0.9em;
+}
+
+@media (max-width: 768px) {
+    .product_details-card {
+        width: 100%;
+    }
+}
+      </style>
+
+      <section class="section hero" style="background-image: url('/public/imgee/hero-banner.png')">
+        <div class="container">
+
+          <h2 class="h1 hero-title">
+            New Summer <strong>Shoes Collection</strong>
+          </h2>
+
+          <p class="hero-text">
+            Competently expedite alternative benefits whereas leading-edge catalysts for change. Globally leverage
+            existing an
+            expanded array of leadership.
+          </p>
+
+          <button class="btn btn-primary">
+            <span>Shop Now</span>
+
+            <ion-icon name="arrow-forward-outline" aria-hidden="true"></ion-icon>
+          </button>
+
+        </div>
+      </section>
+
+
+
+
+
+      <!-- 
+        - #COLLECTION
+      -->
+
+      <section class="section collection">
+        <div class="container">
+
+          <ul class="collection-list has-scrollbar">
+
+            <li>
+              <div class="collection-card" style="background-image: url('/public/imgee/collection-1.jpg')">
+                <h3 class="h4 card-title">Men Collections</h3>
+
+                <a href="/men" class="btn btn-secondary">
+                  <span>Explore All</span>
+
+                  <ion-icon name="arrow-forward-outline" aria-hidden="true"></ion-icon>
+                </a>
+              </div>
+            </li>
+
+            <li>
+              <div class="collection-card" style="background-image: url('/public/imgee/collection-2.jpg')">
+                <h3 class="h4 card-title">Women Collections</h3>
+
+                <a href="/women" class="btn btn-secondary">
+                  <span>Explore All</span>
+
+                  <ion-icon name="arrow-forward-outline" aria-hidden="true"></ion-icon>
+                </a>
+              </div>
+            </li>
+
+            <li>
+              <div class="collection-card" style="background-image: url('/public/imgee/collection-3.jpg')">
+                <h3 class="h4 card-title">kids Collections</h3>
+
+                <a href="/kid" class="btn btn-secondary">
+                  <span>Explore All</span>
+
+                  <ion-icon name="arrow-forward-outline" aria-hidden="true"></ion-icon>
+                </a>
+              </div>
+            </li>
+
+          </ul>
+
+        </div>
+      </section>
+
+      <section class="section product">
+        <div class="container">
+
+          <h2 class="h2 section-title">Bestsellers Products</h2>
+
+          <ul class="filter-list">
+
+            <li>
+              <button class="filter-btn  active">All</button>
+            </li>
+
+            <li>
+              <button class="filter-btn">Nike</button>
+            </li>
+
+            <li>
+              <button class="filter-btn">Adidas</button>
+            </li>
+
+            <li>
+              <button class="filter-btn">Puma</button>
+            </li>
+
+            <li>
+              <button class="filter-btn">Bata</button>
+            </li>
+
+            <li>
+              <button class="filter-btn">Apex</button>
+            </li>
+
+          </ul>
+
+          <ul class="product-list">
+            <% products.forEach(product => { %>
+              <% if (product.list === 'listed' && product.category.list === 'listed') { %>
+                <li class="product-item">
+                  <!--  -->
+                  <div class="product_details-card">
+                    <div class="product_details-card-header">
+                        <a href="/productdetail?id=<%= product._id %>">
+                            <img src="<%= product.images[0] %>" alt="<%= product.product_name %>" class="product_details-image">
+                        </a>
+                        <div class="product_details-colors">
+                            <a href="#"></a>
+                        </div>
+                    </div>
+                    
+                    <div class="product_details-card-body">
+                        <div class="product_details-sponsored">Sponsored</div>
+                        <h5 class="product_details-title"><%= product.product_name %></h5>
+                        <p class="product_details-description">
+                          <%= product.description %>
+                        </p>
+                        <div class="product_details-rating">
+                            <span class="product_details-stars">★★★★★</span>
+                            <span class="product_details-reviews">6</span>
+                        </div>
+                        <div class="product_details-pricing">
+                            <% if (product.offerPrice && product.offerPrice < product.price) { %>
+                                <h4 class="product_details-offer-price">&#8377;<%= product.offerPrice %></h4>
+                                <span class="product_details-original-price">M.R.P.: &#8377;<%= product.price %></span>
+                                <span class="product_details-discount">(<%= Math.round(((product.price - product.offerPrice) / product.price) * 100) %> % off)</span>
+                            <% } else { %>
+                                <h4 class="product_details-price">&#8377;<%= product.price %></h4>
+                            <% } %>
+                        </div>
+                        <div class="product_details-prime">
+                            <span class="product_details-prime-icon">✔️ </span>
+                            <span class="product_details-delivery"></span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between;">
+                        <% if (product.stock > 0) { %>
+                            <button class="btn btn-primary btn-add-cart">
+                                <a href="/cart/<%= product._id %>" class="text-white">Add to Cart</a>
+                            </button>
+                        <% } else { %>
+                            <p class="out-of-stock text-danger">Out of Stock</p>
+                        <% } %>
+                        
+                         
+                    
+                      <% if (wishlist && wishlist.items.some(items=>items.productId.toString()===product._id.toString())) { %>
+                        <button class="btn btn-primary btn-add-cart">
+                          <a href="/wishlist" class="text-white">Add to Fav</a>
+                      </button>
+										
+                        <!-- <a href="/wishlist"><img src="/public/imgee/bro-logo-bro-letter-bro-letter-logo-design-initials-bro-logo-linked-bro.jpg" alt=""></a>
+                       -->
+                      <% } else { %>
+                        <button class="btn btn-primary btn-add-cart">
+                          <a href="/wishlist/<%= product._id %>" class="text-white">Add to Fav</a>
+                      </button>
+                      
+                        <!-- <a href="/wishlist/<%= product._id %>"><i class="far fa-heart wishlist-icon"></i></a> -->
+                      
+                      <% } %>
+                    </div>
+                        
+                    </div>
+                </div>
+                
+
+
+
+
+
+
+                  <!--  -->
+
+        
+                </li>
+              <% } %>
+          <%})%>
+          </ul>
+
+        </div>
+      </section>
+
+
+
+
+
+      <!-- 
+        - #SERVICE
+      -->
+
+      <section class="section service">
+        <div class="container">
+
+          <ul class="service-list">
+
+            <li class="service-item">
+              <div class="service-card">
+
+                <div class="card-icon">
+                  <img src="./assets/images/service-1.png" width="53" height="28" loading="lazy" alt="Service icon">
+                </div>
+
+                <div>
+                  <h3 class="h4 card-title">Free Shiping</h3>
+
+                  <p class="card-text">
+                    All orders over <span>$150</span>
+                  </p>
+                </div>
+
+              </div>
+            </li>
+
+            <li class="service-item">
+              <div class="service-card">
+
+                <div class="card-icon">
+                  <img src="./assets/images/service-2.png" width="43" height="35" loading="lazy" alt="Service icon">
+                </div>
+
+                <div>
+                  <h3 class="h4 card-title">Quick Payment</h3>
+
+                  <p class="card-text">
+                    100% secure payment
+                  </p>
+                </div>
+
+              </div>
+            </li>
+
+            <li class="service-item">
+              <div class="service-card">
+
+                <div class="card-icon">
+                  <img src="./assets/images/service-3.png" width="40" height="40" loading="lazy" alt="Service icon">
+                </div>
+
+                <div>
+                  <h3 class="h4 card-title">Free Returns</h3>
+
+                  <p class="card-text">
+                    Money back in 30 days
+                  </p>
+                </div>
+
+              </div>
+            </li>
+
+            <li class="service-item">
+              <div class="service-card">
+
+                <div class="card-icon">
+                  <img src="./assets/images/service-4.png" width="40" height="40" loading="lazy" alt="Service icon">
+                </div>
+
+                <div>
+                  <h3 class="h4 card-title">24/7 Support</h3>
+
+                  <p class="card-text">
+                    Get Quick Support
+                  </p>
+                </div>
+
+              </div>
+            </li>
+
+          </ul>
+
+        </div>
+      </section>
+
+    </article>
+  </main>
+
+
+
+
+
+  <!-- 
+    - #FOOTER
+  -->
+
+  <footer class="footer">
+
+    <div class="footer-top section">
+      <div class="container">
+
+        <div class="footer-brand">
+
+          <a href="#" class="logo">
+            <img src="../public/imgee/bro-logo-bro-letter-bro-letter-logo-design-initials-bro-logo-linked-bro.jpg"
+              width="90" height="50" alt="Footcap logo">
+          </a>
+
+          <ul class="social-list">
+
+            <li>
+              <a href="#" class="social-link">
+                <ion-icon name="logo-facebook"></ion-icon>
+              </a>
+            </li>
+
+            <li>
+              <a href="#" class="social-link">
+                <ion-icon name="logo-twitter"></ion-icon>
+              </a>
+            </li>
+
+            <li>
+              <a href="#" class="social-link">
+                <ion-icon name="logo-pinterest"></ion-icon>
+              </a>
+            </li>
+
+            <li>
+              <a href="#" class="social-link">
+                <ion-icon name="logo-linkedin"></ion-icon>
+              </a>
+            </li>
+
+          </ul>
+
+        </div>
+
+        <div class="footer-link-box">
+
+          <ul class="footer-list">
+
+            <li>
+              <p class="footer-list-title">Contact Us</p>
+            </li>
+
+            <li>
+              <address class="footer-link">
+                <ion-icon name="location"></ion-icon>
+
+                <span class="footer-link-text">
+                  BRODWAY, Arappura street 123
+                </span>
+              </address>
+            </li>
+
+            <li>
+              <a href="tel:+557343673257" class="footer-link">
+                <ion-icon name="call"></ion-icon>
+
+                <span class="footer-link-text">9048601090</span>
+              </a>
+            </li>
+
+            <li>
+              <a href="mailto:footcap@help.com" class="footer-link">
+                <ion-icon name="mail"></ion-icon>
+
+                <span class="footer-link-text">brodway@help.com</span>
+              </a>
+            </li>
+
+          </ul>
+
+          <ul class="footer-list">
+
+            <li>
+              <p class="footer-list-title">My Account</p>
+            </li>
+
+            <li>
+              <a href="/profile" class="footer-link">
+                <ion-icon name="chevron-forward-outline"></ion-icon>
+
+                <span class="footer-link-text">My Account</span>
+              </a>
+            </li>
+
+            <li>
+              <a href="/cart" class="footer-link">
+                <ion-icon name="chevron-forward-outline"></ion-icon>
+
+                <span class="footer-link-text">View Cart</span>
+              </a>
+            </li>
+
+            <li>
+              <a href="/wishlist" class="footer-link">
+                <ion-icon name="chevron-forward-outline"></ion-icon>
+
+                <span class="footer-link-text">Wishlist</span>
+              </a>
+            </li>
+
+            <li>
+              <a href="#" class="footer-link">
+                <ion-icon name="chevron-forward-outline"></ion-icon>
+
+                <span class="footer-link-text">Compare</span>
+              </a>
+            </li>
+
+            <li>
+              <a href="#" class="footer-link">
+                <ion-icon name="chevron-forward-outline"></ion-icon>
+
+                <span class="footer-link-text">New Products</span>
+              </a>
+            </li>
+
+          </ul>
+
+          <div class="footer-list">
+
+            <p class="footer-list-title">Offer Time</p>
+
+            <table class="footer-table">
+              <tbody>
+
+                <tr class="table-row">
+                  <th class="table-head" scope="row">Mon - Tue:</th>
+
+                  <td class="table-data">8AM </td>
+                </tr>
+
+                <tr class="table-row">
+                  <th class="table-head" scope="row">Wed:</th>
+
+                  <td class="table-data">7PM</td>
+                </tr>
+
+                <tr class="table-row">
+                  <th class="table-head" scope="row">Fri:</th>
+
+                  <td class="table-data">12PM</td>
+                </tr>
+
+                <tr class="table-row">
+                  <th class="table-head" scope="row">Sat:</th>
+
+                  <td class="table-data">12 Am</td>
+                </tr>
+
+                <tr class="table-row">
+                  <th class="table-head" scope="row">Sun:</th>
+
+                  <td class="table-data">Special</td>
+                </tr>
+
+              </tbody>
+            </table>
+
+          </div>
+
+          <div class="footer-list">
+
+            <p class="footer-list-title">Newsletter</p>
+
+            <p class="newsletter-text">
+              Authoritatively morph 24/7 potentialities with error-free partnerships.
+            </p>
+
+            <form action="" class="newsletter-form">
+              <input type="email" name="email" required placeholder="Email Address" class="newsletter-input">
+
+              <button type="submit" class="btn btn-primary">Subscribe</button>
+            </form>
+
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container">
+
+        <p class="copyright">
+          &copy; 2024 <a href="#" class="copyright-link">BRODWAY</a>. All Rights Reserved
+        </p>
+
+      </div>
+    </div>
+
+  </footer>
+
+
+
+
+
+  <!-- 
+    - #GO TO TOP
+  -->
+
+  <a href="#top" class="go-top-btn" data-go-top>
+    <ion-icon name="arrow-up-outline"></ion-icon>
+  </a>
+
+
+
+
+
+  <!-- 
+    - custom js link
+  -->
+  <script src="./assets/js/script.js"></script>
+
+  <!-- 
+    - ionicon link
+  -->
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+  </body>
+
+  </html>

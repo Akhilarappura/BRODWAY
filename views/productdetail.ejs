@@ -1,0 +1,307 @@
+<%- include('include/nav') %>
+    <main>
+        <article>
+            <style>
+                /* Styles for the product view container */
+                .product-view-container {
+                    display: flex;
+                    gap: 20px;
+                }
+
+                /* Styles for the product view images section */
+                .product-view-images {
+                    position: relative;
+                    width: 50%;
+                }
+
+                .product-view-main-image {
+                    width: 100%;
+                    transition: transform 0.3s ease;
+                }
+
+                .product-view-thumbnails {
+                    display: flex;
+                    gap: 10px;
+                    margin-top: 10px;
+                }
+
+                .product-view-thumbnail {
+                    width: 60px;
+                    cursor: pointer;
+                }
+
+                /* Styles for the zoomed image */
+                .product-view-main-image.zoom {
+                    transform: scale(2);
+                    cursor: zoom-in;
+                }
+
+                .product_details-container {
+                    max-width: 800px;
+                    margin: 0 auto;
+                    padding: 20px;
+                    border: 1px solid #ddd;
+                    border-radius: 10px;
+                }
+
+                .product_details-title {
+                    font-size: 24px;
+                    font-weight: bold;
+                }
+
+                .product_details-price {
+                    font-size: 18px;
+                }
+
+                .product_details-current-price {
+                    color: #388e3c;
+                    font-weight: bold;
+                }
+
+                .product_details-original-price {
+                    text-decoration: line-through;
+                    margin-left: 10px;
+                    color: #888;
+                }
+
+                .product_details-discount {
+                    color: #ff5722;
+                    margin-left: 10px;
+                }
+
+                .product_details-rating {
+                    display: flex;
+                    align-items: center;
+                    margin-top: 10px;
+                }
+
+                .product_details-rating-stars {
+                    background-color: #388e3c;
+                    color: white;
+                    padding: 5px 10px;
+                    border-radius: 5px;
+                }
+
+                .product_details-rating-count {
+                    margin-left: 10px;
+                    color: #555;
+                }
+
+                .product_details-assured {
+                    margin-left: 10px;
+                    color: #007bff;
+                    font-weight: bold;
+                }
+
+                .product_details-coupons,
+                .product_details-offers,
+                .product_details-delivery {
+                    border-top: 1px solid #ddd;
+                    padding-top: 15px;
+                    margin-top: 15px;
+                }
+
+                .product_details-coupon,
+                .product_details-offer {
+                    margin-bottom: 10px;
+                }
+
+                .product_details-coupon-offer {
+                    font-weight: bold;
+                    color: #ff5722;
+                }
+
+                .product_details-coupon-description a,
+                .product_details-offer a {
+                    color: #007bff;
+                }
+
+                .product_details-delivery-info {
+                    margin-top: 5px;
+                }
+
+                .product_details-free-delivery {
+                    color: #388e3c;
+                }
+
+                @media (max-width: 576px) {
+                    .product_details-container {
+                        padding: 10px;
+                    }
+
+                    .product_details-title {
+                        font-size: 20px;
+                    }
+
+                    .product_details-price {
+                        font-size: 16px;
+                    }
+                }
+            </style>
+            <div class="breadcrumbs">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <p class="bread"><span><a href="/">Home</a></span> / <span>Product Details</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="colorlib-product">
+                <div class="container">
+                    <div class="row row-pb-lg product-detail-wrap" style="width: 167rem;">
+                        <div class="col-sm-8" style="display: flex; gap: 140px;">
+                            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel"
+                                style="width: 48%; margin-top: -100px; z-index: 1;" >
+                                <div class="carousel-indicators">
+                                    <% for (let i=0; i < prod.images.length; i++) { %>
+                                        <button type="button" data-bs-target="#carouselExampleIndicators"
+                                            data-bs-slide-to="<%= i %>" class="<%= i === 0 ? 'active' : '' %>"
+                                            aria-current="<%= i === 0 ? 'true' : 'false' %>"
+                                            aria-label="Slide <%= i + 1 %>"></button>
+                                        <% } %>
+                                </div>
+                                <div class="carousel-inner" style="width: 100%;">
+                                    <% prod.images.forEach((image, index)=> { %>
+                                        <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
+                                            <img src="<%= image %>" class="d-block w-100 product-view-main-image"
+                                                alt="...">
+                                        </div>
+                                        <% }) %>
+
+                                </div>
+                                <br>
+                                <div style="    display: flex;
+                        width: 428px;
+                        gap: 21px;">
+                                    <button type="button" class="btn btn-danger" style="width: 50%;
+    height: 60px;"> <a href="/cart/<%= prod._id %>" class="text-white">Add to Cart</a>
+                                    </button>
+                                    <button type="button" class="btn btn-danger" style="width: 50%;">Buy Now</button>
+                                </div>
+                                <button class="carousel-control-prev" type="button"
+                                    data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button>
+                                <button class="carousel-control-next" type="button"
+                                    data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </button>
+                            </div>
+                            <div>
+                                <!-- <h3></h3> -->
+                                <div class="product_details-container container">
+                                    <h1 class="product_details-title">
+                                        <%=prod.product_name%>
+                                    </h1>
+                                    <p class="product_details-price"
+                                        style="display: flex; flex-direction: column-reverse;">
+
+                                        <% if (prod.offerPrice && prod.offerPrice < prod.price) { %>
+                                            <span class="original-price" style="text-decoration: line-through;">&#8377;
+                                                <%= prod.price %></span>
+                                            <span class="offer-price">&#8377;<%= prod.offerPrice %></span>
+                                            <span class="discount-percentage">(<%= Math.round(((prod.price -
+                                                    prod.offerPrice) / prod.price) * 100) %>% off)</span>
+                                            <% } else { %>
+                                                <span class="price">&#8377;<%= prod.price %></span>
+                                                <% } %>
+
+
+                                    </p>
+                                    <!-- <div class="product_details-rating">
+							<span class="product_details-rating-stars">4★</span>
+							<span class="product_details-rating-count">33,511 ratings and 2,516 reviews</span>
+							<span class="product_details-assured">Assured</span>
+						</div> -->
+                                    <div class="product_details-coupons mt-3">
+                                        <h3 style="font-weight: bold;">Coupons for you</h3>
+                                        <p class="product_details-coupon">
+                                            <span class="product_details-coupon-offer" style="color: #388e3c;">Special
+                                                Price</span>
+                                            <span class="product_details-coupon-description">Get extra 11% off upto ₹100
+                                                on 20 item(s) (price inclusive of cashback/coupon) <a
+                                                    href="#">T&C</a></span>
+                                        </p>
+                                    </div>
+                                    <div class="product_details-offers mt-3">
+                                        <h3 style="font-weight: bold;">Available Coupons</h3>
+                                        <ul class="product_details-offers-list">
+                                            <li class="product_details-offer" style="display: flex;">
+                                                <div><img src="/public/images/icons8-discount-30.png" alt=""></div>
+                                                <h4> Get 50% instant discount on BRODWAY transaction on order of ₹2500
+                                                    and above </h4>
+                                                <a href="#">T&C</a>
+                                            </li>
+                                            <li class="product_details-offer" style="display: flex;">
+                                                <div><img src="/public/images/icons8-discount-30.png" alt=""></div>
+                                                <h4>Get 50% instant discount on BRODWAY transaction on order of ₹1999
+                                                </h4>
+                                                <a href="#">T&C</a>
+                                            </li>
+                                            <li class="product_details-offer" style="display: flex;">
+                                                <div><img src="/public/images/icons8-discount-30.png" alt=""></div>
+                                                <h4>coupons soon Freekip</h4>
+                                            </li>
+                                            <!-- <li class="product_details-more-offers"><a href="#">+15 more offers</a></li> -->
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="product_details-delivery mt-3">
+                                        <%if(userToken){%>
+                                        <h1>Deliver to</h1>
+                                       
+                                        <select id="address" name="address" class="form-control custom-select">
+                                            <% address.forEach(addr=> { %>
+                                                <option value="<%= addr._id %>">
+                                                    <%= addr.name %>, <%= addr.mobileNumber %>, <%= addr.district %>,
+                                                                <%= addr.locality %>, <%= addr.pincode %>
+                                                </option>
+                                                <% }); %>
+                                        </select>
+                                        <%} %>
+
+                                    </div>
+                                </div>
+
+
+
+                                <!--  -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const mainImage = document.querySelector('.product-view-main-image');
+
+            mainImage.addEventListener('mousemove', function (e) {
+                const rect = mainImage.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const xPercent = (x / rect.width) * 100;
+                const yPercent = (y / rect.height) * 100;
+
+                mainImage.style.transformOrigin = `${xPercent}% ${yPercent}%`;
+                mainImage.classList.add('zoom');
+            });
+
+            mainImage.addEventListener('mouseleave', function () {
+                mainImage.classList.remove('zoom');
+                mainImage.style.transformOrigin = 'center center';
+            });
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+
+    <%- include('include/foot') -%>

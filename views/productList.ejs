@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BRODWAY</title>
+
+  <!-- 
+    - favicon
+  -->
+  <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
+
+  <!-- 
+    - custom css link
+  -->
+<link rel="stylesheet" href="/public/css/style.css">
+  <link rel="stylesheet" href="/public/css/newIndex.css">
+
+  <!-- 
+    - google font link
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&family=Roboto:wght@400;500;700&display=swap"
+    rel="stylesheet">
+
+  <!-- 
+    - preload banner
+  -->
+  <link rel="preload" href="/footwear-master/public/imgee/hero-banner.png" as="image">
+
+</head>
+<style>
+  .filter-products-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .filter-section {
+    flex: 0 0 200px;
+    /* Adjust the width as needed */
+    margin-right: 10px;
+    /* Adjust spacing between the filter and product sections */
+  }
+
+  .productsContainer {
+    flex: 1;
+    /* Takes up the remaining space */
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .productsContainer .col-lg-2,
+  .productsContainer .col-md-6,
+  .productsContainer .col-sm-4 {
+    flex: 0 1 calc(25% - 20px);
+    /* Adjust based on breakpoints and spacing */
+    margin: 10px;
+    /* Adjust spacing between products */
+  }
+
+  .pro-img img {
+    max-width: 80%;
+    height: auto;
+  }
+
+  .card-body {
+    text-align: center;
+  }
+
+  .btn-add-cart a {
+    color: white;
+  }
+
+  .out-of-stock-message {
+    color: red;
+    font-weight: bold;
+    padding: 10px;
+  }
+
+  .original-price {
+    color: gray;
+    text-decoration: line-through;
+    margin-right: 5px;
+  }
+
+  .offer-price {
+    color: red;
+    font-weight: bold;
+  }
+
+  .discount-percentage {
+    color: green;
+    font-weight: bold;
+    margin-left: 5px;
+  }
+
+  .price {
+    font-weight: bold;
+  }
+
+
+.sort-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sort-button {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    border: 1px solid #000;
+    background-color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.sort-button:hover {
+    background-color: #e0e0e0;
+}
+
+.sort-text {
+    margin-right: 10px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.sort-icon {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 16px;
+}
+
+.sort-line {
+    width: 16px;
+    height: 2px;
+    background-color: #000;
+}
+
+/* Responsive Styles */
+@media (max-width: 600px) {
+    .sort-button {
+        padding: 8px 16px;
+    }
+
+    .sort-text {
+        font-size: 14px;
+    }
+
+    .sort-line {
+        width: 14px;
+    }
+}
+</style>
+
+<body id="top">
+
+  <!-- 
+    - #HEADER
+  -->
+
+  <header class="header" data-header>
+    <div class="container">
+
+      <div class="overlay" data-overlay></div>
+
+      <h1>BRODWAY</h1>
+
+      <button class="nav-open-btn" data-nav-open-btn aria-label="Open Menu">
+        <ion-icon name="menu-outline"></ion-icon>
+      </button>
+
+      <nav class="navbar" data-navbar>
+
+        <button class="nav-close-btn" data-nav-close-btn aria-label="Close Menu">
+          <ion-icon name="close-outline"></ion-icon>
+        </button>
+
+        <a href="#" class="logo">
+          <img src="./assets/images/logo.svg" width="190" height="50" alt="Footcap logo">
+        </a>
+
+        <ul class="navbar-list">
+
+          <li class="navbar-item">
+            <a href="/" class="navbar-link">Home</a>
+          </li>
+
+          <li class="navbar-item">
+            <%Category?.forEach(category=>{%>
+              <a href="/productCategory?id=<%=category._id%>" class="navbar-link">
+                <span>
+                  <%=category.categoryName%>
+                </span></a>
+          </li>
+          <%})%>
+
+            <li class="navbar-item">
+              <a href="/about" class="navbar-link">About</a>
+            </li>
+            <li class="navbar-item">
+              <a href="/contact" class="navbar-link">Contact</a>
+            </li>
+
+
+
+        </ul>
+
+        <ul class="nav-action-list">
+
+          <li>
+            <button class="nav-action-btn">
+              <ion-icon name="search-outline" aria-hidden="true"></ion-icon>
+
+              <span class="nav-action-text">Search</span>
+            </button>
+          </li>
+
+
+          <% if (!userToken) { %>
+            <li>
+              <a href="/login" class="nav-action-btn">
+                <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
+
+                <span class="nav-action-text">Login </span>
+              </a>
+            </li>
+            <% } %>
+
+              <% if (userToken) { %>
+                <li>
+                  <a href="/profile" class="nav-action-btn">
+                    <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
+
+                    <span class="nav-action-text">Login </span>
+                  </a>
+                </li>
+                <% } %>
+                  <li>
+                    <a href="/wishlist" class="nav-action-btn">
+                      <ion-icon name="heart-outline" aria-hidden="true"></ion-icon>
+                      <span class="nav-action-text">Wishlist</span>
+                    </a>
+                  </li>
+                  <% if (userToken) { %>
+                    <li>
+                      <a href="/cart" class="nav-action-btn">
+                        <ion-icon name="cart-outline" aria-hidden="true"></ion-icon>
+                        <span class="nav-action-text">cart</span>
+                        <data class="nav-action-badge" value="" aria-hidden="true">
+                          <%= cartCount %>
+                        </data>
+                      </a>
+                    </li>
+                    <% } %>
+                      <% if (!userToken) { %>
+                        <li>
+                          <a href="/login" class="nav-action-btn">
+                            <ion-icon name="cart-outline" aria-hidden="true"></ion-icon>
+
+                            <span class="nav-action-text">Login </span>
+                          </a>
+                        </li>
+                        <% } %>
+
+
+
+
+
+        </ul>
+
+      </nav>
+
+    </div>
+  </header>
+  
+  <section class="section hero" style="background-image: url('/public/imgee/bannerlogo.jpg')">
+    <div class="container">
+
+    </div>
+  </section>
+  <div class="sort-container" style="display: flex; justify-content: space-between; flex-direction: column-reverse">
+    <button class="sort-button" id="sortButton">
+      <span class="sort-text">FILTER & SORT</span>
+      <div class="sort-icon">
+          <div class="sort-line"></div>
+          <div class="sort-line"></div>
+      </div>
+  </button>
+
+  </div>
+<div class="filter-section col-4">
+    <h3>Price</h3>
+    <p>
+
+        <select class="form-select" id="sortBySelect">
+            <option value="" disabled selected>Sort By</option>
+            <option value="popularity">Popularity</option>
+            <option value="price-low-to-high">Price - Low to High</option>
+            <option value="price-high-to-low">Price - High to Low</option>
+            <option value="a-to-z">aA - zZ</option>
+            <option value="z-to-a">zZ - aA</option>
+            <option value="newest-first">Newest First</option>
+        </select>
+      <input type="hidden"  id="catt" value="<%=categoryId%>">
+        
+
+
+
+    </p>		
+</div>
+</div>
+<div class="col-md-10">
+<div class=" mt-5">
+     <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Sort By</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button> -->
+             
+      <div class="container row " >
+
+        <div class="productsContainer row" id="productsContainer">
+    
+        
+        <% products.forEach(product => { %>  
+          
+              <div class="col-lg-3 col-md-4 col-sm-6 mb-4 text-center " data-price="<%= product.price %>">
+                
+                <div class="card product-card h-100" style="height: 500px;">
+                    <div class="pro-img" >
+                    <a href="/productdetail?id=<%= product._id %>" class="prod-img">
+                        <img src="<%= product.images[0] %>" class="card-img-top " alt="<%= product.product_name %>" >
+                    </a>
+                   
+                </div>
+            
+                    <div class="card-body product-details">
+                        <h5 class="card-title product-title">
+                            <a href="/productdetail?id=<%= product._id %>">
+                                <%= product.product_name %>
+                            </a>
+                        </h5>
+                        <% if (product.offerPrice && product.offerPrice < product.price) { %>
+                          <span class="original-price" style="text-decoration: line-through;">&#8377;<%= product.price %></span>
+                            <span class="offer-price">&#8377;<%= product.offerPrice %></span>
+                            <span class="discount-percentage">(<%= Math.round(((product.price - product.offerPrice) / product.price) * 100) %>% off)</span>
+                            <% } else { %>	
+                            <span class="price">&#8377;<%= product.price %></span>
+                            <% } %>
+                        <p class="card-text product-brand"><%= product.brand %></p>
+                        <% if (product.stock > 0) { %>
+                            <button class="btn btn-primary btn-add-cart">
+                                <a href="/cart/<%= product._id %>" class="text-white">Add to Cart</a>
+                            </button>
+                        <% } else { %>
+                            <p class="out-of-stock text-danger">Out of Stock</p>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+        
+        <% }) %>
+    </div>
+   
+</div>
+</div>  
+</div>
+</div>
+
+<%- include('include/foot') %>

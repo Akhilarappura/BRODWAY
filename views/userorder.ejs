@@ -1,0 +1,411 @@
+<%-include('include/profileHeader')-%> 
+        
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+crossorigin="anonymous"></script>
+<!-- //orders -->
+
+<div class="col-md-8">
+    <div class="osahan-account-page-right shadow-sm bg-white p-4 h-100">
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade active show" id="addresses" role="tabpanel" aria-labelledby="addresses-tab">
+                <h4 class="font-weight-bold mt-0 mb-4">Orders</h4>
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col border">
+                            <div class="bg-light p-4">
+                                <div class="tab-content">
+                                    <div class="tab-pane fade show active" id="nav-pending">
+                                        <div class="table-responsive">
+                                            <table class="table table-borderless">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">SL No.</th>
+                                                        <th scope="col">Payment Status</th>
+                                                        <th scope="col">Order Date</th>
+                                                        <th scope="col">Order Status</th>
+                                                        <th scope="col">Order Total</th>
+                                                        <th scope="col">Actions</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="innerPeace">
+                                                    <% orders.forEach((order, i) => { %>
+                                                    <tr>
+                                                        <td class="text-center align-middle"> <%= i + 1 %> </td>
+                                                        <td class="text-center align-middle">
+                                                            <% if (order.status === 'Return Accepted') { %>
+                                                                <span class="alert alert-danger">Returned</span>
+                                                            <% }
+                                                            else if (order.status === 'Cancelled') { %>
+                                                                <span class="alert alert-danger">Cancelled</span>
+                                                            <% }
+                                                            else if (order.status === 'Delivered') { %>
+                                                                <span class="payment-status-completed">Completed</span>
+                                                            <% } else if (order.status === 'Pending') { %>
+                                                                <span class="payment-status-pending">Pending</span>
+                                                            <% } else if (order.status === 'Shipped') { %>
+                                                                <span class="payment-status-shipped">Shipped</span>
+                                                            <% } else { %>
+                                                                <span class="alert alert-warning"><%= order.paymentStatus %></span>
+                                                            <% } %>
+                                                        </td>
+                                                        <td class="text-center align-middle">
+                                                            <%=moment (order.createdAt).format('MMMM Do YYYY')%>
+                                                        </td>
+                                                    
+                                                        <td class="text-center align-middle">
+                                                            <% if (order.status === 'Return Accepted') { %>
+                                                                <span class="alert alert-danger">Returned</span>
+                                                            <% }
+                                                    
+                                                            else if (order.status === 'Cancelled') { %>
+                                                                <span class="alert alert-danger">Cancelled</span>
+                                                            <% }
+                                                    
+                                                             else if (order.status === 'Pending') { %>
+                                                                <span class="alert alert-danger">Pending</span>
+                                                            <% } else if (order.status === 'order placed') { %>
+                                                                <span class="alert alert-warning">Shipped</span>
+                                                            <% } else if (order.status === 'Delivered') { %>
+                                                                <span class="alert alert-success">Delivered</span>
+                                                            <% } %>     
+                                                        </td>
+                                                        <td class="text-center align-middle">&#x20a8; <%= order.totalAmount %></td>
+                                                        <td class="text-center align-middle">
+                                                            <div class="d-flex flex-column align-items-center">
+                                                                <% if (order.status == 'Completed') { %>
+                                                                    <p class="text-danger">paid</p>
+                                                                 <%  }else if (order.status == 'Return Accepted') { %>
+                                                                    <p class="text-danger">Returned</p>
+                                                                <% }else if (order.status == 'Cancelled') { %>
+                                                                    <p class="text-danger">Cancelled,Amount Refunded</p>
+                                                                <% }else if (order.status !== 'Delivered') { %>
+                                                                  
+                                                                    <button class="btn btn-danger text-white mb-2 cancel-btn" data-order-id="<%= order._id %>">Cancel</button>
+                                                                <% } else { %>
+                                                                    <button class="btn btn-secondary text-white mb-2 return-btn" data-order-id="<%= order._id %>">Return</button>
+                                                                <% } %>
+
+                                                                <a href="/viewsingleorder?id=<%= order._id %>">
+                                                                    <button class="btn btn-success text-white view-order-btn">View</button>
+                                                                </a>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <% }) %>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script>
+
+  $('#search').on('input', function() {
+        const searchTerm = $(this).val(); // Get the search term from the input field
+        if (searchTerm.trim() !== '') {
+            // Send AJAX request to the server
+            $.get('/search', { q: searchTerm }, function(results) {
+                // Clear previous results
+                $('#search-results-container').empty();
+                // Display search results
+                results.forEach(function(product) {
+                    // Append each product with an <a> tag linking to the product detail page
+                    $('#search-results-container').append(`<div class="my-2 border-bottom"><a href="/prodetail?id=${product._id}" class="text-decoration-none ms-2 my-2 text-black">${product.product_name}</a></div>`);
+                });
+            });
+        } else {
+            // If the search input is empty, clear results
+            $('#search-results-container').empty();
+        }
+    });
+  function validateForm() {
+        const inputs = document.querySelectorAll('input[type="text"], textarea');
+
+        for (let i = 0; i < inputs.length; i++) {
+            
+            if (inputs[i].value.trim() === '') {
+         
+              Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Please fill out all fields.',
+                });
+                
+                inputs[i].focus();
+                 
+                return false;
+            }
+        }
+
+        return true;
+    }
+  </script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        function addEventListenersToButtons() {
+            const viewOrderBtns = document.querySelectorAll('.view-order-btn');
+            const cancelBtns = document.querySelectorAll('.cancel-btn');
+            const returnBtns = document.querySelectorAll('.return-btn');
+
+            viewOrderBtns.forEach(btn => {
+                btn.addEventListener('click', function () {
+                    const orderId = this.getAttribute('data-order-id');
+                    const url = `/viewsingleorder?oid=${orderId}`;
+                    window.location.href = url;
+                });
+            });
+
+            cancelBtns.forEach(btn => {
+                btn.addEventListener('click', function () {
+                    const orderId = this.getAttribute('data-order-id');
+                    console.log('orderId',orderId);
+                    Swal.fire({
+                        title: "Are you sure?",
+                        text: "Cancel this order?",
+                        icon: "warning",
+                        input: 'text',
+                        inputPlaceholder: 'Please provide a reason',
+                        showCancelButton: true,
+                        confirmButtonColor: "#3085d6",
+                        cancelButtonColor: "#d33",
+                        confirmButtonText: "Ok",
+                    }).then((result) => {
+                        if (result.isConfirmed && result.value) {
+                            const reason = result.value;
+                            fetch(`/cancelOrder/${orderId}?reason=${encodeURIComponent(reason)}`, {
+                                method: "GET",
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.success) {
+                                    Swal.fire({
+                                        title: "Cancelled!",
+                                        text: data.message,
+                                        icon: "success",
+                                        showClass: {
+                                            popup: 'animate__animated animate__fadeInDown'
+                                        },
+                                        hideClass: {
+                                            popup: 'animate__animated animate__fadeOutUp'
+                                        }
+                                    }).then(() => {
+                                        window.location.reload();
+                                    });
+                                } else {
+                                    Swal.fire({
+                                        title: "Failed!",
+                                        text: data.message,
+                                        icon: "error",
+                                        showClass: {
+                                            popup: 'animate__animated animate__shakeX'
+                                        },
+                                        hideClass: {
+                                            popup: 'animate__animated animate__fadeOutUp'
+                                        }
+                                    });
+                                }
+                            })
+                            .catch(error => {
+                                console.error("Error:", error);
+                                Swal.fire({
+                                    title: "Error!",
+                                    text: "Something went wrong.",
+                                    icon: "error",
+                                    showClass: {
+                                        popup: 'animate__animated animate__shakeX'
+                                    },
+                                    hideClass: {
+                                        popup: 'animate__animated animate__fadeOutUp'
+                                    }
+                                });
+                            });
+                        }
+                    });
+                });
+            });
+
+            returnBtns.forEach(btn => {
+                btn.addEventListener('click', function () {
+                    const orderId = this.getAttribute('data-order-id');
+                    Swal.fire({
+                        title: "Are you sure?",
+                        text: "Return this order?",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#3085d6",
+                        cancelButtonColor: "#d33",
+                        confirmButtonText: "Yes, return it!",
+                    }).then((result) => {
+                        console.log(result,"result");
+                        if (result.isConfirmed) {
+                            fetch(`/returnOrder/${orderId}`, {
+                                method: "POST",
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({ orderId: orderId })
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.success) {
+                                    Swal.fire({
+                                        title: "Returned!",
+                                        text: data.message,
+                                        icon: "success",
+                                        showClass: {
+                                            popup: 'animate__animated animate__fadeInDown'
+                                        },
+                                        hideClass: {
+                                            popup: 'animate__animated animate__fadeOutUp'
+                                        }
+                                    }).then(() => {
+                                        window.location.reload();
+                                    });
+                                } else {
+                                    Swal.fire({
+                                        title: "Failed!",
+                                        text: data.message,
+                                        icon: "error",
+                                        showClass: {
+                                            popup: 'animate__animated animate__shakeX'
+                                        },
+                                        hideClass: {
+                                            popup: 'animate__animated animate__fadeOutUp'
+                                        }
+                                    });
+                                }
+                            })
+                            .catch(error => {
+                                console.error("Error:", error);
+                                Swal.fire({
+                                    title: "Error!",
+                                    text: "Something went wrong.",
+                                    icon: "error",
+                                    showClass: {
+                                        popup: 'animate__animated animate__shakeX'
+                                    },
+                                    hideClass: {
+                                        popup: 'animate__animated animate__fadeOutUp'
+                                    }
+                                });
+                            });
+                        }
+                    });
+                });
+            });
+        }
+
+        // Initial call to add event listeners to buttons
+        addEventListenersToButtons();
+    });
+</script>
+<!-- <script>
+             
+             function previewImage(event) {
+               var reader = new FileReader();
+               reader.onload = function(){
+                 var output = document.getElementById('profileImage');
+                 output.src = reader.result;
+               }
+               reader.readAsDataURL(event.target.files[0]);
+             }
+           </script> -->
+
+
+
+
+
+ <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.status-dropdown').forEach(select => {
+            select.addEventListener('change', async (event) => {
+                const orderId = event.target.getAttribute('data-order-id');
+                const newStatus = event.target.value;
+
+                let url;
+                if (newStatus === 'Shipped') {
+                    url = `/statusshipped/${orderId}`;
+                } else if (newStatus === 'Delivered') {
+                    url = `/statusdelivered/${orderId}`;
+                }
+
+                if (url) {
+                    try {
+                        const response = await fetch(url, { method: 'GET' });
+                        const result = await response.json();
+
+                        if (result.success) {
+                            Swal.fire({
+                                title: 'Success!',
+                                text: 'Order status updated successfully',
+                                icon: 'success',
+                                showClass: {
+                                    popup: 'animate__animated animate__fadeInDown'
+                                },
+                                hideClass: {
+                                    popup: 'animate__animated animate__fadeOutUp'
+                                }
+                            }).then(() => {
+                                window.location.reload();
+                            });
+                        } else {
+                            Swal.fire({
+                                title: 'Failed!',
+                                text: 'Failed to update order status',
+                                icon: 'error',
+                                showClass: {
+                                    popup: 'animate__animated animate__shakeX'
+                                },
+                                hideClass: {
+                                    popup: 'animate__animated animate__fadeOutUp'
+                                }
+                            });
+                        }
+                    } catch (error) {
+                        console.error('Error updating order status:', error);
+                        Swal.fire({
+                            title: 'Error!',
+                            text: 'An error occurred while updating the order status',
+                            icon: 'error',
+                            showClass: {
+                                popup: 'animate__animated animate__shakeX'
+                            },
+                            hideClass: {
+                                popup: 'animate__animated animate__fadeOutUp'
+                            }
+                        });
+                    }
+                }
+            });              
+        });
+    });
+</script>
+    <script src="/js/wishlist.js"></script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+</head>
+</body>
+</html>

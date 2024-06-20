@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>
+   Admin
+  </title>
+  <!--     Fonts and icons     -->
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
+  <!-- Nucleo Icons -->
+  <link href="/css/nucleo-icons.css" rel="stylesheet" />
+  <link href="/css/nucleo-svg.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" /> <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+  integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+  <!-- CSS Files -->
+  <link id="pagestyle" href="/css/material-dashboard.css?v=3.1.0" rel="stylesheet" />
+  <!-- DataTable -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap4.min.css" />
+  
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap4.min.js"></script>
+  <!-- Nepcha Analytics (nepcha.com) -->
+   <!-- Bootstrap CSS -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Cropper.js CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.11/cropper.min.css" rel="stylesheet">
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
+<!-- Bootstrap JS -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+<!-- Cropper.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.11/cropper.min.js"></script>
+  <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
+  <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css" rel="stylesheet">
+<link  href="/path/to/cropper.css" rel="stylesheet">
+
+  <!-- Cropper.js CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css" rel="stylesheet">
+</head>
+
+<body class="g-sidenav-show  bg-gray-200 overflow-x-hidden">
+  <style>
+    #imagePreview {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.image-container {
+    position: relative;
+    margin: 5px;
+}
+
+ .image-container img {
+    max-width: 150px;
+    max-height: 150px;
+    display: block;
+}
+
+.delete-button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    width: 25px;
+    height: 25px;
+}
+
+  </style>
+
+
+<body class="g-sidenav-show bg-gray-200 overflow-x-hidden">
+  <!-- Navbar -->
+  <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl sticky-top" id="navbarBlur" data-scroll="true">
+    <div class="container-fluid py-1 px-3">
+      <nav aria-label="breadcrumb">
+        <a class="navbar-brand fw-bolder" href="#">BRODWAY</a>
+      </nav>
+      <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
+        <ul class="navbar-nav justify-content-end">
+          <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
+            <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
+              <div class="sidenav-toggler-inner">
+                <i class="sidenav-toggler-line"></i>
+                <i class="sidenav-toggler-line"></i>
+                <i class="sidenav-toggler-line"></i>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- End Navbar -->
+   
+    
+<aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3  mt-5 bg-gradient-dark" id="sidenav-main">
+    <div class="sidenav-header">
+      <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
+      <a class="navbar-brand m-0" href=" https://demos.creative-tim.com/material-dashboard/pages/dashboard " target="_blank">
+        <span class="ms-1 font-weight-bold text-white">Admin</span>
+      </a>
+    </div>
+    <hr class="horizontal light mt-0 mb-2">
+    <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link text-white " href="/admin">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">dashboard</i>
+            </div>
+            <span class="nav-link-text ms-1">Dashboard</span>
+          </a>
+        </li> 
+        <li class="nav-item">
+          <a class="nav-link text-white " href="/category">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">assignment</i>
+            </div>
+            <span class="nav-link-text ms-1">Category</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white active bg-gradient-primary" href="/products">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">table_view</i>
+            </div>
+            <span class="nav-link-text ms-1">Products</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white " href="/orders">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">receipt_long</i>
+            </div>
+            <span class="nav-link-text ms-1">Orders</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="/allusers">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">person</i>
+            </div>
+            <span class="nav-link-text ms-1">Users</span>
+          </a>
+        </li>
+        <!-- <li class="nav-item"> -->
+          <!-- <a class="nav-link text-white" href="/coupons">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">redeem</i> Material icon for a coupon
+            </div> -->
+            <!-- <span class="nav-link-text ms-1">Coupons</span>
+          </a>
+        </li>  
+        <li class="nav-item">
+          <a class="nav-link text-white" href="/offers">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">local_offer</i> <!-- Material icon for a coupon -->
+            <!-- </div>
+            <span class="nav-link-text ms-1">Offers</span>
+          </a>
+        </li> 
+        <li class="nav-item mt-3">
+          <hr class="dark horizontal my-0">
+        </li> --> -->
+        <!-- <hr class="light horizontal my-0"> -->
+        <li class="nav-item">
+          <a class="nav-link text-white " href="/adminlogout">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">login</i>
+            </div>
+            <span class="nav-link-text ms-1">Logout</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </aside>
+    <!-- List of users -->
+    <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#" class="text-black">Admin</a></li>
+            <li class="breadcrumb-item"><a href="/products" class="text-black">Products</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Edit Products</li>
+        </ol>
+    </nav>
+    <div class="container-fluid py-4">
+      <div class="productside">
+        <div class="row">
+          <div class="col-6"><h2 class="me-3 text-decoration-underline">Edit Products</h2></div>
+          <div class="col-6"> <a href="/admin/addproduct" class="bg-dark btn border-shadow shadow update">
+            <span class="text-white">Edit Productss <b>+</b></span>
+        </a>
+    </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-12 col-lg-6  card mb-10 rounded bg-black">
+           
+          <form action="/productedit/<%= pro_get._id %>" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
+              <input type="hidden" id="product_id" name="id" value="<%= pro_get._id %>">
+          
+            <div class="mb-3">
+                <label for="p_name" class="form-label">Product Name:</label>
+                <input type="text" class="form-control" id="p_name" name="product_name" value="<%= pro_get.product_name %>" required>
+            </div>
+            <div class="mb-3">
+              <label for="Category" class="form-label">Category:</label>
+              <select class="form-control" id="category" name="category" required>
+                <option value="">Select Category</option>
+                <% category.forEach((category,index) => { %>
+                  <option value="<%= category._id %>" <%= (category._id.toString() === pro_get.category.toString()) ? 'selected' : '' %>><%= category.categoryName %></option>
+                <% }); %>
+              </select>
+              
+          </div>
+            <div class="mb-3">
+                <label for="brand" class="form-label">Brand:</label>
+                <input type="text" class="form-control" id="brand" name="brand" value="<%= pro_get.brand %>" required>
+            </div>
+            <div class="mb-3">
+                <label for="color" class="form-label">Color:</label>
+                <input type="text" class="form-control" id="color" name="color" value="<%= pro_get.color %>" required>
+            </div>
+            <div class="mb-3">
+                <label for="size" class="form-label">Size:</label>
+                <input type="text" class="form-control" id="size" name="size" value="<%= pro_get.size %>" required>
+            </div>
+            <div class="mb-3">
+                <label for="price" class="form-label">Price (₹):</label>
+                <input type="number" class="form-control" id="price" name="price" min="0" value="<%= pro_get.price %>" required>
+            </div>
+            <div class="mb-3">
+                <label for="discount" class="form-label">Discount:</label>
+                <input type="number" class="form-control" id="discount" name="discount" min="0" value="<%= pro_get.discount %>" required>
+            </div>
+            <div class="mb-3">
+                <label for="stock" class="form-label">Stock:</label>
+                <input type="number" class="form-control" id="stock" name="stock" min="0" value="<%= pro_get.stock %>" required>
+            </div>
+            <div class="mb-3">
+              <label for="images" class="form-label">Images:</label><br>
+              <div id="imageContainer" class="d-flex flex-row align-items-center">
+                  <% pro_get.images.forEach((image, index) => { %>
+                      <div class="image-preview me-2 position-relative" id="imageCrop">
+                          <img src="/<%= image %>" alt="image" class="w-75" id="imagePreview<%= index %>">
+                          <button type="button" class="btn btn-danger btn-sm delete-image position-absolute" onclick="deleteImage('<%= pro_get._id %>', '<%= index %>')">x</button>
+                      </div>
+                  <% }); %>
+              </div>
+              <input type="file" class="form-control" id="images" name="images" onchange="previewImages(event)" multiple>
+          </div>
+          
+          <!-- Cropper Modal -->
+          <div class="modal fade" id="cropModal" tabindex="-1" role="dialog" aria-labelledby="cropModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h5 class="modal-title" id="cropModalLabel">Crop Image</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                          </button>
+                      </div>
+                      <div class="modal-body">
+                          <img id="cropImage" src="" alt="Image to be cropped" style="max-width: 100%;">
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                          <button type="button" class="btn btn-primary" onclick="cropImage()">Crop</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          
+          <div class="mb-3">
+              <label for="stat" class="form-label">Description:</label>
+              <textarea class="form-control" id="stat" name="stat"><%= pro_get.description %></textarea>
+          </div>
+          <button type="submit" id="update_user" class="btn btn-primary">Submit</button>
+          
+        </form>
+    
+      </div>
+        </div>
+      
+      
+       
+      </div>
+    </div>
+  </main>
+
+
+  <script>
+    // Global variables
+    let cropper;
+    let currentImageElement;
+  
+    // Add event listener to the file input
+    document.getElementById('images').addEventListener('change', previewImages);
+  
+    // Function to preview images
+    function previewImages(event) {
+        const files = event.target.files;
+        const previewContainer = document.getElementById('imageContainer');
+        previewContainer.innerHTML = "";
+  
+        if (files.length > 4) {
+            alert("You can upload a maximum of 4 images.");
+            return;
+        }
+  
+        for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            const reader = new FileReader();
+  
+            reader.onload = function(e) {
+                const imgContainer = document.createElement('div');
+                imgContainer.classList.add('image-preview', 'me-2', 'position-relative');
+  
+                const img = document.createElement('img');
+                img.classList.add('w-75');
+                img.src = e.target.result;
+                imgContainer.appendChild(img);
+  
+                const removeBtn = document.createElement('button');
+                removeBtn.classList.add('btn', 'btn-danger', 'btn-sm', 'delete-image', 'position-absolute');
+                removeBtn.innerHTML = 'x';
+                removeBtn.onclick = function() {
+                    imgContainer.remove();
+                    updateFileInput();
+                };
+                imgContainer.appendChild(removeBtn);
+  
+                img.onclick = function() {
+                    openCropModal(img);
+                };
+  
+                previewContainer.appendChild(imgContainer);
+            };
+  
+            reader.readAsDataURL(file);
+        }
+    }
+  
+    // Function to open crop modal
+    function openCropModal(imgElement) {
+        const cropModal = document.getElementById('cropModal');
+        const cropImage = document.getElementById('cropImage');
+        cropImage.src = imgElement.src;
+        currentImageElement = imgElement;
+  
+        $(cropModal).modal('show');
+  
+        if (cropper) {
+            cropper.destroy();
+        }
+  
+        cropper = new Cropper(cropImage, {
+            aspectRatio: 1,
+            viewMode: 2
+        });
+    }
+  
+    // Function to crop image
+    function cropImage() {
+        const croppedCanvas = cropper.getCroppedCanvas();
+        if (!croppedCanvas) {
+            alert('Could not crop image. Please try again.');
+            return;
+        }
+  
+        currentImageElement.src = croppedCanvas.toDataURL();
+  
+        $('#cropModal').modal('hide');
+        updateFileInput();
+    }
+  
+    // Function to update file input
+    function updateFileInput() {
+        const previewContainer = document.getElementById('imageContainer');
+        const images = previewContainer.getElementsByTagName('img');
+  
+        const dataTransfer = new DataTransfer();
+  
+        for (let i = 0; i < images.length; i++) {
+            const dataURL = images[i].src;
+            const file = dataURLtoFile(dataURL, 'image' + i + '.png');
+            dataTransfer.items.add(file);
+        }
+  
+        document.getElementById('images').files = dataTransfer.files;
+    }
+  
+    // Function to convert data URL to file
+    function dataURLtoFile(dataurl, filename) {
+        const arr = dataurl.split(',');
+        const mime = arr[0].match(/:(.*?);/)[1];
+        const bstr = atob(arr[1]);
+        let n = bstr.length;
+        const u8arr = new Uint8Array(n);
+        while (n--) {
+            u8arr[n] = bstr.charCodeAt(n);
+        }
+        return new File([u8arr], filename, { type: mime });
+    }
+  </script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <!-- Cropper.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+  
+<script>
+    var win = navigator.platform.indexOf('Win') > -1;
+    if (win && document.querySelector('#sidenav-scrollbar')) {
+      var options = {
+        damping: '0.5'
+      }
+      Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+    }
+  </script>
+ 
+
+
+
+<script>
+console.log("iam here");
+  async function deleteImage(productId,imageIndex){
+    const response=await fetch(`/delete-image/${productId}/${imageIndex}`,{
+      method:'DELETE'
+    })
+    if(response.ok){
+      location.reload()
+    }else{
+      alert('Failed to delete the image')
+    }
+  }
+
+
+
+</script>
+  <!-- Github buttons -->
+  <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src="/path/to/cropper.js"></script>
+  <script src="/js/material-dashboard.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</body>
+</html>

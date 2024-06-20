@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BRODWAY</title>
+
+  <!-- 
+    - favicon
+  -->
+  <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
+
+  <!-- 
+    - custom css link
+  -->
+<!-- <link rel="stylesheet" href="/public/css/style.css"> -->
+  <link rel="stylesheet" href="/public/css/newIndex.css">
+
+  <!-- 
+    - google font link
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&family=Roboto:wght@400;500;700&display=swap"
+    rel="stylesheet">
+    
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+  <!-- 
+    - preload banner
+  -->
+  <link rel="preload" href="/footwear-master/public/imgee/hero-banner.png" as="image">
+
+</head>
+<style>
+  .filter-products-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .filter-section {
+    flex: 0 0 200px;
+    /* Adjust the width as needed */
+    margin-right: 10px;
+    /* Adjust spacing between the filter and product sections */
+  }
+
+  .productsContainer {
+    flex: 1;
+    /* Takes up the remaining space */
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .productsContainer .col-lg-2,
+  .productsContainer .col-md-6,
+  .productsContainer .col-sm-4 {
+    flex: 0 1 calc(25% - 20px);
+    /* Adjust based on breakpoints and spacing */
+    margin: 10px;
+    /* Adjust spacing between products */
+  }
+
+  .pro-img img {
+    max-width: 80%;
+    height: auto;
+  }
+
+  .card-body {
+    text-align: center;
+  }
+
+  .btn-add-cart a {
+    color: white;
+  }
+
+  .out-of-stock-message {
+    color: red;
+    font-weight: bold;
+    padding: 10px;
+  }
+
+  .original-price {
+    color: gray;
+    text-decoration: line-through;
+    margin-right: 5px;
+  }
+
+  .offer-price {
+    color: red;
+    font-weight: bold;
+  }
+
+  .discount-percentage {
+    color: green;
+    font-weight: bold;
+    margin-left: 5px;
+  }
+
+  .price {
+    font-weight: bold;
+  }
+  .thankyou-container {
+    text-align: center;
+    background: linear-gradient(135deg, #fff 25%, #f9f9f9 25%, #f9f9f9 50%, #fff 50%, #fff 75%, #f9f9f9 75%, #f9f9f9 100%);
+    background-size: 56.57px 56.57px;
+    padding: 50px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.thankyou-checkmark {
+    font-size: 50px;
+    color: #4CAF50;
+    margin-bottom: 20px;
+}
+
+.thankyou-title {
+    font-size: 32px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.thankyou-message {
+    font-size: 16px;
+    color: #777;
+    margin-bottom: 30px;
+}
+
+.thankyou-links {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.thankyou-connect, .thankyou-visit {
+    flex: 1;
+    min-width: 200px;
+    margin: 10px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.thankyou-connect h2, .thankyou-visit h2 {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.thankyou-social-icons a {
+    margin: 0 10px;
+    font-size: 24px;
+    color: #555;
+    transition: color 0.3s;
+}
+
+.thankyou-social-icons a:hover {
+    color: #007bff;
+}
+
+.thankyou-visit-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.thankyou-visit-btn:hover {
+    background-color: #218838;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .thankyou-links {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+</style>
+
+<body id="top">
+
+  <!-- 
+    - #HEADER
+  -->
+
+  <header class="header" data-header>
+    <div class="container">
+
+      <div class="overlay" data-overlay></div>
+
+      <h1>BRODWAY</h1>
+
+      <button class="nav-open-btn" data-nav-open-btn aria-label="Open Menu">
+        <ion-icon name="menu-outline"></ion-icon>
+      </button>
+
+      <nav class="navbar" data-navbar>
+
+        <button class="nav-close-btn" data-nav-close-btn aria-label="Close Menu">
+          <ion-icon name="close-outline"></ion-icon>
+        </button>
+
+        <a href="#" class="logo">
+          <img src="./assets/images/logo.svg" width="190" height="50" alt="Footcap logo">
+        </a>
+
+        <ul class="navbar-list">
+
+          <li class="navbar-item">
+            <a href="/" class="navbar-link">Home</a>
+          </li>
+
+          <li class="navbar-item">
+            <%Category?.forEach(category=>{%>
+              <a href="/productCategory?id=<%=category._id%>" class="navbar-link">
+                <span>
+                  <%=category.categoryName%>
+                </span></a>
+          </li>
+          <%})%>
+
+            <li class="navbar-item">
+              <a href="/about" class="navbar-link">About</a>
+            </li>
+            <li class="navbar-item">
+              <a href="/contact" class="navbar-link">Contact</a>
+            </li>
+
+
+
+        </ul>
+
+        <ul class="nav-action-list">
+
+          <li>
+            <button class="nav-action-btn">
+              <ion-icon name="search-outline" aria-hidden="true"></ion-icon>
+
+              <span class="nav-action-text">Search</span>
+            </button>
+          </li>
+
+
+          <% if (!userToken) { %>
+            <li>
+              <a href="/login" class="nav-action-btn">
+                <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
+
+                <span class="nav-action-text">Login </span>
+              </a>
+            </li>
+            <% } %>
+
+              <% if (userToken) { %>
+                <li>
+                  <a href="/profile" class="nav-action-btn">
+                    <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
+
+                    <span class="nav-action-text">Login </span>
+                  </a>
+                </li>
+                <% } %>
+                  <li>
+                    <a href="/wishlist" class="nav-action-btn">
+                      <ion-icon name="heart-outline" aria-hidden="true"></ion-icon>
+                      <span class="nav-action-text">Wishlist</span>
+                    </a>
+                  </li>
+                  <% if (userToken) { %>
+                    <li>
+                      <a href="/cart" class="nav-action-btn">
+                        <ion-icon name="cart-outline" aria-hidden="true"></ion-icon>
+                        <span class="nav-action-text">cart</span>
+                        <data class="nav-action-badge" value="" aria-hidden="true">
+                          <%= cartCount %>
+                        </data>
+                      </a>
+                    </li>
+                    <% } %>
+                      <% if (!userToken) { %>
+                        <li>
+                          <a href="/login" class="nav-action-btn">
+                            <ion-icon name="cart-outline" aria-hidden="true"></ion-icon>
+
+                            <span class="nav-action-text">Login </span>
+                          </a>
+                        </li>
+                        <% }  else{%>
+                          <li>
+                            <a href="/userlogout" class="nav-action-btn">
+                              <ion-icon name="log-out-outline"></ion-icon>
+  
+                              <span class="nav-action-text">Logout </span>
+                            </a>
+                          </li>
+
+
+                          <%}%>
+
+
+
+
+
+        </ul>
+
+      </nav>
+
+    </div>
+  </header>
+
+
+		<div class="breadcrumbs">
+			<div class="container">
+				<div class="row">
+					<div class="col">
+						<p class="bread"><span><a href="/">Home</a></span> / <span>Purchase Complete</span></p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="thankyou-container">
+			<div class="thankyou-checkmark">
+				<i class="fas fa-check-circle"></i>
+			</div>
+			<h1 class="thankyou-title">Thank you!</h1>
+			<p class="thankyou-message">
+				We will catch you  as Soon as possible , if any Queries please feel to ask our website !!
+			</p>
+			
+				<div class="thankyou-visit">
+					<h2>Continue Shopping</h2>
+					<a href="/" class="thankyou-visit-btn">Home</a>
+				</div>
+			</div>
+		</div>
+
+		<footer class="footer">
+
+			<div class="footer-top section">
+			  <div class="container">
+			
+				<div class="footer-brand">
+			
+				  <a href="#" class="logo">
+					<img src="../public/imgee/bro-logo-bro-letter-bro-letter-logo-design-initials-bro-logo-linked-bro.jpg"
+					  width="90" height="50" alt="Footcap logo">
+				  </a>
+			
+				  <ul class="social-list">
+			
+					<li>
+					  <a href="#" class="social-link">
+						<ion-icon name="logo-facebook"></ion-icon>
+					  </a>
+					</li>
+			
+					<li>
+					  <a href="#" class="social-link">
+						<ion-icon name="logo-twitter"></ion-icon>
+					  </a>
+					</li>
+			
+					<li>
+					  <a href="#" class="social-link">
+						<ion-icon name="logo-pinterest"></ion-icon>
+					  </a>
+					</li>
+			
+					<li>
+					  <a href="#" class="social-link">
+						<ion-icon name="logo-linkedin"></ion-icon>
+					  </a>
+					</li>
+			
+				  </ul>
+			
+				</div>
+			
+				<div class="footer-link-box">
+			
+				  <ul class="footer-list">
+			
+					<li>
+					  <p class="footer-list-title">Contact Us</p>
+					</li>
+			
+					<li>
+					  <address class="footer-link">
+						<ion-icon name="location"></ion-icon>
+			
+						<span class="footer-link-text">
+						  BRODWAY, Arappura street 123
+						</span>
+					  </address>
+					</li>
+			
+					<li>
+					  <a href="tel:+557343673257" class="footer-link">
+						<ion-icon name="call"></ion-icon>
+			
+						<span class="footer-link-text">9048601090</span>
+					  </a>
+					</li>
+			
+					<li>
+					  <a href="mailto:footcap@help.com" class="footer-link">
+						<ion-icon name="mail"></ion-icon>
+			
+						<span class="footer-link-text">brodway@help.com</span>
+					  </a>
+					</li>
+			
+				  </ul>
+			
+				  <ul class="footer-list">
+			
+					<li>
+					  <p class="footer-list-title">My Account</p>
+					</li>
+			
+					<li>
+					  <a href="/profile" class="footer-link">
+						<ion-icon name="chevron-forward-outline"></ion-icon>
+			
+						<span class="footer-link-text">My Account</span>
+					  </a>
+					</li>
+			
+					<li>
+					  <a href="/cart" class="footer-link">
+						<ion-icon name="chevron-forward-outline"></ion-icon>
+			
+						<span class="footer-link-text">View Cart</span>
+					  </a>
+					</li>
+			
+					<li>
+					  <a href="/wishlist" class="footer-link">
+						<ion-icon name="chevron-forward-outline"></ion-icon>
+			
+						<span class="footer-link-text">Wishlist</span>
+					  </a>
+					</li>
+			
+					<li>
+					  <a href="#" class="footer-link">
+						<ion-icon name="chevron-forward-outline"></ion-icon>
+			
+						<span class="footer-link-text">Compare</span>
+					  </a>
+					</li>
+			
+					<li>
+					  <a href="#" class="footer-link">
+						<ion-icon name="chevron-forward-outline"></ion-icon>
+			
+						<span class="footer-link-text">New Products</span>
+					  </a>
+					</li>
+			
+				  </ul>
+			
+				  <div class="footer-list">
+			
+					<p class="footer-list-title">Offer Time</p>
+			
+					<table class="footer-table">
+					  <tbody>
+			
+						<tr class="table-row">
+						  <th class="table-head" scope="row">Mon - Tue:</th>
+			
+						  <td class="table-data">8AM </td>
+						</tr>
+			
+						<tr class="table-row">
+						  <th class="table-head" scope="row">Wed:</th>
+			
+						  <td class="table-data">7PM</td>
+						</tr>
+			
+						<tr class="table-row">
+						  <th class="table-head" scope="row">Fri:</th>
+			
+						  <td class="table-data">12PM</td>
+						</tr>
+			
+						<tr class="table-row">
+						  <th class="table-head" scope="row">Sat:</th>
+			
+						  <td class="table-data">12 Am</td>
+						</tr>
+			
+						<tr class="table-row">
+						  <th class="table-head" scope="row">Sun:</th>
+			
+						  <td class="table-data">Special</td>
+						</tr>
+			
+					  </tbody>
+					</table>
+			
+				  </div>
+			
+				  <div class="footer-list">
+			
+					<p class="footer-list-title">Newsletter</p>
+			
+					<p class="newsletter-text">
+					  Authoritatively morph 24/7 potentialities with error-free partnerships.
+					</p>
+			
+				   
+			
+				  </div>
+			
+				</div>
+			
+			  </div>
+			</div>
+			
+			<div class="footer-bottom">
+			  <div class="container">
+			
+				<p class="copyright">
+				  &copy; 2024 <a href="#" class="copyright-link">BRODWAY</a>. All Rights Reserved
+				</p>
+			
+			  </div>
+			</div>
+			
+			
+			</footer>
+			
+			
+	</div>
+
+	<div class="gototop js-top">
+		<a href="#" class="js-gotop"><i class="ion-ios-arrow-up"></i></a>
+	</div>
+	
+	
+	<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+	<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+	<!-- jQuery -->
+	<script src="js/jquery.min.js"></script>
+   <!-- popper -->
+   <script src="js/popper.min.js"></script>
+   <!-- bootstrap 4.1 -->
+   <script src="js/bootstrap.min.js"></script>
+   <!-- jQuery easing -->
+   <script src="js/jquery.easing.1.3.js"></script>
+	<!-- Waypoints -->
+	<script src="js/jquery.waypoints.min.js"></script>
+	<!-- Flexslider -->
+	<script src="js/jquery.flexslider-min.js"></script>
+	<!-- Owl carousel -->
+	<script src="js/owl.carousel.min.js"></script>
+	<!-- Magnific Popup -->
+	<script src="js/jquery.magnific-popup.min.js"></script>
+	<script src="js/magnific-popup-options.js"></script>
+	<!-- Date Picker -->
+	<script src="js/bootstrap-datepicker.js"></script>
+	<!-- Stellar Parallax -->
+	<script src="js/jquery.stellar.min.js"></script>
+	<!-- Main -->
+	<script src="js/main.js"></script>
+
+	</body>
+</html>
+
