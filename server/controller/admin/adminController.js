@@ -105,7 +105,7 @@ const index = async (req, res) => {
         let cartCount = 0;
         let wishlist = null;
         const products = await productdb.find().populate('category');
-        
+        const categoryId = req.query.id
         const Category = await categorydb.find();
 
         for (const product of products) {
@@ -124,7 +124,7 @@ const index = async (req, res) => {
         res.render('index', { products, userToken: req.cookies.userToken, cartCount, user, wishlist, Category });
 
         }else{
-            res.render('index', { products, userToken: undefined, cartCount:0,  wishlist:0, Category });
+            res.render('index', { products, userToken: undefined, cartCount:0,  wishlist:0, Category,categoryId});
         }
 
         

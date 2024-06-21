@@ -682,6 +682,7 @@
 			const paymentMethod1 = document.querySelector('input[name="optradio"]:checked');
 
 			const paymentMethod = paymentMethod1.value
+			console.log('paymentMethod',paymentMethod);
 			
 
 			fetch("/verifyStock", {
@@ -693,14 +694,14 @@
 			})
 				.then(response => response.json())
 				.then(res => {
-
+					
 					res.outOfStockItems.forEach(item => {
 
 						document.getElementById(item).innerHTML = 'Out of stock'
 					})
-					// res.outOfStockItems === 0 
-					// send the checkout product data to another api end point to save order and decress the stock
+				
 					if (res.outOfStockItems.length === 0) {
+						
 						console.log('res22222', res.outOfStockItems.length);
 
 
@@ -730,10 +731,8 @@
 										toastr.error('Please add the Address to checkout');
 									}
 									console.log("response from backend:", data);
-									if (response.message === 'order completed') {
+									if (response.message === 'order completed'	) {
 										window.location.href = '/thankyou'
-									}else if(response.message==='Cod not Available'){
-									document.getElementById('codeAvailability').innerHTML="COD NOT AVAILABLE"
 									}
 								})
 

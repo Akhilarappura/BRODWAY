@@ -87,7 +87,7 @@ const stockresult = async (req, res) => {
         console.log("Processing stock result...");
         const { data, paymentMethod } = req.body;
         const { items, addressId } = data;
-        console.log(data);
+        console.log('data',data);
         console.log(paymentMethod);
 
 
@@ -123,6 +123,7 @@ const stockresult = async (req, res) => {
 
             product.stock -= item.quantity;
             await product.save();
+        
 
             updatedProducts.push({
                 productId: productId,
@@ -130,6 +131,7 @@ const stockresult = async (req, res) => {
                 quantity: item.quantity,
             });
         }
+        console.log('updatedProducts',updatedProducts);
 
         const totalAmount = updatedProducts.reduce((total, item) => total + item.price * item.quantity, 0);
         let finalAmount = totalAmount;
@@ -139,7 +141,7 @@ const stockresult = async (req, res) => {
 
         //             finalAmount = totalAmount - discount;
         //         }
-        if(totalAmount>10000){
+        if(totalAmount>1000){
 
         const order = new orderdb({
             userId: userId,
@@ -155,8 +157,6 @@ const stockresult = async (req, res) => {
 
 
         res.json({ message: 'order completed' })
-    }else{
-        res.json({message:'Cod not Available'})
     }
 
 

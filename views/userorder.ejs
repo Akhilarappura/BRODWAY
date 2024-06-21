@@ -50,7 +50,7 @@ crossorigin="anonymous"></script>
                                                             <% } %>
                                                         </td>
                                                         <td class="text-center align-middle">
-                                                            <%=moment (order.createdAt).format('MMMM Do YYYY')%>
+                                                            <%=new Date (order.createdAt).toLocaleDateString()%>
                                                         </td>
                                                     
                                                         <td class="text-center align-middle">

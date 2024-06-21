@@ -187,7 +187,7 @@
                         <td><%=index+1%></td>
                         <td><%= coupon.couponcode %></td>
                          <td><%= coupon.discountPercentage %></td>
-                         <td><%=coupon.expireDate%></td>
+                         <td><%=new Date(coupon.expireDate).toLocaleDateString()%></td>
                          <td><%=coupon.minPurchaseAmount%></td>
                          <td><div>
                             <a href="/editCoupon/<%=coupon._id%>" class="btn border-shadow shadow update">

@@ -3,21 +3,12 @@ const PDFDocument = require('pdfkit-table');
 const moment = require('moment');
 const ExcelJS = require('exceljs');
 
-
-
-
-
-
-
 const getSalesReport = async (req, res) => {
     try {
-
-        res.render('salesReport')
-
+        res.render('salesReport');
     } catch (error) {
         console.log(error);
-        res.render('error500')
-
+        res.render('error500');
     }
 }
 
@@ -60,6 +51,8 @@ const generateReport = async (req, res) => {
             generatePDFReport(res, reportTitle, salesData, dailySalesData); // Pass dailySalesData here
         } else if (reportType === 'excel') {
             generateExcelReport(res, reportTitle, salesData, dailySalesData);
+        } else if (reportType === 'html') {
+            generateHTMLReport(res, reportTitle, salesData, dailySalesData);
         } else {
             res.status(400).json({ message: 'Invalid report type' });
         }
@@ -124,6 +117,7 @@ function calculateTotalSums(dailySalesData) {
         totalCouponDiscountSum
     };
 }
+
 async function generateTable(doc, headers, data, totalSalesSum, totalOrderAmountSum, totalDiscountSum) {
     const tableData = [...data, ['Total:', totalSalesSum, 'Rs.' + totalOrderAmountSum, 'Rs.' + totalDiscountSum]];
 
@@ -135,6 +129,7 @@ async function generateTable(doc, headers, data, totalSalesSum, totalOrderAmount
         headerRows: 1
     });
 }
+
 async function generateExcelReport(res, reportTitle, salesData, dailySalesData) {
     try {
         const workbook = new ExcelJS.Workbook();
@@ -176,8 +171,6 @@ async function getYearlySales() {
     const endOfYear = new Date(today.getFullYear(), 11, 31);
     return await getOrderData(startOfYear, endOfYear);
 }
-
-
 
 // Helper functions to retrieve sales data based on different filter types
 async function getDailySales() {
@@ -222,8 +215,11 @@ async function getOrderData(startDate, endDate) {
             totalSales += item.quantity;
             const productPrice = item.price * item.quantity;
 
-            const discountAmount = productPrice - item.productId.discount;
-            totalDiscount += Math.round(discountAmount);
+            // Error Correction: Ensure item.productId is not null before accessing its properties
+            if (item.productId) {
+                const discountAmount = productPrice - item.productId.discount;
+                totalDiscount += Math.round(discountAmount);
+            }
             console.log(item, "total");
         });
 
@@ -245,7 +241,6 @@ async function getOrderData(startDate, endDate) {
 
     return dailySalesData;
 }
-
 
 const modalgenerateReport = async (req, res) => {
     try {
@@ -325,9 +320,8 @@ function generateHTMLReport(res, reportTitle, salesData, dailySalesData) {
     res.send(html);
 }
 
-
-
-
 module.exports = {
-    generateReport, getSalesReport, modalgenerateReport
-}
+    generateReport,
+    getSalesReport,
+    modalgenerateReport
+};

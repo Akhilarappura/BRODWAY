@@ -231,8 +231,8 @@
                                 <% } %>
                             </td>
                             <td><%= offer.discount_Percentage %></td>
-                            <td><%= offer.startingDate %></td>
-                            <td><%= offer.expiryDate %></td>
+                            <td><%= new Date(offer.startingDate).toLocaleDateString() %></td>
+                            <td><%= new Date(offer.expiryDate).toLocaleDateString()%></td>
                             <td id="offerlist">
                               <% if( offer.status ==='active'){ %>
                                 <span class="text-success"><%= offer.status %></span>

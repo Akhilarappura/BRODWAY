@@ -16,9 +16,10 @@ const getOffer = async (req, res) => {
             .populate('product_name')
             .populate('category_name', 'categoryName');
 
-        offers.forEach(offer => {
-            offer.formattedExpiryDate = moment(offer.expiryDate).format('DD/MM/YYYY');
-        });
+            offers.forEach(offer => {
+                offer.formattedExpiryDate = moment(offer.expiryDate).format('DD/MM/YYYY');
+            });
+            
 
 
         res.render('adminOffer', { offers })
@@ -90,6 +91,7 @@ const postAddOffer = async (req, res) => {
             product_name: mongoose.Types.ObjectId.isValid(productId) ? productId : null,
             category_name: mongoose.Types.ObjectId.isValid(categoryId) ? categoryId : null,
             discount_Percentage: productDiscount || categoryDiscount,
+            StartingDate,
             expiryDate,
             unlist: false
         });

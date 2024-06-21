@@ -21,8 +21,8 @@ const offerSchema = new mongoose.Schema({
         type: Date,
         default: function () {
             const currentDate = new Date();
-            currentDate.setHours(0, 0, 0, 0);
-            return currentDate.toISOString();
+            currentDate.setHours(0, 0, 0, 0);   
+            return currentDate.format('DD-MM-YYYY');
 
         }
     },
@@ -31,7 +31,7 @@ const offerSchema = new mongoose.Schema({
         default: function () {
             const currentDate = new Date();
             currentDate.setHours(0, 0, 0, 0);
-            return currentDate.toISOString();
+            return currentDate.format('DD-MM-YYYY');
 
         }
     },

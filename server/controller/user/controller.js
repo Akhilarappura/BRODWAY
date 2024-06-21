@@ -39,7 +39,7 @@ const applyoffer = async (product) => {
 
 const category = async (req, res) => {
     try {
-
+        
 
         const categoryId = req.query.id
         const userEmail = await userdb.findOne({ email: req.session.email })
@@ -76,7 +76,7 @@ const category = async (req, res) => {
             }
 
 
-            res.render('productList', { products, userToken: undefined, cartCount: 0, Category, wishlist })
+            res.render('productList', { products, userToken: undefined, cartCount: 0, Category, wishlist,categoryId})
 
         }
     } catch (error) {
