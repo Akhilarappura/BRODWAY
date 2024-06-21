@@ -19,7 +19,7 @@ const userRouter = require('./server/routes/user')
 connectDB()
 
 const app = express();
-dotenv.config({ path: 'config.env' })
+dotenv.config({ path: '.env' })
 const port = process.env.PORT || 3006
 
 

@@ -279,7 +279,13 @@
 
     </div>
   </header>
-  
+  <%if(Category=='men'){%>
+    <section class="section hero" style="background-image: url('/public/imgee/bannerlogo.jpg')">
+  <%} else if(Category=='women'){%>
+    <section class="section hero" style="background-image: url('/public/imgee/')">
+  <%}else if(Category=='kid'){%>
+    <section class="section hero" style="background-image: url('/public/imgee/bannerlogo.jpg')">
+  <%}%>
   <section class="section hero" style="background-image: url('/public/imgee/bannerlogo.jpg')">
     <div class="container">
 

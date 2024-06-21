@@ -65,13 +65,6 @@ const category = async (req, res) => {
                 cartCount = cart.items.length
             }
 
-
-
-
-
-
-
-
             res.render('productList', { products, userToken: req.cookies.userToken, cartCount: cartCount, user, Category, categoryId, wishlist })
         } else {
             const Category = await Categorydb.find()

@@ -104,6 +104,14 @@ const index = async (req, res) => {
         let user = null;
         let cartCount = 0;
         let wishlist = null;
+        const products = await productdb.find().populate('category');
+        
+        const Category = await categorydb.find();
+
+        for (const product of products) {
+            await applyoffer(product);
+        }
+
 
         if (req.cookies.userToken) {
             user = await userdb.findOne({ email: req.session.email });
@@ -112,20 +120,18 @@ const index = async (req, res) => {
             const cart = await cartdb.findOne({ user: userId });
             cartCount = cart ? cart.items.length : 0;
             wishlist = await wishlistdb.findOne({ user: userId });
-
-        }
-
-        const products = await productdb.find().populate('category');
-        const Category = await categorydb.find();
-
-        for (const product of products) {
-            await applyoffer(product);
-        }
-
+            
         res.render('index', { products, userToken: req.cookies.userToken, cartCount, user, wishlist, Category });
+
+        }else{
+            res.render('index', { products, userToken: undefined, cartCount:0,  wishlist:0, Category });
+        }
+
+        
+
     } catch (error) {
         console.error('Error rendering index page:', error);
-        res.status(500).send('Internal Server Error');
+        res.render('error500')
     }
 };
 

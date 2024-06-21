@@ -485,11 +485,11 @@
 														<% }) %>
 											</ul>
 										</li>
-										<li><span>Shipping</span> <span>&#8377; 0.00</span></li>
-										<li><span>Delivery Charge&#8377; 0.00</span></li>
-										<li><span>Order Total : &#8377; <span id="totalamountid">
-													<%=total?.totalAmount%>
-												</span></span></li>
+										
+										<li><span id="deliveryCharge">Delivery Charge</span> </li>
+											<li><span >Order Total : &#8377; <span id="totalamountid">
+														<%=total?.totalAmount%>
+													</span></span></li>
 										<input type="text" value="<%=total?.totalAmount%>" hidden id="totalAmountid">
 
 									</ul>
@@ -504,8 +504,7 @@
 									<div class="form-group">
 										<div class="col-md-12">
 											<div class="radio">
-												<label style="display: flex;"><input type="radio" name="optradio" value="netBanking" style="width: 20px;"> <h4>Direct
-													Bank Tranfer</h4></label>
+												<label style="display: flex;"><input type="radio" name="optradio" value="netBanking" style="width: 20px;"> <h4>Online Payments</h4></label>
 											</div>
 										</div>
 									</div>
@@ -520,9 +519,9 @@
 									<div class="form-group">
 										<div class="col-md-12">
 											<div class="radio">
-												<label style="display: flex;" ><input type="radio"  name="optradio" value="cod" style="width: 20px;"><h4> Cash on
+												<label style="display: flex;" ><input type="radio"  name="optradio" value="cod" style="width: 20px;" id="cashondelivery"><h4> Cash on
 													Delivery</h4></label>
-													<span id="codeAvailability" style="color: rgb(227, 38, 17);"></span>
+													<span id="codeAvailability" style="color: #9d8888; font-size: 9px;"></span>
 											</div>
 										</div>
 									</div>
@@ -611,6 +610,53 @@
 	</div>
 	</div>
 
+<script>
+	
+	document.addEventListener("DOMContentLoaded",()=>{
+		const Amount=document.getElementById("totalAmountid").value
+		console.log(Amount);
+		
+		if(Amount<1000){
+			const cashOnDelivery=document.getElementById("cashondelivery")
+			cashOnDelivery.disabled=true
+			document.getElementById("cashondelivery").innerHTML="Cash on Delivery (Not Available)"	
+			const h4Element = document.querySelector('input[type="radio"][id="cashondelivery"] + h4');
+            h4Element.textContent = "Cash on Delivery (Not Available)";
+            
+            // Change the color of the text
+            h4Element.style.color = "grey";
+
+		}
+	})
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        let totalAmount = parseFloat(document.getElementById("totalamountid").textContent.trim().replace(',', ''));
+		console.log(totalAmount,"amount");
+        
+        let deliveryCharge = 0;
+        
+        if (totalAmount < 500) {
+            deliveryCharge = 50;
+        } else if (totalAmount <= 1000) {
+            deliveryCharge = 30;
+        }
+		console.log('deliveryCharge',deliveryCharge);
+        
+          // Calculate the new total amount including delivery charge
+		  const newTotalAmount = totalAmount + deliveryCharge;
+		  console.log(newTotalAmount);
+        
+        // Update the delivery charge and total amount in the HTML
+        const deliveryChargeElement = document.getElementById("deliveryCharge");
+        deliveryChargeElement.textContent = `Delivery Charge; ${deliveryCharge.toFixed(2)}`;
+		totalAmount=newTotalAmount
+		totalAmount.textContent = newTotalAmount.toFixed(2);
+		
+
+    });
+</script>
 
 
 	
@@ -688,9 +734,6 @@
 										window.location.href = '/thankyou'
 									}else if(response.message==='Cod not Available'){
 									document.getElementById('codeAvailability').innerHTML="COD NOT AVAILABLE"
-									
-
-
 									}
 								})
 
@@ -731,7 +774,7 @@
 										},
 										"theme": {
 											"color": "#3399cc"
-										}
+										}	
 									};
 									const rzp1 = new Razorpay(options);
 									rzp1.open();
