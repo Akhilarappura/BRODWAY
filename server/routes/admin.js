@@ -8,6 +8,7 @@ const adminUserController = require('../controller/admin/adminUserController')
 const salesReportController = require('../controller/admin/salesController')
 const offerController = require('../controller/admin/offerController')
 const coupon = require('../controller/admin/coupon')
+const dashboardController=require('../controller/admin/dashboardController')
 const check = require('../middleware/check')
 const multer = require('multer')
 const path = require('path')
@@ -33,7 +34,7 @@ const upload = multer({ storage: storage });
 
 
 //adminController
-route.get('/admin', check.verifyAdmin, adminController.admindash)
+
 route.get('/adminlogout', adminController.adm_logout);
 route.get('/adminsignup', adminController.adminlog);
 route.post('/adminsignup', adminController.adminsign);
@@ -99,6 +100,10 @@ route.get('/addOffer', check.verifyAdmin, offerController.getAddOffer)
 route.post('/addOffer', check.verifyAdmin, offerController.postAddOffer)
 
 route.get('/offerlist', offerController.unlistOffer);
+
+//dashboard
+route.get('/admin', check.verifyAdmin, dashboardController.admindash)
+    
 
 
 

@@ -56,9 +56,7 @@ const adm_logout = async (req, res) => {
     res.redirect('/adminsignup')
 }
 
-const admindash = async (req, res) => {
-    res.render('adminDashboard')
-}
+
 
 
 
@@ -160,11 +158,11 @@ const index = async (req, res) => {
 
 
 
-
+    
 
 
 
 
 module.exports = {
-    adminlog, adminsign, adm_logout, index, admindash, applyoffer
+    adminlog, adminsign, adm_logout, index, applyoffer
 }

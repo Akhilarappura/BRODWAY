@@ -122,11 +122,14 @@ const stockresult = async (req, res) => {
             }
 
             product.stock -= item.quantity;
+            product.count += 1;
+
             await product.save();
+            console.log('product',product);
         
 
             updatedProducts.push({
-                productId: productId,
+                productId: productId,   
                 price: product.price,
                 quantity: item.quantity,
             });
@@ -332,7 +335,7 @@ const getWallet = async (req, res) => {
         const Category = await categorydb.find();
         const cart = await cartdb.findOne({ user: userId });
         let cartCount = cart ? cart.items.length : 0;
-        console.log('adichu keri vaaaaa', walet);
+   
         if (!walet) {
             walet = new wallet({
                 user: user._id,

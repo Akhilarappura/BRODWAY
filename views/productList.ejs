@@ -32,6 +32,11 @@
   -->
   <link rel="preload" href="/footwear-master/public/imgee/hero-banner.png" as="image">
 
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </head>
 <style>
   .filter-products-wrapper {
@@ -292,21 +297,20 @@
         </div>
       </section>
     </div>
-  </section>
-  <div class="sort-container" style="display: flex; justify-content: space-between; flex-direction: column-reverse">
+  </section>                                                  
+  <div class="sort-container" style="display: flex; justify-content: flex-end; margin: 10px 0;">
     <button class="sort-button" id="sortButton">
-      <span class="sort-text">FILTER & SORT</span>
-      <div class="sort-icon">
-          <div class="sort-line"></div>
-          <div class="sort-line"></div>
-      </div>
-  </button>
+        <span class="sort-text">FILTER & SORT</span>
+        <div class="sort-icon">
+            <div class="sort-line"></div>
+            <div class="sort-line"></div>
+        </div>
+    </button>
+</div>
 
-  </div>
-<div class="filter-section col-4">
+<div class="filter-section col-4" id="filterSection" style="display: none;">
     <h3>Price</h3>
     <p>
-
         <select class="form-select" id="sortBySelect">
             <option value="" disabled selected>Sort By</option>
             <option value="popularity">Popularity</option>
@@ -316,13 +320,11 @@
             <option value="z-to-a">zZ - aA</option>
             <option value="newest-first">Newest First</option>
         </select>
-      <input type="hidden"  id="catt" value="<%=categoryId%>">
-        
-
-
-
-    </p>		
+        <input type="hidden" id="catt" value="<%=categoryId%>">
+    </p>     
 </div>
+
+<script src="script.js"></script>
 </div>
 <div class="col-md-10">
 <div class=" mt-5">
@@ -382,4 +384,17 @@
 </div>
 </div>
 
+
+
 <%- include('include/foot') %>
+<script>
+  document.getElementById('sortButton').addEventListener('click', function() {
+    var filterSection = document.getElementById('filterSection');
+    if (filterSection.style.display === 'none' || filterSection.style.display === '') {
+        filterSection.style.display = 'block';
+    } else {
+        filterSection.style.display = 'none';
+    }
+});
+
+</script>

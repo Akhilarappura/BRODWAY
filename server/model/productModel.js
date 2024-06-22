@@ -1,4 +1,5 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+const { type } = require('os');
 
 var Productsschema = new mongoose.Schema({
     product_name: {
@@ -45,6 +46,10 @@ var Productsschema = new mongoose.Schema({
     },
     offerPrice: {
         type: Number,
+    },
+    count:{
+        type:Number,
+        default:0
     }
 })
 
