@@ -215,13 +215,14 @@ async function getOrderData(startDate, endDate) {
             totalSales += item.quantity;
             const productPrice = item.price * item.quantity;
 
-            // Error Correction: Ensure item.productId is not null before accessing its properties
-            if (item.productId) {
-                const discountAmount = productPrice - item.productId.discount;
-                totalDiscount += Math.round(discountAmount);
-            }
-            console.log(item, "total");
-        });
+           // Ensure item.productId is not null and has discount property
+           if (item.productId && item.productId.discount !== undefined) {
+            const discountAmount = productPrice - item.productId.discount;
+            totalDiscount += Math.round(discountAmount);
+        } else {
+            console.warn(`Missing or invalid discount for item: ${item.productId}`);
+        }
+    });
 
         if (order.couponused) {
             totalCouponDiscount += order.couponused.maxdiscount;
@@ -291,6 +292,7 @@ const modalgenerateReport = async (req, res) => {
         res.render('error500');
     }
 };
+
 
 function generateHTMLReport(res, reportTitle, salesData, dailySalesData) {
     let html = `<h2>${reportTitle}</h2>`;

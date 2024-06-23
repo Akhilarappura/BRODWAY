@@ -18,8 +18,8 @@ const otp = async (req, res) => {
 const createTransporter = nodemailer.createTransport({
   service: 'Gmail',
   auth: {
-    user:' process.env.email',
-    pass: 'process.env.APP_PASSWORD',
+    user:' akhilarappura1989@gmail.com',
+    pass: 'qkqz fplr sdiv ifvz',
   },
 });
 
@@ -89,7 +89,7 @@ const signup = async (req, res) => {
 
 
       createTransporter.sendMail({
-        from: 'process.env.email',
+        from: 'akhilarappura1989@gmail.com',
         to: recipientEmail,
         subject: 'Your OTP for verification',
         text: `Your OTP is : ${otp}`,
@@ -97,7 +97,7 @@ const signup = async (req, res) => {
       }, (error, info) => {
         if (error) {
           console.error('Error sending email', error);
-          res.render('signup'), { message: 'Error sending OTP via email', error: '' }
+          res.render('signup', { message: 'Error sending OTP via email', error: '' })
         } else {
           console.log('OTP sent Succesfully', info.response);
 
@@ -126,7 +126,7 @@ const resendotp = async (req, res) => {
 
 
     createTransporter.sendMail({
-      from: 'process.env.email',
+      from: 'akhilarappura1989@gmail.com',
       to: recipientEmail,
       subject: `Your OTP for Verification`,
       text: `Your new OTP is ${otp}`,
