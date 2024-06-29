@@ -107,11 +107,13 @@ route.post('/profileedit', check.userLoggedIn, upload.array('images'), profileCo
 route.get('/checkout', check.userLoggedIn, checkoutController.get_checkout)
 route.post('/verifyStock', check.userLoggedIn, checkoutController.validatestock)
 route.post('/onlinepayment', check.userLoggedIn, checkoutController.onlinepayment)
+route.post('/failurePayment',check.userLoggedIn,checkoutController.failurePayment)
+route.post('/retryPayment',check.userLoggedIn,checkoutController.failure)
 route.post('/stockresult', check.userLoggedIn, checkoutController.stockresult)
 route.post('/razorpayment', check.userLoggedIn, checkoutController.razorpayment)
 route.post('/applyCoupon', check.userLoggedIn, checkoutController.applyCoupon)
 route.get('/wallet', check.userLoggedIn, checkoutController.getWallet)
-
+route.post('/walletPayment',check.verifyAdmin,checkoutController.walletPayment)
 
 
 

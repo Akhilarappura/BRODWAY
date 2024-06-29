@@ -33,24 +33,24 @@ crossorigin="anonymous"></script>
                                                     <tr>
                                                         <td class="text-center align-middle"> <%= i + 1 %> </td>
                                                         <td class="text-center align-middle">
-                                                            <% if (order.status === 'Return Accepted') { %>
+                                                            <% if (order.paymentStatus === 'Return Accepted') { %>
                                                                 <span class="alert alert-danger">Returned</span>
                                                             <% }
-                                                            else if (order.status === 'Cancelled') { %>
+                                                            else if (order.paymentStatus === 'Cancelled') { %>
                                                                 <span class="alert alert-danger">Cancelled</span>
                                                             <% }
-                                                            else if (order.status === 'Delivered') { %>
+                                                            else if (order.paymentStatus === 'Delivered') { %>
                                                                 <span class="payment-status-completed">Completed</span>
-                                                            <% } else if (order.status === 'Pending') { %>
+                                                            <% } else if (order.paymentStatus === 'Pending') { %>
                                                                 <span class="payment-status-pending">Pending</span>
-                                                            <% } else if (order.status === 'Shipped') { %>
+                                                            <% } else if (order.paymentStatus === 'Shipped') { %>
                                                                 <span class="payment-status-shipped">Shipped</span>
                                                             <% } else { %>
                                                                 <span class="alert alert-warning"><%= order.paymentStatus %></span>
                                                             <% } %>
                                                         </td>
-                                                        <td class="text-center align-middle">
-                                                            <%=new Date (order.createdAt).toLocaleDateString()%>
+                                                        <td class="text-center align-middle">                                   
+                                                             <%= new Date(order.orderedDate).toDateString() %>
                                                         </td>
                                                     
                                                         <td class="text-center align-middle">
@@ -64,7 +64,7 @@ crossorigin="anonymous"></script>
                                                     
                                                              else if (order.status === 'Pending') { %>
                                                                 <span class="alert alert-danger">Pending</span>
-                                                            <% } else if (order.status === 'order placed') { %>
+                                                            <% } else if (order.status === 'Shipped') { %>
                                                                 <span class="alert alert-warning">Shipped</span>
                                                             <% } else if (order.status === 'Delivered') { %>
                                                                 <span class="alert alert-success">Delivered</span>
@@ -82,6 +82,7 @@ crossorigin="anonymous"></script>
                                                                 <% }else if (order.status !== 'Delivered') { %>
                                                                   
                                                                     <button class="btn btn-danger text-white mb-2 cancel-btn" data-order-id="<%= order._id %>">Cancel</button>
+                                                                    <button class="btn btn-primary text-white mb-2 retry-payment-btn" data-order-id="<%= order._id %>">Retry Payment</button>       
                                                                 <% } else { %>
                                                                     <button class="btn btn-secondary text-white mb-2 return-btn" data-order-id="<%= order._id %>">Return</button>
                                                                 <% } %>
@@ -157,6 +158,89 @@ crossorigin="anonymous"></script>
         return true;
     }
   </script>
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        console.log('User order page loaded');
+
+        // Listen for clicks on the Retry Payment buttons
+        document.querySelectorAll('.retry-payment-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const orderId = button.getAttribute('data-order-id');
+                console.log('Retry payment button clicked for order:', orderId);
+
+                // Make a POST request to your backend to initiate retry payment
+                fetch('/retryPayment', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ orderId })
+                })
+                .then(res => res.json())
+                .then(res => {
+                    if (!res.success) {
+                        console.error('Failed to initiate retry payment:', res.message);
+                        alert('Failed to initiate retry payment.');
+                        return;
+                    }
+
+                    console.log("Razorpay order data", res);
+
+                    const options = {
+                        "key": "rzp_test_Yf4QX1fH3V3BDE", // Replace with your Razorpay Key ID
+                        "amount": res.order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+                        "currency": "INR",
+                        "name": 'BRODWAY', // Your business name
+                        "description": "Test Transaction",
+                        "image": "",
+                        "order_id": res.order.id, // This is the Order ID received from your backend
+                        "callback_url": `/onlinepayment?orderId=${orderId}`, // URL to handle payment callback
+                        "prefill": {
+                            // "name": "Gaurav Kumar", // Your customer's name
+                            // "email": "",
+                            // "contact": "" // Provide the customer's phone number for better conversion rates 
+                        },
+                        "notes": {
+                            "address": "Razorpay Corporate Office"
+                        },
+                        "theme": {
+                            "color": "#3399cc"
+                        }
+                    };
+
+                    const rzp1 = new Razorpay(options);
+
+                    rzp1.on('payment.failed', function (response) {
+                        console.error("Payment failed:", response);
+                        // alert("Payment failed. Redirecting to orders page.");
+
+                        // Example: Update order status on payment failure
+                        fetch('/failurePayment', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({ orderId: res.order.id, status: 'Pending' }),
+                        }).then(() => {
+                            window.location.href = '/orderpage'; // Redirect to the orders page
+                        }).catch(error => {
+                            console.error("Error updating order status:", error);
+                        });
+                    });
+
+                    // Open Razorpay checkout
+                    rzp1.open();
+                })
+                .catch(error => {
+                    console.error("Error in Razorpay payment:", error);
+                  
+                });
+            });
+        });
+    });
+</script>
+
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {

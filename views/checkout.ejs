@@ -2,236 +2,236 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BRODWAY</title>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>BRODWAY</title>
 
-  <!-- 
+	<!-- 
     - favicon
   -->
-  <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
+	<link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
 
-  <!-- 
+	<!-- 
     - custom css link
   -->
-<link rel="stylesheet" href="/public/css/style.css">
-  <link rel="stylesheet" href="/public/css/newIndex.css">
+	<link rel="stylesheet" href="/public/css/style.css">
+	<link rel="stylesheet" href="/public/css/newIndex.css">
 
-  <!-- 
+	<!-- 
     - google font link
   -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&family=Roboto:wght@400;500;700&display=swap"
-    rel="stylesheet">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link
+		href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&family=Roboto:wght@400;500;700&display=swap"
+		rel="stylesheet">
 
-  <!-- 
+	<!-- 
     - preload banner
   -->
-  <link rel="preload" href="/footwear-master/public/imgee/hero-banner.png" as="image">
+	<link rel="preload" href="/footwear-master/public/imgee/hero-banner.png" as="image">
 
 </head>
 <style>
-  .filter-products-wrapper {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-  }
+	.filter-products-wrapper {
+		display: flex;
+		flex-direction: row;
+		align-items: flex-start;
+	}
 
-  .filter-section {
-    flex: 0 0 200px;
-    /* Adjust the width as needed */
-    margin-right: 10px;
-    /* Adjust spacing between the filter and product sections */
-  }
+	.filter-section {
+		flex: 0 0 200px;
+		/* Adjust the width as needed */
+		margin-right: 10px;
+		/* Adjust spacing between the filter and product sections */
+	}
 
-  .productsContainer {
-    flex: 1;
-    /* Takes up the remaining space */
-    display: flex;
-    flex-wrap: wrap;
-  }
+	.productsContainer {
+		flex: 1;
+		/* Takes up the remaining space */
+		display: flex;
+		flex-wrap: wrap;
+	}
 
-  .productsContainer .col-lg-2,
-  .productsContainer .col-md-6,
-  .productsContainer .col-sm-4 {
-    flex: 0 1 calc(25% - 20px);
-    /* Adjust based on breakpoints and spacing */
-    margin: 10px;
-    /* Adjust spacing between products */
-  }
+	.productsContainer .col-lg-2,
+	.productsContainer .col-md-6,
+	.productsContainer .col-sm-4 {
+		flex: 0 1 calc(25% - 20px);
+		/* Adjust based on breakpoints and spacing */
+		margin: 10px;
+		/* Adjust spacing between products */
+	}
 
-  .pro-img img {
-    max-width: 80%;
-    height: auto;
-  }
+	.pro-img img {
+		max-width: 80%;
+		height: auto;
+	}
 
-  .card-body {
-    text-align: center;
-  }
+	.card-body {
+		text-align: center;
+	}
 
-  .btn-add-cart a {
-    color: white;
-  }
+	.btn-add-cart a {
+		color: white;
+	}
 
-  .out-of-stock-message {
-    color: red;
-    font-weight: bold;
-    padding: 10px;
-  }
+	.out-of-stock-message {
+		color: red;
+		font-weight: bold;
+		padding: 10px;
+	}
 
-  .original-price {
-    color: gray;
-    text-decoration: line-through;
-    margin-right: 5px;
-  }
+	.original-price {
+		color: gray;
+		text-decoration: line-through;
+		margin-right: 5px;
+	}
 
-  .offer-price {
-    color: red;
-    font-weight: bold;
-  }
+	.offer-price {
+		color: red;
+		font-weight: bold;
+	}
 
-  .discount-percentage {
-    color: green;
-    font-weight: bold;
-    margin-left: 5px;
-  }
+	.discount-percentage {
+		color: green;
+		font-weight: bold;
+		margin-left: 5px;
+	}
 
-  .price {
-    font-weight: bold;
-  }
+	.price {
+		font-weight: bold;
+	}
 </style>
 
 <body id="top">
 
-  <!-- 
+	<!-- 
     - #HEADER
   -->
 
-  <header class="header" data-header>
-    <div class="container">
+	<header class="header" data-header>
+		<div class="container">
 
-      <div class="overlay" data-overlay></div>
+			<div class="overlay" data-overlay></div>
 
-      <h1>BRODWAY</h1>
+			<h1>BRODWAY</h1>
 
-      <button class="nav-open-btn" data-nav-open-btn aria-label="Open Menu">
-        <ion-icon name="menu-outline"></ion-icon>
-      </button>
+			<button class="nav-open-btn" data-nav-open-btn aria-label="Open Menu">
+				<ion-icon name="menu-outline"></ion-icon>
+			</button>
 
-      <nav class="navbar" data-navbar>
+			<nav class="navbar" data-navbar>
 
-        <button class="nav-close-btn" data-nav-close-btn aria-label="Close Menu">
-          <ion-icon name="close-outline"></ion-icon>
-        </button>
+				<button class="nav-close-btn" data-nav-close-btn aria-label="Close Menu">
+					<ion-icon name="close-outline"></ion-icon>
+				</button>
 
-        <a href="#" class="logo">
-          <img src="./assets/images/logo.svg" width="190" height="50" alt="Footcap logo">
-        </a>
+				<a href="#" class="logo">
+					<img src="./assets/images/logo.svg" width="190" height="50" alt="Footcap logo">
+				</a>
 
-        <ul class="navbar-list">
+				<ul class="navbar-list">
 
-          <li class="navbar-item">
-            <a href="/" class="navbar-link">Home</a>
-          </li>
+					<li class="navbar-item">
+						<a href="/" class="navbar-link">Home</a>
+					</li>
 
-          <li class="navbar-item">
-            <%Category?.forEach(category=>{%>
-              <a href="/productCategory?id=<%=category._id%>" class="navbar-link">
-                <span>
-                  <%=category.categoryName%>
-                </span></a>
-          </li>
-          <%})%>
+					<li class="navbar-item">
+						<%Category?.forEach(category=>{%>
+							<a href="/productCategory?id=<%=category._id%>" class="navbar-link">
+								<span>
+									<%=category.categoryName%>
+								</span></a>
+					</li>
+					<%})%>
 
-            <li class="navbar-item">
-              <a href="/about" class="navbar-link">About</a>
-            </li>
-            <li class="navbar-item">
-              <a href="/contact" class="navbar-link">Contact</a>
-            </li>
-
-
-
-        </ul>
-
-        <ul class="nav-action-list">
-
-          <li>
-            <button class="nav-action-btn">
-              <ion-icon name="search-outline" aria-hidden="true"></ion-icon>
-
-              <span class="nav-action-text">Search</span>
-            </button>
-          </li>
-
-
-          <% if (!userToken) { %>
-            <li>
-              <a href="/login" class="nav-action-btn">
-                <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
-
-                <span class="nav-action-text">Login </span>
-              </a>
-            </li>
-            <% } %>
-
-              <% if (userToken) { %>
-                <li>
-                  <a href="/profile" class="nav-action-btn">
-                    <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
-
-                    <span class="nav-action-text">Login </span>
-                  </a>
-                </li>
-                <% } %>
-                  <li>
-                    <a href="/wishlist" class="nav-action-btn">
-                      <ion-icon name="heart-outline" aria-hidden="true"></ion-icon>
-                      <span class="nav-action-text">Wishlist</span>
-                    </a>
-                  </li>
-                  <% if (userToken) { %>
-                    <li>
-                      <a href="/cart" class="nav-action-btn">
-                        <ion-icon name="cart-outline" aria-hidden="true"></ion-icon>
-                        <span class="nav-action-text">cart</span>
-                        <data class="nav-action-badge" value="" aria-hidden="true">
-                        
-                        </data>
-                      </a>
-                    </li>
-                    <% } %>
-                      <% if (!userToken) { %>
-                        <li>
-                          <a href="/login" class="nav-action-btn">
-                            <ion-icon name="cart-outline" aria-hidden="true"></ion-icon>
-
-                            <span class="nav-action-text">Login </span>
-                          </a>
-                        </li>
-                        <% } %>
+						<li class="navbar-item">
+							<a href="/about" class="navbar-link">About</a>
+						</li>
+						<li class="navbar-item">
+							<a href="/contact" class="navbar-link">Contact</a>
+						</li>
 
 
 
+				</ul>
+
+				<ul class="nav-action-list">
+
+					<li>
+						<button class="nav-action-btn">
+							<ion-icon name="search-outline" aria-hidden="true"></ion-icon>
+
+							<span class="nav-action-text">Search</span>
+						</button>
+					</li>
 
 
-        </ul>
+					<% if (!userToken) { %>
+						<li>
+							<a href="/login" class="nav-action-btn">
+								<ion-icon name="person-outline" aria-hidden="true"></ion-icon>
 
-      </nav>
+								<span class="nav-action-text">Login </span>
+							</a>
+						</li>
+						<% } %>
 
-    </div>
-  </header>
+							<% if (userToken) { %>
+								<li>
+									<a href="/profile" class="nav-action-btn">
+										<ion-icon name="person-outline" aria-hidden="true"></ion-icon>
+
+										<span class="nav-action-text">Login </span>
+									</a>
+								</li>
+								<% } %>
+									<li>
+										<a href="/wishlist" class="nav-action-btn">
+											<ion-icon name="heart-outline" aria-hidden="true"></ion-icon>
+											<span class="nav-action-text">Wishlist</span>
+										</a>
+									</li>
+									<% if (userToken) { %>
+										<li>
+											<a href="/cart" class="nav-action-btn">
+												<ion-icon name="cart-outline" aria-hidden="true"></ion-icon>
+												<span class="nav-action-text">cart</span>
+												<data class="nav-action-badge" value="" aria-hidden="true">
+
+												</data>
+											</a>
+										</li>
+										<% } %>
+											<% if (!userToken) { %>
+												<li>
+													<a href="/login" class="nav-action-btn">
+														<ion-icon name="cart-outline" aria-hidden="true"></ion-icon>
+
+														<span class="nav-action-text">Login </span>
+													</a>
+												</li>
+												<% } %>
 
 
 
 
 
+				</ul>
 
-<!--  -->
-		<!-- <div class="breadcrumbs">
+			</nav>
+
+		</div>
+	</header>
+
+
+
+
+
+
+	<!--  -->
+	<!-- <div class="breadcrumbs">
 			<div class="container">
 				<div class="row">
 					<div class="col">
@@ -242,201 +242,204 @@
 		</div> -->
 
 
-		<div class="colorlib-product">
-			<div class="container">
-				<div class="row row-pb-lg">
-					<div class="col-sm-10 offset-md-1">
-						<div class="process-wrap">
-							<div class="process text-center active">
-								<p><span>01</span></p>
-								<h3>Shopping Cart</h3>
-							</div>
-							<div class="process text-center active">
-								<p><span>02</span></p>
-								<h3>Checkout</h3>
-							</div>
-							<div class="process text-center">
-								<p><span>03</span></p>
-								<h3>Order Complete</h3>
-							</div>
+	<div class="colorlib-product">
+		<div class="container">
+			<div class="row row-pb-lg">
+				<div class="col-sm-10 offset-md-1">
+					<div class="process-wrap">
+						<div class="process text-center active">
+							<p><span>01</span></p>
+							<h3>Shopping Cart</h3>
+						</div>
+						<div class="process text-center active">
+							<p><span>02</span></p>
+							<h3>Checkout</h3>
+						</div>
+						<div class="process text-center">
+							<p><span>03</span></p>
+							<h3>Order Complete</h3>
 						</div>
 					</div>
 				</div>
-				<!-- Button trigger modal -->
-				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-					Add address
-				</button>
+			</div>
+			<!-- Button trigger modal -->
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+				Add address
+			</button>
 
-				<!-- Modal -->
-				<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
-					aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-					<div class="modal-dialog modal-dialog-centered" role="document">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body">
-								<form action="/checkoutaddress" method="post">
-									<fieldset>
-										<!-- Address form -->
-										<h2>Address</h2>
-										<!-- full-name input-->
-										<div class="control-group">
-											<label class="control-label">Full Name</label>
-											<div class="controls">
-												<input id="full-name" name="name" type="text" placeholder="full name"
-													class="input-xlarge">
-												<p class="help-block"></p>
-											</div>
-										</div>
-										<!-- address-line1 input-->
-										<div class="control-group">
-											<label class="control-label">Address </label>
-											<div class="controls">
-												<input id="address-line1" name="address" type="text"
-													placeholder="address line 1" class="input-xlarge" required>
-												<p class="help-block">Street address, P.O. box, company name, c/o</p>
-											</div>
-										</div>
-										<!-- address-line2 input-->
-										<div class="control-group">
-											<label class="control-label">Mobile No:</label>
-											<div class="controls">
-												<input id="mobileNo" name="mobileNumber" type="number"
-													placeholder="mobile number " class="input-xlarge">
-												<p class="help-block">Apartment, suite, unit, building, floor, etc.</p>
-											</div>
-										</div>
-										<!-- city input-->
-										<div class="control-group">
-											<label class="control-label">District</label>
-											<div class="controls">
-												<input id="city" name="district" type="text" placeholder="district"
-													class="input-xlarge">
-												<p class="help-block"></p>
-											</div>
-										</div>
-										<!-- region input-->
-										<div class="control-group">
-											<label class="control-label">Locality</label>
-											<div class="controls">
-												<input id="region" name="locality" type="text"
-													placeholder="state / province / region" class="input-xlarge">
-												<p class="help-block"></p>
-											</div>
-										</div>
-										<!-- postal-code input-->
-										<div class="control-group">
-											<label class="control-label">Pincode</label>
-											<div class="controls">
-												<input id="postal-code" name="pincode" type="text"
-													placeholder="zip or postal code" class="input-xlarge">
-												<p class="help-block"></p>
-											</div>
-										</div>
-										<div class="control-group">
-											<label class="control-label">State</label>
-											<div class="controls">
-												<input id="State-code" name="state" type="text" placeholder="State"
-													class="input-xlarge">
-												<p class="help-block"></p>
-											</div>
-										</div>
-										<!-- country select -->
-										<div class="control-group">
-											<label class="control-label">Country</label>
-											<div class="controls">
-												<select id="country" name="country" class="input-xlarge">
-													<option value="" selected="selected">(please select a country)
-													</option>
-													<option value="AF">India</option>
-													<option value="AL"></option>
-													<option value="DZ"></option>
-												</select>
-											</div>
-										</div>
-									</fieldset>
-
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-								<button type="submit" class="btn btn-primary">Save changes</button>
-							</div>
-							</form>
+			<!-- Modal -->
+			<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+				aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
 						</div>
-					</div>
-				</div>
-
-				<div class="row">
-					<div class="col-lg-8">
-						<form method="post" class="colorlib-form">
-							<h2>Billing Details</h2>
-							<div class="row">
-								<div class="col-md-12">
-									<div class="form-group">
-										<label for="country">Select Country</label>
-										<div class="form-field">
-											<i class="icon icon-arrow-down3"></i>
-											<select name="people" id="people" class="form-control">
-												<option value="#">Select country</option>
-												<option value="#">India</option>
-												<option value="#"></option>
-												<option value="#"></option>
-												<option value="#"></option>
-												<option value="#"></option>
+						<div class="modal-body">
+							<form action="/checkoutaddress" method="post">
+								<fieldset>
+									<!-- Address form -->
+									<h2>Address</h2>
+									<!-- full-name input-->
+									<div class="control-group">
+										<label class="control-label">Full Name</label>
+										<div class="controls">
+											<input id="full-name" name="name" type="text" placeholder="full name"
+												class="input-xlarge">
+											<p class="help-block"></p>
+										</div>
+									</div>
+									<!-- address-line1 input-->
+									<div class="control-group">
+										<label class="control-label">Address </label>
+										<div class="controls">
+											<input id="address-line1" name="address" type="text"
+												placeholder="address line 1" class="input-xlarge" required>
+											<p class="help-block">Street address, P.O. box, company name, c/o</p>
+										</div>
+									</div>
+									<!-- address-line2 input-->
+									<div class="control-group">
+										<label class="control-label">Mobile No:</label>
+										<div class="controls">
+											<input id="mobileNo" name="mobileNumber" type="number"
+												placeholder="mobile number " class="input-xlarge">
+											<p class="help-block">Apartment, suite, unit, building, floor, etc.</p>
+										</div>
+									</div>
+									<!-- city input-->
+									<div class="control-group">
+										<label class="control-label">District</label>
+										<div class="controls">
+											<input id="city" name="district" type="text" placeholder="district"
+												class="input-xlarge">
+											<p class="help-block"></p>
+										</div>
+									</div>
+									<!-- region input-->
+									<div class="control-group">
+										<label class="control-label">Locality</label>
+										<div class="controls">
+											<input id="region" name="locality" type="text"
+												placeholder="state / province / region" class="input-xlarge">
+											<p class="help-block"></p>
+										</div>
+									</div>
+									<!-- postal-code input-->
+									<div class="control-group">
+										<label class="control-label">Pincode</label>
+										<div class="controls">
+											<input id="postal-code" name="pincode" type="text"
+												placeholder="zip or postal code" class="input-xlarge">
+											<p class="help-block"></p>
+										</div>
+									</div>
+									<div class="control-group">
+										<label class="control-label">State</label>
+										<div class="controls">
+											<input id="State-code" name="state" type="text" placeholder="State"
+												class="input-xlarge">
+											<p class="help-block"></p>
+										</div>
+									</div>
+									<!-- country select -->
+									<div class="control-group">
+										<label class="control-label">Country</label>
+										<div class="controls">
+											<select id="country" name="country" class="input-xlarge">
+												<option value="" selected="selected">(please select a country)
+												</option>
+												<option value="AF">India</option>
+												<option value="AL"></option>
+												<option value="DZ"></option>
 											</select>
 										</div>
 									</div>
-								</div>
+								</fieldset>
 
-								<div class="col-md-6">
-									<div class="form-group">
-										<label for="fname"> Name</label>
-										<!-- <input type="text" id="fname" class="form-control" placeholder="Your firstname"> -->
-										<p class="text-muted mb-0">
-											<%=detail.name%>
-										</p>
-									</div>
-								</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+							<button type="submit" class="btn btn-primary">Save changes</button>
+						</div>
+						</form>
+					</div>
+				</div>
+			</div>
 
-
-								<div class="col-md-12">
-									<div class="form-group">
-										<label for="companyname">Email</label>
-
-									</div>
-								</div>
-								<div class="col-md-12">
-									<div class="form-group">
-										<label for="address">Select Address</label>
-
-										<select id="address" name="address" class="form-control custom-select">
-											<% address.forEach(addr=> { %>
-												<option value="<%= addr._id %>">
-													<%= addr.name %>, <%= addr.mobileNumber %>, <%= addr.district %>,
-																<%= addr.locality %>, <%= addr.pincode %>
-												</option>
-												<% }); %>
+			<div class="row">
+				<div class="col-lg-8">
+					<form method="post" class="colorlib-form">
+						<h2>Billing Details</h2>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+									<label for="country">Select Country</label>
+									<div class="form-field">
+										<i class="icon icon-arrow-down3"></i>
+										<select name="people" id="people" class="form-control">
+											<option value="#">Select country</option>
+											<option value="#">India</option>
+											<option value="#"></option>
+											<option value="#"></option>
+											<option value="#"></option>
+											<option value="#"></option>
 										</select>
 									</div>
 								</div>
+							</div>
 
-								<div class="col-md-12">
-									<div class="form-group">
-										<div class="radio">
-											<!-- <label><input type="radio" name="optradio"> Create an Account? </label> -->
-											<label><input type="radio" name="optradio"> Ship to different address
-											</label>
-										</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="fname"> Name</label>
+									<!-- <input type="text" id="fname" class="form-control" placeholder="Your firstname"> -->
+									<p class="text-muted mb-0">
+										<%=detail.name%>
+									</p>
+								</div>
+							</div>
+
+
+							<div class="col-md-12">
+								<div class="form-group">
+									<label for="companyname">Email</label>
+									<p class="text-muted mb-0">
+										<%=detail.email%>
+									</p>
+
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-group">
+									<label for="address">Select Address</label>
+
+									<select id="address" name="address" class="form-control custom-select">
+										<% address.forEach(addr=> { %>
+											<option value="<%= addr._id %>">
+												<%= addr.name %>, <%= addr.mobileNumber %>, <%= addr.district %>,
+															<%= addr.locality %>, <%= addr.pincode %>
+											</option>
+											<% }); %>
+									</select>
+								</div>
+							</div>
+
+							<div class="col-md-12">
+								<div class="form-group">
+									<div class="radio">
+										<!-- <label><input type="radio" name="optradio"> Create an Account? </label>
+										<label><input type="radio" name="optradio"> Ship to different address -->
+										</label>
 									</div>
 								</div>
-
 							</div>
-						</form>
-						<!-- <div class="coupon-section col-md-12">
+
+						</div>
+					</form>
+					<!-- <div class="coupon-section col-md-12">
 							<div class="form-group">
 								<label for="apply-coupon-code">
 									<h2>Apply Coupon Code</h2>
@@ -445,87 +448,98 @@
 									placeholder="Enter coupon code">
 							</div>
 						</div> -->
+					<div class="col-md-12">
+						<div class="coupon-section">
+							<div class="form-group">
+								<label for="available-coupon-code">
+									<h2>Available Coupon Code</h2>
+								</label><br>
+								<button class="btn btn-warning apply-button" data-toggle="modal"
+									data-target="#couponModal">Click
+									here</button>
+							</div>
+						</div>
+					</div>
+
+
+				</div>
+				<div class="col-lg-4">
+					<div class="row">
 						<div class="col-md-12">
-							<div class="coupon-section">
-								<div class="form-group">
-									<label for="available-coupon-code">
-										<h2>Available Coupon Code</h2>
-									</label><br>
-									<button class="btn btn-warning apply-button" data-toggle="modal"
-										data-target="#couponModal">Click
-										here</button>
-								</div>
+							<div class="cart-detail">
+								<h2>Cart Total</h2>
+								<ul id="orderItems">
+									<li>
+										<input hidden id="allItems" value="<%= total %>" type="text">
+										<span>Subtotal : </span> <span>&#8377; <%= total?.totalAmount %></span>
+										<ul>
+											<% total?.items.forEach(item=>{%>
+												<!-- <li><%= item.productId._id %></li> -->
+												<li><span>
+														<%=item.quantity%> x <%=item.productId.product_name%>
+																<div style="color: red;" id="<%= item.productId._id%>">
+																</div>
+													</span> <span>
+														<%=item.productId.price%>
+													</span></li>
+												<li class="item" data-product-id="<%= item.productId._id %>"
+													data-quantity="<%= item.quantity %>">
+
+													<% }) %>
+										</ul>
+									</li>
+
+									<li><span id="deliveryCharge">Delivery Charge</span> </li>
+									<li><span>Order Total : &#8377; <span id="totalamountid">
+												<%=total?.totalAmount%>
+											</span></span></li>
+									<li><span>Wallet balance: <%=walet.balance%></span></li>
+									<input type="hidden" id="walletid" value="<%=walet.balance%>">
+
+									<input type="text" value="<%=total?.totalAmount%>" hidden id="totalAmountid">
+
+								</ul>
 							</div>
 						</div>
 
+						<div class="w-100"></div>
 
-					</div>
-					<div class="col-lg-4">
-						<div class="row">
-							<div class="col-md-12">
-								<div class="cart-detail">
-									<h2>Cart Total</h2>
-									<ul id="orderItems">
-										<li>
-											<input hidden id="allItems" value="<%= total %>" type="text">
-											<span>Subtotal : </span> <span>&#8377; <%= total?.totalAmount %></span>
-											<ul>
-												<% total?.items.forEach(item=>{%>
-													<!-- <li><%= item.productId._id %></li> -->
-													<li><span>
-															<%=item.quantity%> x <%=item.productId.product_name%>
-																	<div style="color: red;"
-																		id="<%= item.productId._id%>"></div>
-														</span> <span>
-															<%=item.productId.price%>
-														</span></li>
-													<li class="item" data-product-id="<%= item.productId._id %>"
-														data-quantity="<%= item.quantity %>">
-
-														<% }) %>
-											</ul>
-										</li>
-										
-										<li><span id="deliveryCharge">Delivery Charge</span> </li>
-											<li><span >Order Total : &#8377; <span id="totalamountid">
-														<%=total?.totalAmount%>
-													</span></span></li>
-										<input type="text" value="<%=total?.totalAmount%>" hidden id="totalAmountid">
-
-									</ul>
+						<div class="col-md-12">
+							<div class="cart-detail">
+								<h2>Payment Method</h2>
+								<div class="form-group">
+									<div class="col-md-12">
+										<div class="radio">
+											<label style="display: flex;"><input type="radio" name="optradio"
+													value="netBanking" style="width: 20px;">
+												<h4>Online Payments</h4>
+											</label>
+										</div>
+									</div>
 								</div>
-							</div>
-
-							<div class="w-100"></div>
-
-							<div class="col-md-12">
-								<div class="cart-detail">
-									<h2>Payment Method</h2>
-									<div class="form-group">
-										<div class="col-md-12">
-											<div class="radio">
-												<label style="display: flex;"><input type="radio" name="optradio" value="netBanking" style="width: 20px;"> <h4>Online Payments</h4></label>
-											</div>
+								<div class="form-group">
+									<div class="col-md-12">
+										<div class="radio">
+											<label style="display: flex;"><input type="radio" name="optradio"
+													value="walletPayment" style="width: 20px;">
+												<h4>Wallet Payment</h4>
+											</label>
 										</div>
 									</div>
-									<div class="form-group">
-										<div class="col-md-12">
-											<div class="radio">
-												<label style="display: flex;"><input type="radio" name="optradio" value="checkPayment" style="width: 20px;" > <h4>Check
-													Payment</h4></label>
-											</div>
+								</div>
+								<div class="form-group">
+									<div class="col-md-12">
+										<div class="radio">
+											<label style="display: flex;"><input type="radio" name="optradio"
+													value="cod" style="width: 20px;" id="cashondelivery">
+												<h4> Cash on
+													Delivery</h4>
+											</label>
+											<span id="codeAvailability" style="color: #9d8888; font-size: 9px;"></span>
 										</div>
 									</div>
-									<div class="form-group">
-										<div class="col-md-12">
-											<div class="radio">
-												<label style="display: flex;" ><input type="radio"  name="optradio" value="cod" style="width: 20px;" id="cashondelivery"><h4> Cash on
-													Delivery</h4></label>
-													<span id="codeAvailability" style="color: #9d8888; font-size: 9px;"></span>
-											</div>
-										</div>
-									</div>
-									<!-- <div class="form-group">
+								</div>
+								<!-- <div class="form-group">
 										<div class="col-md-12">
 											<div class="checkbox">
 												<label><input type="checkbox" value=""> I have read and accept the terms
@@ -533,76 +547,69 @@
 											</div>
 										</div>
 									</div> -->
-								</div>
 							</div>
 						</div>
-						<div class="row">
-							<div class="col-md-12 text-center">
-								<button class="btn-btn-orange" id="placeOrder" style="border-radius: 30px;
+					</div>
+					<div class="row">
+						<div class="col-md-12 text-center">
+							<button class="btn-btn-orange" id="placeOrder" style="border-radius: 30px;
 								width: 154px;
 								background-color: rgb(79, 189, 0);
 								color: aliceblue;
 								height: 54px;"> place an order</button>
-								<div id="errorMessage"></div>
-							</div>
+							<div id="errorMessage"></div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+	</div>
 
-		<!-- Modal -->
-		<div class="modal fade" id="couponModal" tabindex="-1" role="dialog" aria-labelledby="couponModalLabel"
-			aria-hidden="true">
-			<div class="modal-dialog modal-dialog-centered" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="couponModalLabel">Available Coupons</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-body">
-						<% if (applicableCoupons && applicableCoupons.length> 0) { %>
-							<h2>Available Coupons</h2>
-							<ul>
-								<% applicableCoupons.forEach((coupon, index)=> { %>
+	<!-- Modal -->
+	<div class="modal fade" id="couponModal" tabindex="-1" role="dialog" aria-labelledby="couponModalLabel"
+		aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="couponModalLabel">Available Coupons</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<% if (applicableCoupons && applicableCoupons.length> 0) { %>
+						<h2>Available Coupons</h2>
+						<ul>
+							<% applicableCoupons.forEach((coupon, index)=> { %>
 
-									<li>
+								<li>
 
-										<input type="radio" name="couponS" id="coupon_<%= index%>"
-											value="<%=coupon.couponcode%>">
-										<input type="text" value="<%=coupon?.couponcode%>" hidden id="couponId">
-										<label for="coupon_<%= index %>">
-											<b>Code:</b>
-											<%= coupon.couponcode %> (Expires: <%=
-													coupon.expireDate.toLocaleDateString() %>)<br>
-													<b>discountPercentage:</b>
-													<%= coupon.discountPercentage %>
-										</label>
-									</li>
-									<% }); %>
-							</ul>
-							<% } else { %>
-								<p>No applicable coupons found.</p>
-								<% } %>
-									<input type="hidden" id="isCouponApplied" value="false">
+									<input type="radio" name="couponS" id="coupon_<%= index%>"
+										value="<%=coupon.couponcode%>">
+									<input type="text" value="<%=coupon?.couponcode%>" hidden id="couponId">
+									<label for="coupon_<%= index %>">
+										<b>Code:</b>
+										<%= coupon.couponcode %> (Expires: <%= coupon.expireDate.toLocaleDateString() %>
+												)<br>
+												<b>discountPercentage:</b>
+												<%= coupon.discountPercentage %>
+									</label>
+								</li>
+								<% }); %>
+						</ul>
+						<% } else { %>
+							<p>No applicable coupons found.</p>
+							<% } %>
+								<input type="hidden" id="isCouponApplied" value="false">
 
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
-						<button type="button" class="btn btn-warning" id="applySelectedCoupon">Apply Selected
-							Coupon</button>
-					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-warning" id="applySelectedCoupon">Apply Selected
+						Coupon</button>
 				</div>
 			</div>
 		</div>
-
-
-	</div>
-	</div>
-	</div>
-
 	</div>
 
 
@@ -610,56 +617,63 @@
 	</div>
 	</div>
 
-<script>
-	
-	document.addEventListener("DOMContentLoaded",()=>{
-		const Amount=document.getElementById("totalAmountid").value
-		console.log(Amount);
-		
-		if(Amount<1000){
-			const cashOnDelivery=document.getElementById("cashondelivery")
-			cashOnDelivery.disabled=true
-			document.getElementById("cashondelivery").innerHTML="Cash on Delivery (Not Available)"	
-			const h4Element = document.querySelector('input[type="radio"][id="cashondelivery"] + h4');
-            h4Element.textContent = "Cash on Delivery (Not Available)";
-            
-            // Change the color of the text
-            h4Element.style.color = "grey";
-
-		}
-	})
-</script>
-
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-        let totalAmount = parseFloat(document.getElementById("totalamountid").textContent.trim().replace(',', ''));
-		console.log(totalAmount,"amount");
-        
-        let deliveryCharge = 0;
-        
-        if (totalAmount < 500) {
-            deliveryCharge = 50;
-        } else if (totalAmount <= 1000) {
-            deliveryCharge = 30;
-        }
-		console.log('deliveryCharge',deliveryCharge);
-        
-          // Calculate the new total amount including delivery charge
-		  const newTotalAmount = totalAmount + deliveryCharge;
-		  console.log(newTotalAmount);
-        
-        // Update the delivery charge and total amount in the HTML
-        const deliveryChargeElement = document.getElementById("deliveryCharge");
-        deliveryChargeElement.textContent = `Delivery Charge; ${deliveryCharge.toFixed(2)}`;
-		totalAmount=newTotalAmount
-		totalAmount.textContent = newTotalAmount.toFixed(2);
-		
-
-    });
-</script>
+	</div>
 
 
-	
+	</div>
+	</div>
+	</div>
+
+	<script>
+
+		document.addEventListener("DOMContentLoaded", () => {
+			const Amount = document.getElementById("totalAmountid").value
+			console.log(Amount);
+
+			if (Amount < 1000) {
+				const cashOnDelivery = document.getElementById("cashondelivery")
+				cashOnDelivery.disabled = true
+				document.getElementById("cashondelivery").innerHTML = "Cash on Delivery (Not Available)"
+				const h4Element = document.querySelector('input[type="radio"][id="cashondelivery"] + h4');
+				h4Element.textContent = "Cash on Delivery (Not Available)";
+
+				// Change the color of the text
+				h4Element.style.color = "grey";
+
+			}
+		})
+	</script>
+
+	<script>
+		document.addEventListener("DOMContentLoaded", () => {
+			let totalAmount = parseFloat(document.getElementById("totalamountid").textContent.trim().replace(',', ''));
+			console.log(totalAmount, "amount");
+
+			let deliveryCharge = 0;
+
+			if (totalAmount < 500) {
+				deliveryCharge = 50;
+			} else if (totalAmount <= 1000) {
+				deliveryCharge = 30;
+			}
+			console.log('deliveryCharge', deliveryCharge);
+
+			// Calculate the new total amount including delivery charge
+			const newTotalAmount = totalAmount + deliveryCharge;
+			console.log(newTotalAmount);
+
+			// Update the delivery charge and total amount in the HTML
+			const deliveryChargeElement = document.getElementById("deliveryCharge");
+			deliveryChargeElement.textContent = `Delivery Charge; ${deliveryCharge.toFixed(2)}`;
+			totalAmount = newTotalAmount
+			totalAmount.textContent = newTotalAmount.toFixed(2);
+
+
+		});
+	</script>
+
+
+
 
 	<script>
 
@@ -682,8 +696,9 @@
 			const paymentMethod1 = document.querySelector('input[name="optradio"]:checked');
 
 			const paymentMethod = paymentMethod1.value
-			console.log('paymentMethod',paymentMethod);
-			
+			console.log('paymentMethod', paymentMethod);
+
+
 
 			fetch("/verifyStock", {
 				method: "POST",
@@ -694,14 +709,15 @@
 			})
 				.then(response => response.json())
 				.then(res => {
-					
+					console.log(res, 'response');
+
 					res.outOfStockItems.forEach(item => {
 
 						document.getElementById(item).innerHTML = 'Out of stock'
 					})
-				
+
 					if (res.outOfStockItems.length === 0) {
-						
+
 						console.log('res22222', res.outOfStockItems.length);
 
 
@@ -712,8 +728,12 @@
 						}
 
 
+
 						if (paymentMethod === 'cod' && items.length != 0) {
-							const codeAvailability=document.getElementById('codeAvailability')
+							const codeAvailability = document.getElementById('codeAvailability')
+							let totalamount = parseFloat(document.getElementById("totalamountid").textContent.trim().replace(',', ''));
+							console.log(totalamount, "amount");
+							console.log('totalamount', totalamount);
 							console.log('2020', items.length)
 							console.log("payment", paymentMethod);
 							fetch("/stockresult", {
@@ -721,7 +741,7 @@
 								headers: {
 									'content-Type': 'application/json'
 								},
-								body: JSON.stringify({ data, paymentMethod })
+								body: JSON.stringify({ data, paymentMethod, totalamount })
 							})
 								.then(res => res.json())
 								.then(response => {
@@ -731,9 +751,13 @@
 										toastr.error('Please add the Address to checkout');
 									}
 									console.log("response from backend:", data);
-									if (response.message === 'order completed'	) {
+									if (response.message === 'order completed') {
 										window.location.href = '/thankyou'
 									}
+								})
+								.catch(error => {
+									console.log('cod error');
+									console.error("Error in Razorpay payment:", error)
 								})
 
 						}
@@ -742,6 +766,7 @@
 							console.log("in in 2");
 							const totalAmount = document.getElementById('totalAmountid').value;
 							console.log(totalAmount, "totalAmount");
+
 
 							fetch('/razorpayment', {
 								method: 'post',
@@ -773,27 +798,94 @@
 										},
 										"theme": {
 											"color": "#3399cc"
-										}	
+										}
 									};
 									const rzp1 = new Razorpay(options);
-									rzp1.open();
+									// Add the success and failure handlers
+
+									rzp1.on('payment.failed', function (response) {
+										console.error("Payment failed:", response);
+										alert("Payment failed. Redirecting to orders page.");
+										console.log("is it");
+
+
+										// Call a backend endpoint to update the order status
+										fetch('/failurePayment', {
+											method: 'POST',
+											headers: {
+												'Content-Type': 'application/json',
+											},
+											body: JSON.stringify({ data }),
+										}).then(() => {
+											window.location.href = '/orderpage'; // Redirect to the orders page
+										}).catch(error => {
+											console.error("Error updating order status:", error);
+										});
+									});
+
+									rzp1.open()
 								})
 								.catch(error => {
-									console.error("Error in Razorpay payment:", error);
-								});
+									console.log('123');
+									console.error("Error in Razorpay payment:", error)
+								})
 						}
+						// 
+						if (paymentMethod === 'walletPayment' && items.length !== 0) {
+							const totalamount = parseFloat(document.getElementById('walletid').value);
+							const orderAmount = parseFloat(document.getElementById('totalAmountid').value);
+
+							console.log("totalamount", totalamount);
+							console.log("orderamount", orderAmount);
+
+							if (totalamount >= orderAmount) {
+								fetch('/walletPayment', {
+									method: 'post',
+									headers: {
+										'Content-Type': 'application/json'
+									},
+									body: JSON.stringify({ totalamount, data, paymentMethod, orderAmount })
+								})
+									.then(res => res.json())
+									.then(response => {
+										console.log("hi1111");
+										if (res.status === 401) {
+											console.log("hi");
+											toastr.error('Please add the Address to checkout');
+										}
+										console.log("response from backend:", data);
+										if (response.message === 'order completed') {
+											window.location.href = '/thankyou'
+										}
+									})
+									.catch(error => {
+										console.error("Error in wallet payment:", error);
+									});
+							} else {
+								console.log("Insufficient wallet balance.");
+								// Handle insufficient balance scenario
+							}
+						}
+						else {
+							res.outOfStockItems.forEach(item => {
+								document.getElementById(item).innerHTML = 'Out of stock';
+							});
+						}
+
 					}
 				})
 				.catch(error => {
-					console.error("Error verifying stock:", error);
+					console.log('2222222222222222222222222');
+					console.error("Error verifying stock:", error.message);
+					window.location.href = '/login'
 				});
 		});
-
 
 	</script>
 
 	<button id="rzp-button1">Pay</button>
 	<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
 
 	<script>
 
@@ -802,74 +894,74 @@
 			const isCouponApplied = document.getElementById("isCouponApplied");
 
 			applyButton.addEventListener("click", function () {
-				console.log('isCouponApplied',isCouponApplied.value);
-			if(isCouponApplied.value==='false'){
-				const selectedCoupon = document.querySelector('input[name="couponS"]:checked');
-				const totalAmount = document.getElementById('totalAmountid').value;
+				console.log('isCouponApplied', isCouponApplied.value);
+				if (isCouponApplied.value === 'false') {
+					const selectedCoupon = document.querySelector('input[name="couponS"]:checked');
+					const totalAmount = document.getElementById('totalAmountid').value;
 
-				console.log(selectedCoupon);
-				const userEmail = '<%= detail.email %>';
-				if (selectedCoupon) {
-					const couponCode = selectedCoupon.value;
-					console.log(`Applying coupon: ${couponCode}`);
+					console.log(selectedCoupon);
+					const userEmail = '<%= detail.email %>';
+					if (selectedCoupon) {
+						const couponCode = selectedCoupon.value;
+						console.log(`Applying coupon: ${couponCode}`);
 
-					// Send request to apply the selected coupon
-					fetch(`/applyCoupon`, {
-						method: "POST",
-						headers: {
-							'Content-Type': 'application/json'
-						},
-						body: JSON.stringify({ couponCode, userEmail, totalAmount })
-					})
-						.then(response => response.json())
-						.then(data => {
-							if (data.newTotalAmount !== undefined) {
+						// Send request to apply the selected coupon
+						fetch(`/applyCoupon`, {
+							method: "POST",
+							headers: {
+								'Content-Type': 'application/json'
+							},
+							body: JSON.stringify({ couponCode, userEmail, totalAmount })
+						})
+							.then(response => response.json())
+							.then(data => {
+								if (data.newTotalAmount !== undefined) {
+									Swal.fire({
+										title: "Success!",
+										text: `Coupon has been applied. You saved ₹${data.discount}.`,
+										icon: "success",
+									}).then(() => {
+										document.getElementById('isCouponApplied').value = 'true';
+										// Update the total amount on the page
+										document.getElementById("totalAmountid").value = data.newTotalAmount;
+										document.getElementById("totalamountid").innerHTML = data.newTotalAmount;
+										document.querySelector("span#totalAmountDisplay").innerText = `₹ ${data.newTotalAmount}`;
+
+
+									});
+								} else {
+									Swal.fire({
+										title: "Failed!",
+										text: data.message || "Failed to apply coupon.",
+										icon: "error",
+									});
+								}
+							})
+							.catch(error => {
+								console.error("Error:", error);
 								Swal.fire({
-									title: "Success!",
-									text: `Coupon has been applied. You saved ₹${data.discount}.`,
-									icon: "success",
-								}).then(() => {
-                                      document.getElementById('isCouponApplied').value='true';
-									// Update the total amount on the page
-									document.getElementById("totalAmountid").value = data.newTotalAmount;
-									document.getElementById("totalamountid").innerHTML = data.newTotalAmount;
-									document.querySelector("span#totalAmountDisplay").innerText = `₹ ${data.newTotalAmount}`;
-									
-
-								});
-							} else {
-								Swal.fire({
-									title: "Failed!",
-									text: data.message || "Failed to apply coupon.",
+									title: "Error!",
+									text: "An error occurred while applying the coupon.",
 									icon: "error",
 								});
-							}
-						})
-						.catch(error => {
-							console.error("Error:", error);
-							Swal.fire({
-								title: "Error!",
-								text: "An error occurred while applying the coupon.",
-								icon: "error",
 							});
+					} else {
+						Swal.fire({
+							title: "Warning!",
+							text: "Please select a coupon to apply.",
+							icon: "warning",
 						});
+					}
 				} else {
-					Swal.fire({
-						title: "Warning!",
-						text: "Please select a coupon to apply.",
-						icon: "warning",
-					});
-				}
-			} else {
 					Swal.fire({
 						title: "Warning!",
 						text: "Already Applied!",
 						icon: "warning",
 					});
 				}
-			
+
 			});
-		
+
 		});
 
 
@@ -903,4 +995,374 @@
 	<!-- Main -->
 	<script src="js/main.js"></script>
 
-	<%-include('include/foot')-%>
+
+	</article>
+	</main>
+
+
+	<footer class="footer">
+
+		<div class="footer-top section">
+			<div class="container">
+
+				<div class="footer-brand">
+
+					<a href="#" class="logo">
+						<img src="../public/imgee/bro-logo-bro-letter-bro-letter-logo-design-initials-bro-logo-linked-bro.jpg"
+							width="90" height="50" alt="Footcap logo">
+					</a>
+
+					<ul class="social-list">
+
+						<li>
+							<a href="#" class="social-link">
+								<ion-icon name="logo-facebook"></ion-icon>
+							</a>
+						</li>
+
+						<li>
+							<a href="#" class="social-link">
+								<ion-icon name="logo-twitter"></ion-icon>
+							</a>
+						</li>
+
+						<li>
+							<a href="#" class="social-link">
+								<ion-icon name="logo-pinterest"></ion-icon>
+							</a>
+						</li>
+
+						<li>
+							<a href="#" class="social-link">
+								<ion-icon name="logo-linkedin"></ion-icon>
+							</a>
+						</li>
+
+					</ul>
+
+				</div>
+
+				<div class="footer-link-box">
+
+					<ul class="footer-list">
+
+						<li>
+							<p class="footer-list-title">Contact Us</p>
+						</li>
+
+						<li>
+							<address class="footer-link">
+								<ion-icon name="location"></ion-icon>
+
+								<span class="footer-link-text">
+									BRODWAY, Arappura street 123
+								</span>
+							</address>
+						</li>
+
+						<li>
+							<a href="tel:+557343673257" class="footer-link">
+								<ion-icon name="call"></ion-icon>
+
+								<span class="footer-link-text">9048601090</span>
+							</a>
+						</li>
+
+						<li>
+							<a href="mailto:footcap@help.com" class="footer-link">
+								<ion-icon name="mail"></ion-icon>
+
+								<span class="footer-link-text">brodway@help.com</span>
+							</a>
+						</li>
+
+					</ul>
+
+					<ul class="footer-list">
+
+						<li>
+							<p class="footer-list-title">My Account</p>
+						</li>
+
+						<li>
+							<a href="/profile" class="footer-link">
+								<ion-icon name="chevron-forward-outline"></ion-icon>
+
+								<span class="footer-link-text">My Account</span>
+							</a>
+						</li>
+
+						<li>
+							<a href="/cart" class="footer-link">
+								<ion-icon name="chevron-forward-outline"></ion-icon>
+
+								<span class="footer-link-text">View Cart</span>
+							</a>
+						</li>
+
+						<li>
+							<a href="/wishlist" class="footer-link">
+								<ion-icon name="chevron-forward-outline"></ion-icon>
+
+								<span class="footer-link-text">Wishlist</span>
+							</a>
+						</li>
+
+						<li>
+							<a href="#" class="footer-link">
+								<ion-icon name="chevron-forward-outline"></ion-icon>
+
+								<span class="footer-link-text">Compare</span>
+							</a>
+						</li>
+
+						<li>
+							<a href="#" class="footer-link">
+								<ion-icon name="chevron-forward-outline"></ion-icon>
+
+								<span class="footer-link-text">New Products</span>
+							</a>
+						</li>
+
+					</ul>
+
+					<div class="footer-list">
+
+						<p class="footer-list-title">Offer Time</p>
+
+						<table class="footer-table">
+							<tbody>
+
+								<tr class="table-row">
+									<th class="table-head" scope="row">Mon - Tue:</th>
+
+									<td class="table-data">8AM </td>
+								</tr>
+
+								<tr class="table-row">
+									<th class="table-head" scope="row">Wed:</th>
+
+									<td class="table-data">7PM</td>
+								</tr>
+
+								<tr class="table-row">
+									<th class="table-head" scope="row">Fri:</th>
+
+									<td class="table-data">12PM</td>
+								</tr>
+
+								<tr class="table-row">
+									<th class="table-head" scope="row">Sat:</th>
+
+									<td class="table-data">12 Am</td>
+								</tr>
+
+								<tr class="table-row">
+									<th class="table-head" scope="row">Sun:</th>
+
+									<td class="table-data">Special</td>
+								</tr>
+
+							</tbody>
+						</table>
+
+					</div>
+
+					<div class="footer-list">
+
+						<p class="footer-list-title">Newsletter</p>
+
+						<p class="newsletter-text">
+							Authoritatively morph 24/7 potentialities with error-free partnerships.
+						</p>
+
+
+
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+
+		<div class="footer-bottom">
+			<div class="container">
+
+				<p class="copyright">
+					&copy; 2024 <a href="#" class="copyright-link">BRODWAY</a>. All Rights Reserved
+				</p>
+
+			</div>
+		</div>
+
+
+	</footer>
+
+
+
+
+
+	<!-- 
+- #GO TO TOP
+-->
+
+	<a href="#top" class="go-top-btn" data-go-top>
+		<ion-icon name="arrow-up-outline"></ion-icon>
+	</a>
+
+
+	<script>
+		const quantity = async (type, item) => {
+			let quantityElement = document.getElementById(`quantity_${item._id}`);
+			let totalPriceElement = document.getElementById(`total_price_${item._id}`);
+
+			let quantityValue = parseInt(quantityElement.value);
+
+			if (type === 'inc') {
+				if (quantityValue < item.productId.stock) {
+					quantityValue++;
+				} else {
+					Swal.fire({
+						title: 'Stock Exceeded!',
+						text: 'Cannot add more than available Stock',
+						icon: 'warning',
+						confirmButtonText: 'OK'
+					});
+					return;
+				}
+			} else {
+				if (quantityValue > 1) {
+					quantityValue--;
+				}
+			}
+
+			quantityElement.value = quantityValue;
+
+			let totalPrice = quantityValue * item.productId.price;
+			totalPriceElement.innerText = `$${totalPrice}`;
+
+			try {
+				const res = await fetch('/quantity', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({ qua: quantityValue, id: item._id })
+				});
+
+				if (!res.ok) {
+					throw new Error('Failed to fetch');
+				}
+			} catch (error) {
+				console.error('Error:', error);
+			}
+		};
+
+
+	</script>
+
+
+	<script>
+		document.getElementById('sortBySelect').addEventListener("change", async () => {
+			console.log("hi");
+			const sortBySelect = document.getElementById('sortBySelect').value;
+			console.log('sortBySelect', sortBySelect);
+			const categoryId = document.getElementById('catt').value;
+			console.log(categoryId, "selectedOption");
+
+			try {
+				console.log("hi1");
+				const response = await fetch('/priceFilter', {
+					method: 'POST',
+					headers: {
+						'Content-type': 'application/json'
+					},
+					body: JSON.stringify({ sortBySelect, categoryId })
+				});
+				const sortedProducts = await response.json();
+				console.log(sortedProducts, "response");
+
+				// Function to render products in the DOM
+				renderProducts(sortedProducts);
+			} catch (error) {
+				console.error("Error fetching sorted products:", error);
+			}
+		});
+
+		function renderProducts(products) {
+			console.log("render");
+			const productsContainer = document.getElementById('productsContainer');
+			productsContainer.innerHTML = ''; // Clear existing products
+
+			products.forEach(product => {
+				console.log("products");
+				const productHTML = `
+                <div class="col-lg-3 col-md-4 col-sm-6 mb-4 text-center " data-price="${product.price}">
+                
+                <div class="card product-card h-100" style="height: 500px;">
+                    <div class="pro-img" >
+                    <a href="/productdetail?id=${product._id}" class="prod-img">
+                        <img src="${product.images[0]}" class="card-img-top " alt="${product.product_name}" >
+                    </a>
+                </div>
+                    <div class="card-body product-details">
+                        <h5 class="card-title product-title">
+                            <a href="/productdetail?id=${product._id}">
+                                ${product.product_name}
+                            </a>
+                        </h5>
+                        ${product.offerPrice && product.offerPrice < product.price ? `
+                        <p class="card-text product-price">
+                            <span class="original-price" style="text-decoration: line-through;">&#8377;${product.price}</span>
+                            <span class="offer-price">&#8377;${product.offerPrice}</span>
+                            <span class="discount-percentage text-success">(${Math.round(((product.price - product.offerPrice) / product.price) * 100)}% off)</span>
+                        </p>` : `
+                        <p class="card-text product-price">&#8377;${product.price}</p>`
+					}
+                        <p class="card-text product-brand">${product.brand}</p>
+                ${product.stock > 0 ? `
+                                <button class="btn btn-primary btn-add-cart">
+                                    <a href="/cart/${product._id}" class="text-white">Add to Cart</a>
+                                </button>` : `
+                                <p class="out-of-stock text-danger">Out of Stock</p>`
+					}
+                    </div>
+                </div>
+            </div>`;
+				productsContainer.innerHTML += productHTML;
+			});
+			productsContainer.appendChild(rowDiv);
+		}
+	</script>
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			const sections = document.querySelectorAll('.filter-section');
+
+			sections.forEach(section => {
+				const header = section.querySelector('h3');
+				header.addEventListener('click', function () {
+					const content = section.querySelector('.filter-section-content');
+					content.classList.toggle('active');
+				});
+			});
+		});
+	</script>
+
+
+
+
+
+	<!-- 
+- custom js link
+-->
+	<script src="./assets/js/script.js"></script>
+
+	<!-- 
+- ionicon link
+-->
+	<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+	<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+</body>
+
+</html>

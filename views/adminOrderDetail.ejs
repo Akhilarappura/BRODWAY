@@ -173,13 +173,20 @@
         <div class="col-lg-10 col-xl-8">
           <div class="card" style="border-radius: 10px;">
             <div class="card-header px-4 py-5">
-              <h5 class="text-muted mb-0"> Order Details, <span style="color: #a8729a;"></span><%=order.address.name%></h5>
+              <h3 class="text-muted mb-0"> <p>Order Details, </p><span style="color: #a8729a;"></span><%=order.address.name%></h3>
+              
+              <h6 class="text-muted mb-0">  <span style="color: #a8729a;"></span><%=order.address.mobileNumber%></h6>
+              <h6 class="text-muted mb-0">  <span style="color: #a8729a;"></span><%=order.address.locality%></h6>
+              <h6 class="text-muted mb-0">  <span style="color: #a8729a;"></span><%=order.address.state%></h6>
+              <h6 class="text-muted mb-0">  <span style="color: #a8729a;"></span><%=order.address.country%></h6>
+              <h6 class="text-muted mb-0">  <span style="color: #a8729a;"></span><%=order.address.pincode%></h6>
             </div>
             <div class="card-body p-4">
               <div class="d-flex justify-content-between align-items-center mb-4">
                 <p class="lead fw-normal mb-0" style="color: #a8729a;">Receipt</p>
-                <p class="small text-muted mb-0">Receipt Voucher :<%=order.id%></p>
-              </div>
+                <p class="small text-muted mb-0">Order Id :<%=order.id%></p>
+               </div>
+            
               <%order.items.forEach(item=>{%>
               <div class="card shadow-0 border mb-4">
                 <div class="card-body">
@@ -233,23 +240,10 @@
               <div class="d-flex justify-content-between pt-2">
                 <p class="fw-bold mb-0">Order Details</p>
                 <p class="text-muted mb-0"><span class="fw-bold me-4">Total</span> <%=order.totalAmount%></p>
-              </div>
-<!-- 
-              <div class="d-flex justify-content-between pt-2">
-                <p class="text-muted mb-0">Invoice Number : 788152</p>
-                <p class="text-muted mb-0"><span class="fw-bold me-4">Discount</span> $19.00</p>
+                
               </div>
 
-              <div class="d-flex justify-content-between">
-                <p class="text-muted mb-0">Invoice Date : 22 Dec,2019</p>
-                <p class="text-muted mb-0"><span class="fw-bold me-4">GST 18%</span> 123</p>
-              </div> -->
 
-              <!-- <div class="d-flex justify-content-between mb-5">
-                <p class="text-muted mb-0">Recepits Voucher : 18KU-62IIK</p>
-                <p class="text-muted mb-0"><span class="fw-bold me-4">Delivery Charges</span> Free</p>
-              </div>
-            </div> -->
             <div class="card-footer border-0 px-4 py-5"
               style="background-color: #a8729a; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">
               <h5 class="d-flex align-items-center justify-content-end text-white text-uppercase mb-0">Total: <span class="h2 mb-0 ms-2"><%=order.totalAmount%></span></h5>

@@ -81,7 +81,7 @@ const get_cart = async (req, res) => {
 };
 
 
-
+console.log("hi14");
 const addtocart = async (req, res) => {
     try {
         const productId = req.params.id;

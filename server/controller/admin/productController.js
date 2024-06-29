@@ -1,5 +1,6 @@
 const categorydb = require('../../model/categoryModel');
 const productdb = require('../../model/productModel');
+const offerdb=require('../../model/offerModel')
 const multer = require('multer')
 
 
@@ -27,13 +28,53 @@ const list = async (req, res) => {
     try {
 
         const categories = await categorydb.find();
-        const products = await productdb.find().populate('category');
-        res.render('allproducts', { products, categories });
+        let products = await productdb.find().populate('category')
+   
+        const offers=await offerdb.find().populate('product_name')
+
+         // Apply offers and update final price in products
+    products = products.map(pdt => {
+        let offerApplied = false;
+        let savedAmount = 0;
+        let finalPrice = pdt.price;
+        let discountPercentage = 0;
+  
+        offers.forEach(offer => {
+          if (offer.product_name && offer.product_name._id.toString() === pdt._id.toString()) {
+            offerApplied = true;
+            savedAmount = offer.discount_Amount;
+            discountPercentage = offer.discount_Percentage;
+            finalPrice = pdt.price - offer.discount_Amount;
+  
+            // Update product with offer details
+            pdt.offerApplied = true;
+            pdt.offerDetails = {
+              offerName: offer.offerName,
+              discountAmount: offer.discount_Amount,
+              discountPercentage: offer.discount_Percentage,
+            };
+            pdt.finalPrice = finalPrice;
+          }
+        });
+  
+        // Save updates to database
+        pdt.save(); // Assuming pdt is a Mongoose model instance
+        return pdt;
+      });
+
+
+
+
+
+
+
+
+        res.render('allproducts', { products, categories,offers });
     }
 
 
     catch (error) {
-        console.log("error");
+        console.log("error.message",error);
         res.status(500).render('error500')
 
     }
@@ -195,7 +236,7 @@ const post_edit = async (req, res) => {
         res.render("error500")
     }
 }
-
+    
 
 
 const block = async (req, res) => {

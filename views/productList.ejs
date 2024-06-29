@@ -44,6 +44,10 @@
     flex-direction: row;
     align-items: flex-start;
   }
+  .navbar-link{
+font-size: 20px;
+font-weight: bold;
+  }
 
   .filter-section {
     flex: 0 0 200px;
@@ -69,7 +73,7 @@
   }
 
   .pro-img img {
-    max-width: 80%;
+    max-width: 100%;
     height: auto;
   }
 
@@ -299,8 +303,8 @@
     </div>
   </section>                                                  
   <div class="sort-container" style="display: flex; justify-content: flex-end; margin: 10px 0;">
-    <button class="sort-button" id="sortButton">
-        <span class="sort-text">FILTER & SORT</span>
+    <button class="sort-button"style="border-radius: 46px;" id="sortButton">
+        <span class="sort-text" >FILTER & SORT</span>
         <div class="sort-icon">
             <div class="sort-line"></div>
             <div class="sort-line"></div>
@@ -311,7 +315,9 @@
 <div class="filter-section col-4" id="filterSection" style="display: none;">
     <h3>Price</h3>
     <p>
-        <select class="form-select" id="sortBySelect">
+        <select class="form-select" id="sortBySelect" style="    width: 12rem;
+        height: 3rem;
+        border-radius: 10px;">
             <option value="" disabled selected>Sort By</option>
             <option value="popularity">Popularity</option>
             <option value="price-low-to-high">Price - Low to High</option>
@@ -334,7 +340,7 @@
           <span class="navbar-toggler-icon"></span>
         </button> -->
              
-      <div class="container row " >
+      <div class="container row "  style="margin: 0rem 0rem 0rem 14rem;">
 
         <div class="productsContainer row" id="productsContainer">
     

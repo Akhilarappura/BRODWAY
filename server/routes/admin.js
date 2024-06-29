@@ -93,6 +93,10 @@ route.post('/editCoupon/:id', check.verifyAdmin, coupon.posteditCoupon)
 route.get('/getSalesReport', check.verifyAdmin, salesReportController.getSalesReport)
 route.get('/salesReport', check.verifyAdmin, salesReportController.generateReport);
 route.get('/generateReport', salesReportController.modalgenerateReport)
+//chart
+route.get('/dailyChart',check.verifyAdmin,salesReportController.dailyChart)
+route.get('/monthlyChart',check.verifyAdmin,salesReportController.monthlySales)
+route.get('/yearlyChart',check.verifyAdmin,salesReportController.yearlySales)
 
 //offerController
 route.get('/offer', check.verifyAdmin, offerController.getOffer)

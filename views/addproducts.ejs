@@ -263,9 +263,11 @@
         <button id="cropButton" class="btn btn-primary mt-2">Crop Image</button>
           </div>
           <div class="mb-3">
-            <label for="stat" class="form-label">Description:</label>
-            <textarea class="form-control" id="stat" name="stat"></textarea>
+            <label for="final_price" class="form-label">Final Price:</label>
+            <input type="number" min="1" class="form-control" id="final_price" name="final_price" required>
+            <span id="finalPriceError" class="error" style="color:red"></span>
         </div>
+    
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
     </div>

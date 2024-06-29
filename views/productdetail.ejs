@@ -176,9 +176,11 @@
                         width: 428px;
                         gap: 21px;">
                                     <button type="button" class="btn btn-danger" style="width: 50%;
-    height: 60px;"> <a href="/cart/<%= prod._id %>" class="text-white">Add to Cart</a>
+                              height: 60px;"> <a href="/cart/<%= prod._id %>" class="text-white">Add to Cart</a>
                                     </button>
-                                    <button type="button" class="btn btn-danger" style="width: 50%;">Buy Now</button>
+                                    <button type="button" class="btn btn-danger" style="width: 50%;">
+                                        <a href="/wishlist/<%= prod._id %>" class="text-white">Add to Wishlist</a>
+                                    </button>
                                 </div>
                                 <button class="carousel-control-prev" type="button"
                                     data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -193,7 +195,7 @@
                             </div>
                             <div>
                                 <!-- <h3></h3> -->
-                                <div class="product_details-container container">
+                                <div class="product_details-container container" style="margin: -4rem 0rem  0rem 10rem; margin-bottom: 7rem;">
                                     <h1 class="product_details-title">
                                         <%=prod.product_name%>
                                     </h1>

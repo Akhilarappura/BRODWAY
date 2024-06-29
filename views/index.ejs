@@ -1,8 +1,10 @@
 <%-include('include/nav')-%>
 
   <main>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <article>
       <style>
+       
 
 .product_details-card {
     width: 300px;
@@ -111,12 +113,22 @@
 .product_details-delivery {
     font-size: 0.9em;
 }
+.icon-wishlist{
+  position: absolute;
+  color: #fff;
+    translate: 324% 1719%;
+  
+}
+.akhil{
+  background-color:blue ;
+}
 
 @media (max-width: 768px) {
     .product_details-card {
         width: 100%;
     }
 }
+
       </style>
 
       <section class="section hero" style="background-image: url('/public/imgee/hero-banner.png')">
@@ -227,81 +239,90 @@
             </li>
 
           </ul>
-
-          <ul class="product-list">
-            <% products.forEach(product => { %>
-              <% if (product.list === 'listed' && product.category.list === 'listed') { %>
-                <li class="product-item">
-                  <!--  -->
-                  <div class="product_details-card">
-                    <div class="product_details-card-header">
-                        <a href="/productdetail?id=<%= product._id %>">
-                            <img src="<%= product.images[0] %>" alt="<%= product.product_name %>" class="product_details-image">
-                        </a>
-                        <div class="product_details-colors">
-                            <a href="#"></a>
-                        </div>
-                    </div>
-                    
-                    <div class="product_details-card-body">
-                        <div class="product_details-sponsored">Sponsored</div>
-                        <h5 class="product_details-title"><%= product.product_name %></h5>
-                        <p class="product_details-description">
-                          <%= product.description %>
-                        </p>
-                        <div class="product_details-rating">
-                            <span class="product_details-stars">★★★★★</span>
-                            <span class="product_details-reviews">6</span>
-                        </div>
-                        <div class="product_details-pricing">
-                            <% if (product.offerPrice && product.offerPrice < product.price) { %>
-                                <h4 class="product_details-offer-price">&#8377;<%= product.offerPrice %></h4>
-                                <span class="product_details-original-price">M.R.P.: &#8377;<%= product.price %></span>
-                                <span class="product_details-discount">(<%= Math.round(((product.price - product.offerPrice) / product.price) * 100) %> % off)</span>
-                            <% } else { %>
-                                <h4 class="product_details-price">&#8377;<%= product.price %></h4>
-                            <% } %>
-                        </div>
-                        <div class="product_details-prime">
-                            <span class="product_details-prime-icon">✔️ </span>
-                            <span class="product_details-delivery"></span>
-                        </div>
-                        <div style="display: flex; justify-content: space-between;">
-                        <% if (product.stock > 0) { %>
-                            <button class="btn btn-primary btn-add-cart">
-                                <a href="/cart/<%= product._id %>" class="text-white">Add to Cart</a>
-                            </button>
+          <div>
+            <ul class="product-list">
+              <% products.forEach(product => { %>
+                <% if (product.list === 'listed' && product.category.list === 'listed') { %>
+                  <li class="product-item">
+                    <!--  -->
+                    <div class="product_details-card">
+                      <div class="product_details-card-header">
+                          <a href="/productdetail?id=<%= product._id %>">
+                              <img src="<%= product.images[0] %>" alt="<%= product.product_name %>" class="product_details-image">
+                          </a>
+                          <div class="product_details-colors">
+                              <a href="#"></a>
+                          </div>
+                      </div>
+                      
+                      <div class="product_details-card-body">
+                          <div class="product_details-sponsored">Sponsored</div>
+                          <h5 class="product_details-title"><%= product.product_name %></h5>
+                          <p class="product_details-description">
+                            <%= product.description %>
+                          </p>
+                          <div class="product_details-rating">
+                            
+                          </div>
+                          <div class="product_details-pricing">
+                              <% if (product.offerPrice && product.offerPrice < product.price) { %>
+                                  <h4 class="product_details-offer-price">&#8377;<%= product.offerPrice %></h4>
+                                  <span class="product_details-original-price">M.R.P.: &#8377;<%= product.price %></span>
+                                  <span class="product_details-discount">(<%= Math.round(((product.price - product.offerPrice) / product.price) * 100) %> % off)</span>
+                              <% } else { %>
+                                  <h4 class="product_details-price">&#8377;<%= product.price %></h4>
+                              <% } %>
+                          </div>
+                          <div class="product_details-prime">
+                            
+                              <span class="product_details-delivery"></span>
+                          </div>
+                          <div style="display: flex; gap: 9px;">
+                          <% if (product.stock > 0) { %>
+                              <button class="btn btn-success btn-add-cart">
+                                  <a href="/cart/<%= product._id %>" class="text-white"><ion-icon name="cart-outline"></ion-icon></a>
+                              </button>
+                          <% } else { %>
+                              <p class="out-of-stock text-danger">Out of Stock</p>
+                          <% } %>
+                          
+                           
+                      
+                        <% if (wishlist && wishlist.items.some(items=>items.productId.toString()===product._id.toString())) { %>
+                          <button class="btn btn-success btn-add-cart">
+                            <a href="/wishlist" class="text-white"><ion-icon name="heart-outline"></ion-icon></a>
+                        </button>
+                      
+                          <!-- <a href="/wishlist"><img src="/public/imgee/bro-logo-bro-letter-bro-letter-logo-design-initials-bro-logo-linked-bro.jpg" alt=""></a>
+                         -->
                         <% } else { %>
-                            <p class="out-of-stock text-danger">Out of Stock</p>
+                          <button class="btn btn-success btn-add-cart">
+                            <a href="/wishlist/<%= product._id %>" class="text-white"><ion-icon name="heart-circle-outline"></ion-icon></a>
+                        </button>
+                        
+                          <!-- <a href="/wishlist/<%= product._id %>"><i class="far fa-heart wishlist-icon"></i></a> -->
+                        
                         <% } %>
-                        
-                         
-                    
-                      <% if (wishlist && wishlist.items.some(items=>items.productId.toString()===product._id.toString())) { %>
-                        <button class="btn btn-primary btn-add-cart">
-                          <a href="/wishlist" class="text-white">Add to Fav</a>
-                      </button>
-										
-                        <!-- <a href="/wishlist"><img src="/public/imgee/bro-logo-bro-letter-bro-letter-logo-design-initials-bro-logo-linked-bro.jpg" alt=""></a>
-                       -->
-                      <% } else { %>
-                        <button class="btn btn-primary btn-add-cart">
-                          <a href="/wishlist/<%= product._id %>" class="text-white">Add to Fav</a>
-                      </button>
-                      
-                        <!-- <a href="/wishlist/<%= product._id %>"><i class="far fa-heart wishlist-icon"></i></a> -->
-                      
-                      <% } %>
-                    </div>
-                        
-                    </div>
-                </div>
-                
+                      </div>
+                          
+                      </div>
+                  </div>
+                  
+  
+  
+  
+  
+  
+  
+                    <!--  -->
+  
+          
+                  </li>
+                <% } %>
+            <%})%>
+            </ul>
+          </div>
 
-                </li>
-              <% } %>
-          <%})%>
-          </ul>
 
         </div>
       </section>

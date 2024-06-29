@@ -4,29 +4,29 @@ const wishlistdb = require('../../model/wishlistModel');
 const cartdb = require('../../model/cartmodel')
 
 
-
 const getWishlist = async (req, res) => {
     try {
-
         const user = req.session.email;
         const userEmail = await userdb.findOne({ email: req.session.email });
         const userId = userEmail._id;
         console.log(userId);
+
         const wishlist = await wishlistdb.findOne({ user: userId }).populate('items.productId');
-        const Category = await categorydb.find()
+        const Category = await categorydb.find();  // Make sure Category is correctly defined and retrieved
         const cart = await cartdb.findOne({ user: userId });
         let cartCount = cart ? cart.items.length : 0;
 
         if (!wishlist) {
-            return res.render('wishlist', { wishlist: { items: [] }, user });
+            return res.render('wishlist', { wishlist: { items: [] }, user, Category, userToken: req.cookies.userToken, cartCount });
         }
 
-        res.render('wishlist', { wishlist, user, Category, userToken: req.cookies.userToken, cartCount });
+        res.render('wishlist', { wishlist, user, Category, userToken: req.cookies.userToken, cartCount });  // Ensure Category is passed here
     } catch (err) {
         console.error(err);
         res.render('error500');
     }
 };
+
 
 
 
@@ -51,7 +51,7 @@ const addtowishlist = async (req, res) => {
         else {
             userWish.items.push({ productId: productId });
             await userWish.save()
-            res.redirect('/')
+            res.redirect('/wishlist')
         }
 
 

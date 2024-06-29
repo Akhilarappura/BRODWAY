@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.product_details-container {
+    padding: 20px;
+}
+
+.product_details-sort {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.product_details-sort h2 {
+    margin: 0;
+}
+
+.product_details-filters select {
+    margin-left: 10px;
+    padding: 5px;
+}
+
+.product_details-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.product_details-card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    text-align: center;
+    padding: 10px;
+}
+
+.product_details-card img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.product_details-card h3 {
+    margin: 10px 0;
+    font-size: 1.2em;
+}
+
+.product_details-platforms {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.product_details-platforms span {
+    background-color: #e1e1e1;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: 0.9em;
+}
+
+    </style>
+    <div class="product_details-container">
+        <div class="product_details-sort">
+            <h2>Sort By:</h2>
+            <div class="product_details-filters">
+                <select>
+                    <option value="all-platforms">All Platforms</option>
+                </select>
+                <select>
+                    <option value="new-to-old">New to Old</option>
+                </select>
+            </div>
+        </div>
+        <div class="product_details-grid">
+            <div class="product_details-card">
+                <img src="image1.jpg" alt="Star Wars Outlaws">
+                <h3>Star Wars Outlaws</h3>
+                <div class="product_details-platforms">
+                    <span>Xbox</span>
+                    <span>PlayStation</span>
+                    <span>Windows</span>
+                </div>
+            </div>
+            <div class="product_details-card">
+                <img src="image2.jpg" alt="Assassin’s Creed Shadows">
+                <h3>Assassin’s Creed Shadows</h3>
+                <div class="product_details-platforms">
+                    <span>Xbox</span>
+                    <span>PlayStation</span>
+                    <span>Windows</span>
+                    <span>Mac</span>
+                    <span>Luna</span>
+                </div>
+            </div>
+            <div class="product_details-card">
+                <img src="image3.jpg" alt="XDefiant">
+                <h3>XDefiant</h3>
+                <div class="product_details-platforms">
+                    <span>Xbox</span>
+                    <span>PlayStation</span>
+                    <span>Windows</span>
+                </div>
+            </div>
+            <div class="product_details-card">
+                <img src="image4.jpg" alt="Anno 117: Pax Romana">
+                <h3>Anno 117: Pax Romana</h3>
+                <div class="product_details-platforms">
+                    <span>Xbox</span>
+                    <span>PlayStation</span>
+                    <span>Windows</span>
+                </div>
+            </div>
+            <div class="product_details-card">
+                <img src="image5.jpg" alt="Avatar: Frontiers of Pandora">
+                <h3>Avatar: Frontiers of Pandora™</h3>
+                <div class="product_details-platforms">
+                    <span>Xbox</span>
+                    <span>PlayStation</span>
+                    <span>Windows</span>
+                    <span>Luna</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

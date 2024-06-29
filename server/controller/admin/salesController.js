@@ -3,6 +3,98 @@ const PDFDocument = require('pdfkit-table');
 const moment = require('moment');
 const ExcelJS = require('exceljs');
 
+
+//dailyChart
+
+const dailyChart=async(req,res)=>{
+    try {
+        const dailySales = await orderdb.aggregate([
+            {
+                $group: {
+                    _id: { $dateToString: { format: "%Y-%m-%d", date: "$orderedDate" } },
+                    totalSales: { $sum: "$totalAmount" },
+                    count: { $sum: 1 }
+                }
+            },
+            {
+                $sort: { _id: 1 }
+            }
+        ]);
+        console.log(dailySales);
+        res.status(200).json(dailySales);
+
+        
+    } catch (error) {
+        console.log(error);
+        res.status(500).redirect('/error500')
+        
+    }
+
+}
+const monthlySales=async(req,res)=>{
+    try {
+        const monthlySales = await orderdb.aggregate([
+            {
+                $group: {
+                    _id: { $dateToString: { format: "%Y-%m", date: "$orderedDate" } },
+                    totalSales: { $sum: "$totalAmount" },
+                    count: { $sum: 1 }
+                }
+            },
+            {
+                $sort: { _id: 1 }
+            }
+        ]);
+        console.log(monthlySales);
+        res.status(200).json(monthlySales);
+
+        
+    } catch (error) {
+        console.log(error);
+        res.status(500).redirect('/error500')
+        
+    }
+}
+
+
+const yearlySales=async(req,res)=>{
+    try {
+        const yearlySales = await orderdb.aggregate([
+            {
+                $group: {
+                    _id: { $dateToString: { format: "%Y", date: "$orderedDate" } },
+                    totalSales: { $sum: "$totalAmount" },
+                    count: { $sum: 1 }
+                }
+            },
+            {
+                $sort: { _id: 1 }
+            }
+        ]);
+        console.log(yearlySales);
+        res.status(200).json(yearlySales);
+
+        
+        
+    } catch (error) {
+        console.log(error);
+        res.status(500).redirect('/error500')
+        
+        
+    }
+}
+
+
+
+
+
+
+
+
+
+
+// 
+
 const getSalesReport = async (req, res) => {
     try {
         res.render('salesReport');
@@ -325,5 +417,8 @@ function generateHTMLReport(res, reportTitle, salesData, dailySalesData) {
 module.exports = {
     generateReport,
     getSalesReport,
-    modalgenerateReport
+    modalgenerateReport,
+    dailyChart,
+    monthlySales,
+    yearlySales
 };

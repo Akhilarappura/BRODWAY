@@ -35,6 +35,57 @@
 </head>
 
 <body id="top">
+  <style>
+    .order-box {
+    background-color: #fff;
+    border: 2px solid #f8f9fa;
+    border-radius: 15px;
+    padding: 20px;
+    max-width: 400px;
+    margin: 20px auto;
+}
+
+.order-box h2 {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.order-box .subtotal {
+    border-top: 1px solid #e9ecef;
+    padding-top: 20px;
+    margin-top: 20px;
+}
+
+.order-box .subtotal h3 {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.order-box .btn-warning {
+    background-color: #39b80b;
+    border-color: #0e0e0c;
+    color: #fff;
+    font-size: 18px;
+    padding: 10px 20px;
+    text-transform: uppercase;
+}
+
+.order-box .checkout-link {
+    color: #fff;
+    text-decoration: none;
+}
+
+.order-box .checkout-link:hover {
+    color: #fff;
+    text-decoration: none;
+}
+
+.order-box .btn-warning:hover {
+    background-color: #e0a800;
+    border-color: #d39e00;
+}
+
+  </style>
 
   <!-- 
     - #HEADER
@@ -230,6 +281,7 @@
   <div class="container">
     <div class="row row-pb-lg">
         <% user.items.forEach((item, index) => { %>
+     
             <div class="product-cart d-flex">
                 <div class="one-forth">
                     <div class="display-tc">
@@ -239,8 +291,8 @@
                 </div>
                 <div class="one-eight text-center">
                     <div class="display-tc">
-                        <span class="original-price" style="text-decoration: line-through; color: grey;">&#8377; <%= item.productId.originalPrice %></span>
-                        <span class="offer-price" style="color: green;">&#8377; <%= item.productId.offerPrice %></span>
+                        <span class="original-price" style="text-decoration: line-through; color: grey;">&#8377;<p id="originalPrice<%= item._id %>"><%= item.productId.originalPrice %></p> </span>
+                        <span class="offer-price" style="color: green;">&#8377; <p id="offerPrice<%= item._id %>"><%= item.productId.offerPrice %></p></span>
                     </div>
                 </div>
                 <div class="one-eight text-center">
@@ -260,7 +312,7 @@
                 </div>
                 <div class="one-eight text-center">
                     <div class="display-tc">
-                        <span class="total-price" id="total_price_<%= item._id %>">&#8377; <%= item.productId.offerPrice * item.quantity %></span>
+                        <span class="total-price" id="total_price_<%= item._id %>">&#8377; <%= item.productId.offerPrice * item.quantity %> </span>
                     </div>
                 </div>
                 <div class="one-eight text-center">
@@ -275,37 +327,22 @@
         <% }) %>
       
     </div>
-    <div class="row">
-        <div class="col-sm-8 offset-sm-2 text-center colorlib-heading colorlib-heading-sm border shadow rounded-pill">
-            <h2 class="text-success mt-5">Place Your Order</h2>
-            <div class="row">
-                <div class="col-md-8 offset-md-2">
-                    <div class="total-wrap">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="subtotal">
-                                    <p><span class="total-price">Sub Total: &#8377; <%= totalAmount %></span></p>
-                                    <p><span>Delivery Charge: &#8377; 0.00</span></p>
-                                </div>
-                            </div>
-                            <div class="col-sm-6 text-center">
-                                <div class="total">
-                                    <div class="grand-total text">
-                                        <p><span ><strong>Total: &#8377; <%= totalAmount %></strong></span></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-12 text-center mb-4">
-                                <button type="submit" class="btn btn-primary btn-lg"><a href="/checkout" style="color: orange;">CheckOut</a></button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+          <div class="order-box text-center shadow-sm p-4 rounded">
+              <h2 class="text-success mt-3">Place Your Order</h2>
+              <div class="total-wrap mt-4">
+                  <div class="subtotal">
+                      <h3 class="mb-3">Sub Total<span id="subtotal"> &#8377;<%= totalAmount %></span></h3>
+                  </div>
+                  <button type="submit" class="btn btn-warning btn-lg">
+                      <a href="/checkout" class="checkout-link">CheckOut</a>
+                  </button>
+              </div>
+          </div>
+      </div>
+  </div>
+  
 </div>
 <% } %>
 
@@ -374,10 +411,12 @@
 	const quantity = async (type, item) => {
     let quantityElement = document.getElementById(`quantity_${item._id}`);
     let totalPriceElement = document.getElementById(`total_price_${item._id}`);
+    console.log('totalPriceElement',totalPriceElement);
 
     let quantityValue = parseInt(quantityElement.value);
 
     if (type === 'inc' ) {
+
 		if(quantityValue  < item.productId.stock){
         quantityValue++;
 		}else{
@@ -398,7 +437,46 @@
     quantityElement.value = quantityValue;
 
     let totalPrice = quantityValue * item.productId.offerPrice;
-    totalPriceElement.innerText = `$${totalPrice}`;
+    console.log('totalPrice',totalPrice);
+    totalPriceElement.innerText = `₹${totalPrice}`;
+ const orginal= parseInt (document.getElementById(`originalPrice${ item._id}`).innerText)
+ const offer= parseInt(document.getElementById(`offerPrice${item._id}`).innerText)
+ console.log('orginal',orginal);
+ console.log('offer',offer);
+
+ const sub=parseInt( document.getElementById('subtotal').innerText)
+
+ console.log(sub+totalPrice);
+ 
+ if(offer && type === 'inc'){
+  document.getElementById('subtotal').innerHTML=sub+offer
+
+  
+ }else{
+  
+  if(offer && type === 'dec'){
+  if(sub!=offer){
+    document.getElementById('subtotal').innerHTML=sub-offer
+
+  }
+ }else{
+  if(sub!=orginal){
+    document.getElementById('subtotal').innerHTML=sub-orginal
+  }
+  
+ }
+ }
+ 
+
+ 
+ 
+
+
+
+
+
+
+ 
 
     try {
         const res = await fetch('/quantity', {
@@ -411,11 +489,16 @@
 
         if (!res.ok) {
             throw new Error('Failed to fetch');
+
         }
     } catch (error) {
         console.error('Error:', error);
     }
+   
+     
 };
+
+
 
 
 </script>

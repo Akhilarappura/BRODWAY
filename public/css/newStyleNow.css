@@ -1,0 +1,141 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.product_details-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.product_details-filters {
+    flex: 1;
+    min-width: 250px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-right: 1px solid #ddd;
+}
+
+.product_details-filters h3, 
+.product_details-filters h4 {
+    margin: 0 0 10px 0;
+}
+
+.product_details-category ul,
+.product_details-brand ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.product_details-category li, 
+.product_details-brand li {
+    margin-bottom: 10px;
+}
+
+.product_details-gender label, 
+.product_details-price div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.product_details-listings {
+    flex: 3;
+    padding: 20px;
+}
+
+.product_details-sort {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.product_details-sort-options {
+    display: flex;
+    gap: 10px;
+}
+
+.product_details-sort-options a {
+    text-decoration: none;
+    color: blue;
+}
+
+.product_details-products {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.product_details-product {
+    flex: 1 1 calc(50% - 20px);
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ddd;
+    text-align: center;
+    position: relative;
+}
+
+.product_details-image {
+    position: relative;
+}
+
+.product_details-image img {
+    width: 100%;
+    height: auto;
+}
+
+.product_details-discount, 
+.product_details-favorite {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.product_details-discount {
+    top: 10px;
+    left: 10px;
+}
+
+.product_details-favorite {
+    top: 10px;
+    right: 10px;
+}
+
+.product_details-info h5, 
+.product_details-info p {
+    margin: 10px 0;
+}
+
+.product_details-original-price {
+    text-decoration: line-through;
+    color: #888;
+}
+
+.product_details-discount-percentage {
+    color: green;
+}
+
+.product_details-highlight {
+    color: green;
+}
+
+@media (max-width: 768px) {
+    .product_details-filters {
+        display: none;
+    }
+
+    .product_details-product {
+        flex: 1 1 calc(50% - 20px);
+    }
+}
+
+@media (max-width: 480px) {
+    .product_details-product {
+        flex: 1 1 100%;
+    }
+}

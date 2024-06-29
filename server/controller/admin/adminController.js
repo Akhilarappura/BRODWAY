@@ -118,14 +118,14 @@ const index = async (req, res) => {
             const cart = await cartdb.findOne({ user: userId });
             cartCount = cart ? cart.items.length : 0;
             wishlist = await wishlistdb.findOne({ user: userId });
-            
-        res.render('index', { products, userToken: req.cookies.userToken, cartCount, user, wishlist, Category });
 
-        }else{
-            res.render('index', { products, userToken: undefined, cartCount:0,  wishlist:0, Category,categoryId});
+            res.render('index', { products, userToken: req.cookies.userToken, cartCount, user, wishlist, Category });
+
+        } else {
+            res.render('index', { products, userToken: undefined, cartCount: 0, wishlist: 0, Category, categoryId });
         }
 
-        
+
 
     } catch (error) {
         console.error('Error rendering index page:', error);
@@ -158,7 +158,7 @@ const index = async (req, res) => {
 
 
 
-    
+
 
 
 

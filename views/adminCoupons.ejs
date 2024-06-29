@@ -177,6 +177,7 @@
                     <th>discountPercentage</th>
                     <th>expireDate</th>
                     <th>minPurchaseAmount</th>
+                    <th>maxDiscount</th>
                     <th>Action</th>
                    
                 </tr>
@@ -189,6 +190,7 @@
                          <td><%= coupon.discountPercentage %></td>
                          <td><%=new Date(coupon.expireDate).toLocaleDateString()%></td>
                          <td><%=coupon.minPurchaseAmount%></td>
+                         <td><%=coupon.maxDiscount%></td>
                          <td><div>
                             <a href="/editCoupon/<%=coupon._id%>" class="btn border-shadow shadow update">
                                 <span class="material-symbols-outlined">edit</span>
