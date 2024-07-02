@@ -108,8 +108,6 @@ const postAddOffer = async (req, res) => {
 }
 
 
-console.log("hi");
-
 const unlistOffer = async (req, res) => {
     try {
         const offerId = req.query.id;
@@ -128,10 +126,34 @@ const unlistOffer = async (req, res) => {
     }
 }
 
+const editOffer=async(req,res)=>{
+    try {
+        const offerId = req.params.id;
+        const offer = await OfferDatabase.findById(offerId)
+          .populate('product_name')
+          .populate('category_name');
+    
+        if (!offer) {
+          return res.status(404).send("Offer not found");
+        }
+    
+        const products = await productdb.find();
+        const categories = await Categorydb.find();
+    
+        res.render('adminEditOffer', { offer, products, categories, moment });
+        
+    } catch (error) {
+        console.log(error);
+        res.redirect('/error500')
+        
+    }
+}
+
 
 module.exports = {
     getOffer,
     getAddOffer,
     postAddOffer,
-    unlistOffer
+    unlistOffer,
+    editOffer
 }

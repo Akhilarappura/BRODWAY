@@ -102,6 +102,7 @@ route.get('/yearlyChart', check.verifyAdmin, salesReportController.yearlySales)
 route.get('/offer', check.verifyAdmin, offerController.getOffer)
 route.get('/addOffer', check.verifyAdmin, offerController.getAddOffer)
 route.post('/addOffer', check.verifyAdmin, offerController.postAddOffer)
+route.get('/editoffer/:id',check.verifyAdmin,offerController.editOffer)
 
 route.get('/offerlist', offerController.unlistOffer);
 

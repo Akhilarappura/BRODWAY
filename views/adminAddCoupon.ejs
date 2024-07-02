@@ -197,45 +197,8 @@
         </div>
     </div>
     </main>
-      function validate(){
-        document.getElementById("nameError").textContent='';
-        document.getElementById("discountError").textContent='';
-        document.getElementById("expiryDateError").textContent='';
-        document.getElementById("minPurchaseError").textContent='';
-
-         const couponcode=document.getElementById('couponcode').value.trim();
-         const discountPercentage=document.getElementById('discountPercentage').value.trim();
-         const expireDate=document.getElementById('expireDate').value.trim();
-         const minPurchaseAmount=document.getElementById('minPurchaseAmount').value.trim();
-
-         if(couponcode===''){
-          document.getElementById('nameError').textContent = "Email cannot be empty";
-          return false;
-         }
-         if(couponcode.length<4){
-          document.getElementById('nameError').textContent = "couponcode must contain atleast 4 char";
-          return false;
-         }
-         if(discountPercentage===''){
-          document.getElementById('discountError').textContent = "discount cannot be empty";
-          return false;
-         }
-         if(discountPercentage<10){
-          document.getElementById('discountError').textContent = "discountpercentage more than 10";
-          return false;
-         }
-         if(discountPercentage>99){
-          document.getElementById('discountError').textContent = "discountpercentage less than 99";
-          return false;
-         }
-         if(minPurchaseAmount===''){
-          document.getElementById('minPurchaseError').textContent = "cannot be empty";
-          return false;
-         }
-        return true;
-
-      }
-    </script> -->
+      
+        
     <script>
       function validate() {
           let isValid = true;
