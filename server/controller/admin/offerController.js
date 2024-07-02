@@ -16,10 +16,10 @@ const getOffer = async (req, res) => {
             .populate('product_name')
             .populate('category_name', 'categoryName');
 
-            offers.forEach(offer => {
-                offer.formattedExpiryDate = moment(offer.expiryDate).format('DD/MM/YYYY');
-            });
-            
+        offers.forEach(offer => {
+            offer.formattedExpiryDate = moment(offer.expiryDate).format('DD/MM/YYYY');
+        });
+
 
 
         res.render('adminOffer', { offers })
@@ -72,7 +72,7 @@ const postAddOffer = async (req, res) => {
             return res.status(400).send("The selected category does not exist");
         }
 
-        // Check if an offer already exists for the same product or category
+
 
         const existingOffer = offerType === 'product'
             ? await offerdb.findOne({ product_name: productId })

@@ -35,7 +35,7 @@ const adminsign = async (req, res) => {
                     'your_key',
                     { expiresIn: '1h' }
                 );
-                //set the token in the response cookie 
+
                 res.cookie('adminToken', adminToken)
 
                 res.redirect('/admin')
@@ -73,7 +73,7 @@ const applyoffer = async (product) => {
         });
 
         const categoryOffer = await offerdb.findOne({
-            category_name: product.category._id, // Ensure this matches the field used in product's schema
+            category_name: product.category._id,
             status: 'active'
         });
 

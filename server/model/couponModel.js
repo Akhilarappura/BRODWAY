@@ -1,4 +1,5 @@
-const mongoose=require('mongoose')
+const mongoose=require('mongoose');
+const { type } = require('os');
 
 var couponSchema=new mongoose.Schema({
     couponcode:{
@@ -8,6 +9,9 @@ var couponSchema=new mongoose.Schema({
         type:Date
     },
     minPurchaseAmount:{
+        type:Number
+    },
+    maxDiscount:{
         type:Number
     },
     discountPercentage:{

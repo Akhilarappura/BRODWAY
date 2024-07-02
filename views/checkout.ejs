@@ -248,15 +248,15 @@
 			<div class="row row-pb-lg">
 				<div class="col-sm-10 offset-md-1">
 					<div class="process-wrap">
-						<div class="process text-center active">
+						<div class="process text-center ">
 							<p><span>01</span></p>
 							<h3>Shopping Cart</h3>
 						</div>
-						<div class="process text-center active">
+						<div class="process text-center ">
 							<p><span>02</span></p>
 							<h3>Checkout</h3>
 						</div>
-						<div class="process text-center">
+						<div class="process text-center active">
 							<p><span>03</span></p>
 							<h3>Order Complete</h3>
 						</div>
@@ -496,7 +496,10 @@
 									<div class="radio">
 										<label style="display: flex;">
 											<input type="radio" name="optradio" value="walletPayment" style="width: 20px;">
-											<h4>Wallet Payment</h4>
+											<h4 id="InsufficientWallet">Wallet Payment</h4>
+											<input type="hidden" id="InsufficientWallet" style="color: red;">
+											
+
 										</label>
 									</div>
 								</div>
@@ -723,8 +726,8 @@
 						console.log('im in1');
 						if (paymentMethod === 'netBanking' && items.length !== 0) {
 							console.log("in in 2");
-							const totalAmount = document.getElementById('totalAmountid').value;
-							console.log(totalAmount, "totalAmount");
+							let totalamount = parseFloat(document.getElementById("totalamountid").textContent.trim().replace(',', ''));
+							console.log(totalamount, "totalAmount");
 
 
 							fetch('/razorpayment', {
@@ -732,11 +735,12 @@
 								headers: {
 									'content-Type': 'application/json'
 								},
-								body: JSON.stringify({ totalAmount })
+								body: JSON.stringify({ totalamount })
 							})
 								.then(res => res.json())
 								.then(res => {
-									console.log("data", res);
+									console.log("data", res.order);
+									console.log(res.order.amount,"amount");
 
 									const options = {
 										"key": "rzp_test_Yf4QX1fH3V3BDE", // Enter the Key ID generated from the Dashboard
@@ -746,7 +750,7 @@
 										"description": "Test Transaction",
 										"image": "",
 										"order_id": res.order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-										"callback_url": `/onlinepayment?paymentMethod=${paymentMethod}&data=${JSON.stringify(data)}`,
+										"callback_url": `/onlinepayment?paymentMethod=${paymentMethod}&data=${JSON.stringify(data)}&total=${totalamount}`,
 										"prefill": { //We recommend using the prefill parameter to auto-fill customer's contact information especially their phone number
 											// "name": "Gaurav Kumar", //your customer's name
 											// "email": "",
@@ -763,6 +767,7 @@
 									// Add the success and failure handlers
 
 									rzp1.on('payment.failed', function (response) {
+										const amount=document.getElementById("totalamountid").value
 										console.error("Payment failed:", response);
 										alert("Payment failed. Redirecting to orders page.");
 										console.log("is it");
@@ -774,7 +779,7 @@
 											headers: {
 												'Content-Type': 'application/json',
 											},
-											body: JSON.stringify({ data }),
+											body: JSON.stringify({ data,amount }),
 										}).then(() => {
 											window.location.href = '/orderpage'; // Redirect to the orders page
 										}).catch(error => {
@@ -822,6 +827,10 @@
 									});
 							} else {
 								console.log("Insufficient wallet balance.");
+								document.getElementById('InsufficientWallet').innerHTML="Insufficient wallet balance";
+
+
+
 								// Handle insufficient balance scenario
 							}
 						}

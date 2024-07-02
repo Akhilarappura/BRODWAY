@@ -7,86 +7,205 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BRODWAY</title>
 
-  <!-- 
-    - favicon
-  -->
   <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
-
-  <!-- 
-    - custom css link
-  -->
-  
-  <!-- 
-    - google font link
-  -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&family=Roboto:wght@400;500;700&display=swap"
-    rel="stylesheet">
-    <link rel="stylesheet" href="/public/css/style.css">
-    <link rel="stylesheet" href="/public/css/newIndex.css">
-
-  <!-- 
-    - preload banner
-  -->
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/public/css/style.css">
+  <link rel="stylesheet" href="/public/css/newIndex.css">
   <link rel="preload" href="/footwear-master/public/imgee/hero-banner.png" as="image">
+  <style>
+    /* General styles */
+    body {
+        font-family: 'Roboto', sans-serif;
+        background-color: #f8f9fa;
+    }
 
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    /* Process steps */
+    .process-wrap {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 40px;
+        padding: 20px 0;
+        border-bottom: 1px solid #e9ecef;
+    }
+
+    .process {
+        text-align: center;
+    }
+
+    .process p {
+        background-color: #007bff;
+        color: #fff;
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+        border-radius: 50%;
+        margin: 0 auto 10px;
+    }
+
+    .process.active p {
+        background-color: #28a745;
+    }
+
+    .process h3 {
+        font-size: 16px;
+        color: #343a40;
+    }
+
+    /* Product list header */
+    .product-name {
+        background-color: #f8f9fa;
+        padding: 15px 0;
+        border-bottom: 2px solid #e9ecef;
+        font-weight: bold;
+    }
+
+    .product-name div {
+        text-align: center;
+    }
+
+    /* Product cart item */
+    .product-cart {
+        display: flex;
+        align-items: center;
+        padding: 20px 0;
+        border-bottom: 1px solid #e9ecef;
+    }
+
+    .product-cart .one-forth {
+        flex: 3;
+    }
+
+    .product-cart .one-eight {
+        flex: 1;
+        text-align: center;
+    }
+
+    .product-cart img {
+        max-width: 100px;
+        margin-right: 20px;
+    }
+
+    .product-cart h3 {
+        font-size: 18px;
+        margin-bottom: 5px;
+    }
+
+    .original-price {
+        text-decoration: line-through;
+        color: #6c757d;
+        font-size: 14px;
+    }
+
+    .offer-price {
+        color: #28a745;
+        font-weight: bold;
+    }
+
+    /* Quantity input */
+    .input-group {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .input-group button {
+        background-color: #e9ecef;
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+    }
+
+    .input-group input {
+        width: 50px;
+        text-align: center;
+        border: 1px solid #ced4da;
+        margin: 0 5px;
+    }
+
+    /* Remove button */
+    .btn-danger {
+        background-color: #dc3545;
+        color: #fff;
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+    }
+
+    /* Order box */
+    .order-box {
+        background-color: #fff;
+        border: 21px solid #e9ecef;
+        border-radius: 8px;
+        padding: 20px;
+        margin-top: 30px;
+    }
+
+    .order-box h2 {
+        color: #28a745;
+        margin-bottom: 20px;
+    }
+
+    .order-box .subtotal {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        font-size: 18px;
+    }
+
+    .order-box .btn-warning {
+        background-color: #ffc107;
+        border: none;
+        color: #212529;
+        padding: 10px 20px;
+        font-size: 18px;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .order-box .btn-warning:hover {
+        background-color: #e0a800;
+    }
+
+    /* Responsive styles */
+    @media (max-width: 768px) {
+        .product-name {
+            display: none;
+        }
+
+        .product-cart {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .product-cart .one-forth,
+        .product-cart .one-eight {
+            width: 100%;
+            margin-bottom: 15px;
+        }
+
+        .input-group {
+            justify-content: center;
+        }
+
+        .order-box {
+            margin-top: 30px;
+        }
+    }
+</style>
 </head>
 
+
 <body id="top">
-  <style>
-    .order-box {
-    background-color: #fff;
-    border: 2px solid #f8f9fa;
-    border-radius: 15px;
-    padding: 20px;
-    max-width: 400px;
-    margin: 20px auto;
-}
-
-.order-box h2 {
-    font-size: 24px;
-    font-weight: bold;
-}
-
-.order-box .subtotal {
-    border-top: 1px solid #e9ecef;
-    padding-top: 20px;
-    margin-top: 20px;
-}
-
-.order-box .subtotal h3 {
-  font-size: 20px;
-    font-weight: 700;
-    font-family: sans-serif;
-}
-
-.order-box .btn-warning {
-    background-color: #39b80b;
-    border-color: #0e0e0c;
-    color: #fff;
-    font-size: 18px;
-    padding: 10px 20px;
-    text-transform: uppercase;
-}
-
-.order-box .checkout-link {
-    color: #fff;
-    text-decoration: none;
-}
-
-.order-box .checkout-link:hover {
-    color: #fff;
-    text-decoration: none;
-}
-
-.order-box .btn-warning:hover {
-    background-color: #e0a800;
-    border-color: #d39e00;
-}
-
-  </style>
+ 
 
   <!-- 
     - #HEADER
@@ -235,11 +354,11 @@
             <div class="row row-pb-lg">
                 <div class="col-md-10 offset-md-1">
                     <div class="process-wrap">
-                        <div class="process text-center active">
+                        <div class="process text-center ">
                             <p><span>01</span></p>
                             <h3>Shopping Cart</h3>
                         </div>
-                        <div class="process text-center">
+                        <div class="process text-center active">
                             <p><span>02</span></p>
                             <h3>Checkout</h3>
                         </div>
@@ -257,16 +376,16 @@
                             <span>Product Details</span>
                         </div> 
                         <div class="one-eight text-center">
-                            <span>Price</span>
+                            <span style="padding-right: 90px;">Price</span>
                         </div>
                         <div class="one-eight text-center">
-                            <span>Quantity</span>
+                            <span style="padding-right: 100px;">Quantity</span>
                         </div>
                         <div class="one-eight text-center">
-                            <span>Total</span>
+                            <span style="padding-right: 70px;">Total</span>
                         </div>
                         <div class="one-eight text-center px-4">
-                            <span>Remove</span>
+                            <span style="padding-right: 100px;">Remove</span>
                         </div>
                     </div>
                     <div></div>
@@ -318,7 +437,7 @@
                 </div>
                 <div class="one-eight text-center">
                     <div class="display-tc">
-                        <a class="btn btn-danger delete" data-id="<%= item.productId._id %>">
+                        <a class="btn btn-danger delete" data-id="<%= item.productId._id %>" style="width: 70px;">
                             <i class="bi bi-trash">Remove</i>
                         </a>
                     </div>
@@ -334,7 +453,7 @@
               <h2 class="text-success mt-3">Place Your Order</h2>
               <div class="total-wrap mt-4">
                   <div class="subtotal">
-                      <h3 class="mb-3">Sub Total<span id="subtotal"> &#8377;<%= totalAmount %></span></h3>
+                      <h3 class="mb-3" style="    margin: 1rem 1rem 0rem 22rem; font-family: sans-serif;">Sub Total<span id="subtotal" > &#8377;<%= totalAmount %></span></h3>
                   </div>
                   <button type="submit" class="btn btn-warning btn-lg" style="    width: 38%;
                   height: 0px;
@@ -410,103 +529,73 @@
           </script>
           <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 		  
-<script>
-	const quantity = async (type, item) => {
-    let quantityElement = document.getElementById(`quantity_${item._id}`);
-    let totalPriceElement = document.getElementById(`total_price_${item._id}`);
-    console.log('totalPriceElement',totalPriceElement);
-
-    let quantityValue = parseInt(quantityElement.value);
-
-    if (type === 'inc' ) {
-
-		if(quantityValue  < item.productId.stock){
-        quantityValue++;
-		}else{
-		     Swal.fire({
-				title:'Stock Exceeded!',
-				text:'Cannot add more than available Stock',
-				icon:'warning',
-				confirmButtonText: 'OK'
-			 });
-			 return;
-		}
-    } else {
-        if (quantityValue > 1) {
-            quantityValue--;
-        }
-    }
-
-    quantityElement.value = quantityValue;
-
-    let totalPrice = quantityValue * item.productId.offerPrice;
-    console.log('totalPrice',totalPrice);
-    totalPriceElement.innerText = `₹${totalPrice}`;
- const orginal= parseInt (document.getElementById(`originalPrice${ item._id}`).innerText)
- const offer= parseInt(document.getElementById(`offerPrice${item._id}`).innerText)
- console.log('orginal',orginal);
- console.log('offer',offer);
-
- const sub=parseInt( document.getElementById('subtotal').innerText)
-
- console.log(sub+totalPrice);
- 
- if(offer && type === 'inc'){
-  document.getElementById('subtotal').innerHTML=sub+offer
-
-  
- }else{
-  
-  if(offer && type === 'dec'){
-  if(sub!=offer){
-    document.getElementById('subtotal').innerHTML=sub-offer
-
-  }
- }else{
-  if(sub!=orginal){
-    document.getElementById('subtotal').innerHTML=sub-orginal
-  }
-  
- }
- }
- 
-
- 
- 
-
-
-
-
-
-
- 
-
-    try {
-        const res = await fetch('/quantity', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ qua: quantityValue, id: item._id })
-        });
-
-        if (!res.ok) {
-            throw new Error('Failed to fetch');
-
-        }
-    } catch (error) {
-        console.error('Error:', error);
-    }
-   
-     
-};
-
-
-
-
-</script>
-
-
+          <script>
+            const quantity = async (type, item) => {
+                const quantityElement = document.getElementById(`quantity_${item._id}`);
+                const totalPriceElement = document.getElementById(`total_price_${item._id}`);
+                const subtotalElement = document.getElementById('subtotal');
+                
+                let quantityValue = parseInt(quantityElement.value);
+                const offerPrice = parseFloat(item.productId.offerPrice);
+                
+                if (type === 'inc') {
+                    if (quantityValue < item.productId.stock) {
+                        quantityValue++;
+                    } else {
+                        Swal.fire({
+                            title: 'Stock Exceeded!',
+                            text: 'Cannot add more than available Stock',
+                            icon: 'warning',
+                            confirmButtonText: 'OK'
+                        });
+                        return;
+                    }
+                } else if (type === 'dec' && quantityValue > 1) {
+                    quantityValue--;
+                }
+            
+                quantityElement.value = quantityValue;
+            
+                const newTotalPrice = quantityValue * offerPrice;
+                totalPriceElement.innerText = `₹${newTotalPrice.toFixed(2)}`;
+            
+                updateSubtotal();
+            
+                try {
+                    const res = await fetch('/quantity', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ qua: quantityValue, id: item._id })
+                    });
+            
+                    if (!res.ok) {
+                        throw new Error('Failed to update quantity on server');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    // Optionally, show an error message to the user
+                }
+            };
+            
+            function updateSubtotal() {
+                const totalPriceElements = document.querySelectorAll('.total-price');
+                let subtotal = 0;
+            
+                totalPriceElements.forEach(element => {
+                    const price = parseFloat(element.innerText.replace('₹', '').trim());
+                    if (!isNaN(price)) {
+                        subtotal += price;
+                    }
+                });
+            
+                document.getElementById('subtotal').innerText = `₹${subtotal.toFixed(2)}`;
+            }
+            
+            // Call updateSubtotal on page load to ensure correct initial value
+            document.addEventListener('DOMContentLoaded', updateSubtotal);
+            </script>
     
 
     </article>

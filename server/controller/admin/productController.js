@@ -1,6 +1,6 @@
 const categorydb = require('../../model/categoryModel');
 const productdb = require('../../model/productModel');
-const offerdb=require('../../model/offerModel')
+const offerdb = require('../../model/offerModel')
 const multer = require('multer')
 
 
@@ -29,38 +29,38 @@ const list = async (req, res) => {
 
         const categories = await categorydb.find();
         let products = await productdb.find().populate('category')
-   
-        const offers=await offerdb.find().populate('product_name')
 
-         // Apply offers and update final price in products
-    products = products.map(pdt => {
-        let offerApplied = false;
-        let savedAmount = 0;
-        let finalPrice = pdt.price;
-        let discountPercentage = 0;
-  
-        offers.forEach(offer => {
-          if (offer.product_name && offer.product_name._id.toString() === pdt._id.toString()) {
-            offerApplied = true;
-            savedAmount = offer.discount_Amount;
-            discountPercentage = offer.discount_Percentage;
-            finalPrice = pdt.price - offer.discount_Amount;
-  
-            // Update product with offer details
-            pdt.offerApplied = true;
-            pdt.offerDetails = {
-              offerName: offer.offerName,
-              discountAmount: offer.discount_Amount,
-              discountPercentage: offer.discount_Percentage,
-            };
-            pdt.finalPrice = finalPrice;
-          }
+        const offers = await offerdb.find().populate('product_name')
+
+        // Apply offers and update final price in products
+        products = products.map(pdt => {
+            let offerApplied = false;
+            let savedAmount = 0;
+            let finalPrice = pdt.price;
+            let discountPercentage = 0;
+
+            offers.forEach(offer => {
+                if (offer.product_name && offer.product_name._id.toString() === pdt._id.toString()) {
+                    offerApplied = true;
+                    savedAmount = offer.discount_Amount;
+                    discountPercentage = offer.discount_Percentage;
+                    finalPrice = pdt.price - offer.discount_Amount;
+
+                    // Update product with offer details
+                    pdt.offerApplied = true;
+                    pdt.offerDetails = {
+                        offerName: offer.offerName,
+                        discountAmount: offer.discount_Amount,
+                        discountPercentage: offer.discount_Percentage,
+                    };
+                    pdt.finalPrice = finalPrice;
+                }
+            });
+
+
+            pdt.save();
+            return pdt;
         });
-  
-        // Save updates to database
-        pdt.save(); // Assuming pdt is a Mongoose model instance
-        return pdt;
-      });
 
 
 
@@ -69,12 +69,12 @@ const list = async (req, res) => {
 
 
 
-        res.render('allproducts', { products, categories,offers });
+        res.render('allproducts', { products, categories, offers });
     }
 
 
     catch (error) {
-        console.log("error.message",error);
+        console.log("error.message", error);
         res.status(500).render('error500')
 
     }
@@ -97,7 +97,7 @@ const createproduct = async (req, res) => {
 
     const images = req.files.map(file => file.path);
     const price = parseInt(req.body.price);
-    //set default discount to 0 if not provided or invalid
+
     const discount = parseInt(req.body.discount) || 0;
 
     if (isNaN(price) || isNaN(discount)) {
@@ -236,7 +236,7 @@ const post_edit = async (req, res) => {
         res.render("error500")
     }
 }
-    
+
 
 
 const block = async (req, res) => {

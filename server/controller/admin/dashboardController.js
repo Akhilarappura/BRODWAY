@@ -20,7 +20,7 @@ const admindash = async (req, res) => {
         let totalDiscount = 0;
         orders.forEach(order => {
             order.items.forEach(item => {
-                if (item.productId && item.productId.price != null) { // Check if productId is valid and has price
+                if (item.productId && item.productId.price != null) {
                     const productPrice = item.productId.price * item.quantity;
                     const discountedPrice = productPrice * (1 - (item.productId.discount / 100));
                     const discountAmount = productPrice - discountedPrice;
@@ -43,10 +43,10 @@ const admindash = async (req, res) => {
             brand: product.brand
         }));
 
-        // Sort products by count in descending order
+
         const sortedProductCounts = productCounts.sort((a, b) => b.count - a.count);
 
-        // Calculate total sales for each brand
+
         const brandSales = {};
         orders.forEach(order => {
             order.items.forEach(item => {
@@ -60,7 +60,7 @@ const admindash = async (req, res) => {
             });
         });
 
-        // Convert brandSales object to an array and sort it
+        //sorting
         const sortedBrandSales = Object.keys(brandSales)
             .map(brand => ({ brand, count: brandSales[brand] }))
             .sort((a, b) => b.count - a.count)
@@ -80,7 +80,7 @@ const admindash = async (req, res) => {
             });
         });
 
-        // Convert categorySales object to an array and sort it
+
         const sortedCategorySales = Object.keys(categorySales)
             .map(categoryId => {
                 const category = categories.find(c => c._id.toString() === categoryId);

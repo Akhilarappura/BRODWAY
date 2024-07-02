@@ -8,7 +8,7 @@ const adminUserController = require('../controller/admin/adminUserController')
 const salesReportController = require('../controller/admin/salesController')
 const offerController = require('../controller/admin/offerController')
 const coupon = require('../controller/admin/coupon')
-const dashboardController=require('../controller/admin/dashboardController')
+const dashboardController = require('../controller/admin/dashboardController')
 const check = require('../middleware/check')
 const multer = require('multer')
 const path = require('path')
@@ -94,9 +94,9 @@ route.get('/getSalesReport', check.verifyAdmin, salesReportController.getSalesRe
 route.get('/salesReport', check.verifyAdmin, salesReportController.generateReport);
 route.get('/generateReport', salesReportController.modalgenerateReport)
 //chart
-route.get('/dailyChart',check.verifyAdmin,salesReportController.dailyChart)
-route.get('/monthlyChart',check.verifyAdmin,salesReportController.monthlySales)
-route.get('/yearlyChart',check.verifyAdmin,salesReportController.yearlySales)
+route.get('/dailyChart', check.verifyAdmin, salesReportController.dailyChart)
+route.get('/monthlyChart', check.verifyAdmin, salesReportController.monthlySales)
+route.get('/yearlyChart', check.verifyAdmin, salesReportController.yearlySales)
 
 //offerController
 route.get('/offer', check.verifyAdmin, offerController.getOffer)
@@ -107,7 +107,7 @@ route.get('/offerlist', offerController.unlistOffer);
 
 //dashboard
 route.get('/admin', check.verifyAdmin, dashboardController.admindash)
-    
+
 
 
 

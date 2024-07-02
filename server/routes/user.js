@@ -13,7 +13,7 @@ const adminOrderController = require('../controller/admin/adminOrderController')
 const userOrderController = require('../controller/user/userOrderController')
 const priceFilterController = require('../controller/user/priceFilterController')
 const invoicController = require('../controller/user/invoiceController')
-const userroute=require('../controller/admin/adminController')
+const userroute = require('../controller/admin/adminController')
 const multer = require('multer')
 const path = require('path')
 
@@ -108,13 +108,14 @@ route.post('/profileedit', check.userLoggedIn, upload.array('images'), profileCo
 route.get('/checkout', check.userLoggedIn, checkoutController.get_checkout)
 route.post('/verifyStock', check.userLoggedIn, checkoutController.validatestock)
 route.post('/onlinepayment', check.userLoggedIn, checkoutController.onlinepayment)
-route.post('/failurePayment',check.userLoggedIn,checkoutController.failurePayment)
-route.post('/retryPayment',check.userLoggedIn,checkoutController.failure)
+route.post('/failurePayment', check.userLoggedIn, checkoutController.failurePayment)
+route.post('/retryPayment', check.userLoggedIn, checkoutController.failure)
+route.post('/paymentSucces', check.userLoggedIn, checkoutController.paymentSucces)
 route.post('/stockresult', check.userLoggedIn, checkoutController.stockresult)
 route.post('/razorpayment', check.userLoggedIn, checkoutController.razorpayment)
 route.post('/applyCoupon', check.userLoggedIn, checkoutController.applyCoupon)
 route.get('/wallet', check.userLoggedIn, checkoutController.getWallet)
-route.post('/walletPayment',check.verifyAdmin,checkoutController.walletPayment)
+route.post('/walletPayment', check.verifyAdmin, checkoutController.walletPayment)
 
 
 
@@ -137,7 +138,7 @@ route.post('/priceFilter', priceFilterController.getShop)
 route.get('/invoice', invoicController.generateOrderInvoice)
 
 //error handling
-route.all('*',(req,res,next)=>{
+route.all('*', (req, res, next) => {
     res.render('error500')
 })
 

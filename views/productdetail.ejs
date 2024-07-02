@@ -1,143 +1,89 @@
 <%- include('include/nav') %>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/easyzoom/2.5.2/easyzoom.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/easyzoom/2.5.2/easyzoom.js"></script>
+
     <main>
         <article>
             <style>
-                /* Styles for the product view container */
-                .product-view-container {
-                    display: flex;
-                    gap: 20px;
-                }
+       body {
+  font-family: Roboto, Arial, sans-serif;
+}
 
-                /* Styles for the product view images section */
-                .product-view-images {
-                    position: relative;
-                    width: 50%;
-                }
+.colorlib-product {
+  background-color: #f1f3f6;
+}
 
-                .product-view-main-image {
-                    width: 100%;
-                    transition: transform 0.3s ease;
-                }
+.product-detail-wrap {
+  background-color: white;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,.08);
+}
 
-                .product-view-thumbnails {
-                    display: flex;
-                    gap: 10px;
-                    margin-top: 10px;
-                }
+.carousel-item img {
+  max-height: 400px;
+  object-fit: contain;
+}
 
-                .product-view-thumbnail {
-                    width: 60px;
-                    cursor: pointer;
-                }
+.btn {
+  text-transform: uppercase;
+  font-weight: 500;
+}
 
-                /* Styles for the zoomed image */
-                .product-view-main-image.zoom {
-                    transform: scale(2);
-                    cursor: zoom-in;
-                }
+.product_details-title {
+  font-size: 18px;
+  font-weight: 400;
+  color: #212121;
+}
 
-                .product_details-container {
-                    max-width: 800px;
-                    margin: 0 auto;
-                    padding: 20px;
-                    border: 1px solid #ddd;
-                    border-radius: 10px;
-                }
+.offer-price {
+  font-size: 28px;
+  font-weight: 500;
+  color: #212121;
+}
 
-                .product_details-title {
-                    font-size: 24px;
-                    font-weight: bold;
-                }
+.original-price {
+  font-size: 16px;
+  color: #878787;
+  text-decoration: line-through;
+}
 
-                .product_details-price {
-                    font-size: 18px;
-                }
+.discount-percentage {
+  font-size: 16px;
+  color: #388e3c;
+}
 
-                .product_details-current-price {
-                    color: #388e3c;
-                    font-weight: bold;
-                }
+.product_details-offers h3,
+.product_details-delivery h3 {
+  font-size: 16px;
+  font-weight: 500;
+}
 
-                .product_details-original-price {
-                    text-decoration: line-through;
-                    margin-left: 10px;
-                    color: #888;
-                }
+.product_details-offer {
+  font-size: 14px;
+}
 
-                .product_details-discount {
-                    color: #ff5722;
-                    margin-left: 10px;
-                }
+.product-description {
+  font-size: 14px;
+  color: #212121;
+  line-height: 1.4;
 
-                .product_details-rating {
-                    display: flex;
-                    align-items: center;
-                    margin-top: 10px;
-                }
+}   .carousel-item {
+  overflow: hidden;
+}
 
-                .product_details-rating-stars {
-                    background-color: #388e3c;
-                    color: white;
-                    padding: 5px 10px;
-                    border-radius: 5px;
-                }
+.product-view-main-image {
+  transition: transform 0.5s ease;
+}
 
-                .product_details-rating-count {
-                    margin-left: 10px;
-                    color: #555;
-                }
+.carousel-item:hover .product-view-main-image {
+  transform: scale(3.5);
+}
 
-                .product_details-assured {
-                    margin-left: 10px;
-                    color: #007bff;
-                    font-weight: bold;
-                }
 
-                .product_details-coupons,
-                .product_details-offers,
-                .product_details-delivery {
-                    border-top: 1px solid #ddd;
-                    padding-top: 15px;
-                    margin-top: 15px;
-                }
+</style>
 
-                .product_details-coupon,
-                .product_details-offer {
-                    margin-bottom: 10px;
-                }
 
-                .product_details-coupon-offer {
-                    font-weight: bold;
-                    color: #ff5722;
-                }
 
-                .product_details-coupon-description a,
-                .product_details-offer a {
-                    color: #007bff;
-                }
-
-                .product_details-delivery-info {
-                    margin-top: 5px;
-                }
-
-                .product_details-free-delivery {
-                    color: #388e3c;
-                }
-
-                @media (max-width: 576px) {
-                    .product_details-container {
-                        padding: 10px;
-                    }
-
-                    .product_details-title {
-                        font-size: 20px;
-                    }
-
-                    .product_details-price {
-                        font-size: 16px;
-                    }
-                }
-            </style>
             <div class="breadcrumbs">
                 <div class="container">
                     <div class="row">
@@ -148,171 +94,182 @@
                 </div>
             </div>
 
-            <div class="colorlib-product">
-                <div class="container">
-                    <div class="row row-pb-lg product-detail-wrap" style="width: 167rem;">
-                        <div class="col-sm-8" style="display: flex; gap: 140px;">
-                            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel"
-                                style="width: 48%; margin-top: -100px; z-index: 1;" >
-                                <div class="carousel-indicators">
-                                    <% for (let i=0; i < prod.images.length; i++) { %>
-                                        <button type="button" data-bs-target="#carouselExampleIndicators"
-                                            data-bs-slide-to="<%= i %>" class="<%= i === 0 ? 'active' : '' %>"
-                                            aria-current="<%= i === 0 ? 'true' : 'false' %>"
-                                            aria-label="Slide <%= i + 1 %>"></button>
-                                        <% } %>
-                                </div>
-                                <div class="carousel-inner" style="width: 100%;">
-                                    <% prod.images.forEach((image, index)=> { %>
-                                        <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
-                                            <img src="<%= image %>" class="d-block w-100 product-view-main-image"
-                                                alt="...">
-                                        </div>
-                                        <% }) %>
-
-                                </div>
-                                <br>
-                                <div style="    display: flex;
-                        width: 428px;
-                        gap: 21px;">
-                                    <button type="button" class="btn btn-danger" style="width: 50%;
-                              height: 60px;"> <a href="/cart/<%= prod._id %>" class="text-white">Add to Cart</a>
-                                    </button>
-                                    <% if (wishlist && wishlist.items.some(items=>items.productId.toString()===prod._id.toString())) { %>
-                                        <button class="btn btn-danger btn-add-cart" style="width: 50%;
-                              height: 60px;">
-                                          <a href="/wishlist/<%= prod._id %>" class="text-white">Add to wishlist</a>
-                                      </button>
-                                    
-                                        <!-- <a href="/wishlist"><img src="/public/imgee/bro-logo-bro-letter-bro-letter-logo-design-initials-bro-logo-linked-bro.jpg" alt=""></a>
-                                       -->
-                                      <% } else { %>
-                                        <button class="btn btn-danger btn-add-cart" style="width: 50%;
-                              height: 60px;">
-                                          <a href="/wishlist" class="text-white">Add to wishlist</a>
-                                      </button>
-                                      <% } %>
-                                </div>
-                                <button class="carousel-control-prev" type="button"
-                                    data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Previous</span>
-                                </button>
-                                <button class="carousel-control-next" type="button"
-                                    data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Next</span>
-                                </button>
-                            </div>
-                            <div>
-                                <!-- <h3></h3> -->
-                                <div class="product_details-container container" style="margin: -4rem 0rem  0rem 10rem; margin-bottom: 7rem;">
-                                    <h1 class="product_details-title">
-                                        <%=prod.product_name%>
-                                    </h1>
-                                    <p class="product_details-price"
-                                        style="display: flex; flex-direction: column-reverse;">
-
-                                        <% if (prod.offerPrice && prod.offerPrice < prod.price) { %>
-                                            <span class="original-price" style="text-decoration: line-through;">&#8377;
-                                                <%= prod.price %></span>
-                                            <span class="offer-price">&#8377;<%= prod.offerPrice %></span>
-                                            <span class="discount-percentage">(<%= Math.round(((prod.price -
-                                                    prod.offerPrice) / prod.price) * 100) %>% off)</span>
-                                            <% } else { %>
-                                                <span class="price">&#8377;<%= prod.price %></span>
-                                                <% } %>
-
-
-                                    </p>
-                                    <!-- <div class="product_details-rating">
-							<span class="product_details-rating-stars">4★</span>
-							<span class="product_details-rating-count">33,511 ratings and 2,516 reviews</span>
-							<span class="product_details-assured">Assured</span>
-						</div> -->
-                                    <div class="product_details-coupons mt-3">
-                                        <h3 style="font-weight: bold;">Coupons for you</h3>
-                                        <p class="product_details-coupon">
-                                            <span class="product_details-coupon-offer" style="color: #388e3c;">Special
-                                                Price</span>
-                                            <span class="product_details-coupon-description">Get extra 11% off upto ₹100
-                                                on 20 item(s) (price inclusive of cashback/coupon) <a
-                                                    href="#">T&C</a></span>
-                                        </p>
-                                    </div>
-                                    <div class="product_details-offers mt-3">
-                                        <h3 style="font-weight: bold;">Available Coupons</h3>
-                                        <ul class="product_details-offers-list">
-                                            <li class="product_details-offer" style="display: flex;">
-                                                <div><img src="/public/images/icons8-discount-30.png" alt=""></div>
-                                                <h4> Get 50% instant discount on BRODWAY transaction on order of ₹2500
-                                                    and above </h4>
-                                                <a href="#">T&C</a>
-                                            </li>
-                                            <li class="product_details-offer" style="display: flex;">
-                                                <div><img src="/public/images/icons8-discount-30.png" alt=""></div>
-                                                <h4>Get 50% instant discount on BRODWAY transaction on order of ₹1999
-                                                </h4>
-                                                <a href="#">T&C</a>
-                                            </li>
-                                            <li class="product_details-offer" style="display: flex;">
-                                                <div><img src="/public/images/icons8-discount-30.png" alt=""></div>
-                                                <h4>coupons soon Freekip</h4>
-                                            </li>
-                                            <!-- <li class="product_details-more-offers"><a href="#">+15 more offers</a></li> -->
-                                        </ul>
-                                    </div>
-                                    
-                                    <div class="product_details-delivery mt-3">
-                                        <%if(userToken){%>
-                                        <h1>Deliver to</h1>
-                                       
-                                        <select id="address" name="address" class="form-control custom-select">
-                                            <% address.forEach(addr=> { %>
-                                                <option value="<%= addr._id %>">
-                                                    <%= addr.name %>, <%= addr.mobileNumber %>, <%= addr.district %>,
-                                                                <%= addr.locality %>, <%= addr.pincode %>
-                                                </option>
-                                                <% }); %>
-                                        </select>
-                                        <%} %>
-
-                                    </div>
-                                </div>
-
-
-
-                                <!--  -->
-                            </div>
-                        </div>
+         <div class="colorlib-product" style="background-color: #f1f3f6; padding-top: 30px;">
+              <div class="container" style="background-color: white; padding: 20px; box-shadow: 0 2px 4px 0 rgba(0,0,0,.08);">
+                <div class="row product-detail-wrap">
+                  <div class="col-md-5">
+                    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" style="border: 1px solid #f0f0f0; padding: 20px;">
+                      <div class="carousel-inner">
+                        <% prod.images.forEach((image, index) => { %>
+                          <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
+                            <img src="<%= image %>" class="d-block w-100 product-view-main-image" alt="Product Image" style="max-height: 400px; object-fit: contain;">
+                          </div>
+                        <% }) %>
+                      </div>
+                      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                      </button>
+                      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                      </button>
                     </div>
+                    <div class="product-actions" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                      <button type="button" class="btn btn-lg" style="background-color: #ff9f00; color: white; width: 48%;">
+                        <a href="/cart/<%= prod._id %>" class="text-white" style="text-decoration: none;">
+                          <i class="fas fa-shopping-cart"></i> ADD TO CART
+                        </a>
+                      </button>
+                      <% if (wishlist && wishlist.items.some(items => items.productId.toString() === prod._id.toString())) { %>
+                        <button class="btn btn-lg" style="background-color: #fb641b; color: white; width: 48%;">
+                          <a href="/wishlist" class="text-white" style="text-decoration: none;">
+                            <i class="fas fa-bolt"></i> GO TO WISHLIST
+                          </a>
+                        </button>
+                      <% } else { %>
+                        <button class="btn btn-lg" style="background-color: #fb641b; color: white; width: 48%;">
+                          <a href="/wishlist/<%= prod._id %>" class="text-white" style="text-decoration: none;">
+                            <i class="fas fa-bolt"></i> ADD TO WISHLIST
+                          </a>
+                        </button>
+                      <% } %>
+                      
+                    </div>
+                  </div>
+                  
+                  <div class="col-md-7">
+                    <div class="product_details-container" style="padding-left: 20px;">
+                      <h1 class="product_details-title" style="font-size: 18px; font-weight: 400; color: #212121;"><%= prod.product_name %></h1>
+                      
+                      <div class="product_details-price" style="margin: 10px 0;">
+                        <% if (prod.offerPrice && prod.offerPrice < prod.price) { %>
+                          <span class="offer-price" style="font-size: 28px; font-weight: 500; color: #212121;">&#8377;<%= prod.offerPrice %></span>
+                          <span class="original-price" style="font-size: 16px; color: #878787; margin-left: 10px; text-decoration: line-through;">&#8377;<%= prod.price %></span>
+                          <span class="discount-percentage" style="font-size: 16px; color: #388e3c; margin-left: 10px;"><%= Math.round(((prod.price - prod.offerPrice) / prod.price) * 100) %>% off</span>
+                        <% } else { %>
+                          <span class="price" style="font-size: 28px; font-weight: 500; color: #212121;">&#8377;<%= prod.price %></span>
+                        <% } %>
+                      </div>
+            
+                      <div class="product_details-offers" style="margin-top: 20px; border-top: 1px solid #f0f0f0; padding-top: 15px;">
+                        <h3 style="font-size: 16px; font-weight: 500; margin-bottom: 10px;">Available offers</h3>
+                        <ul class="product_details-offers-list" style="list-style-type: none; padding-left: 0;">
+                          <li class="product_details-offer" style="margin-bottom: 10px;">
+                            <img src="/public/images/icons8-discount-30.png" alt="Discount Icon" style="width: 18px; margin-right: 10px;">
+                            <span style="font-size: 14px;">Get 50% instant discount on BRODWAY transaction on order of ₹2500 and above</span>
+                            <a href="#" style="color: #2874f0; font-weight: 500; margin-left: 5px;">T&C</a>
+                          </li>
+                          <li class="product_details-offer" style="margin-bottom: 10px;">
+                            <img src="/public/images/icons8-discount-30.png" alt="Discount Icon" style="width: 18px; margin-right: 10px;">
+                            <span style="font-size: 14px;">Get 50% instant discount on BRODWAY transaction on order of ₹1999</span>
+                            <a href="#" style="color: #2874f0; font-weight: 500; margin-left: 5px;">T&C</a>
+                          </li>
+                          <li class="product_details-offer" style="margin-bottom: 10px;">
+                            <img src="/public/images/icons8-discount-30.png" alt="Discount Icon" style="width: 18px; margin-right: 10px;">
+                            <span style="font-size: 14px;">Coupons soon Freekip</span>
+                          </li>
+                        </ul>
+                      </div>
+            
+                      <div class="product_details-delivery" style="margin-top: 20px; border-top: 1px solid #f0f0f0; padding-top: 15px;">
+                        <h3 style="font-size: 16px; font-weight: 500; margin-bottom: 10px;">Product Description</h3>
+                        <p class="product-description" style="font-size: 14px; color: #212121; line-height: 1.4;"><%= prod.description %></p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
+              </div>
             </div>
         </article>
     </main>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const mainImage = document.querySelector('.product-view-main-image');
-
-            mainImage.addEventListener('mousemove', function (e) {
-                const rect = mainImage.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                const xPercent = (x / rect.width) * 100;
-                const yPercent = (y / rect.height) * 100;
-
-                mainImage.style.transformOrigin = `${xPercent}% ${yPercent}%`;
-                mainImage.classList.add('zoom');
-            });
-
-            mainImage.addEventListener('mouseleave', function () {
-                mainImage.classList.remove('zoom');
-                mainImage.style.transformOrigin = 'center center';
-            });
+      function imageZoom(imgID, resultID) {
+        var img, lens, result, cx, cy;
+        img = document.getElementById(imgID);
+        result = document.getElementById(resultID);
+        
+        // Create lens
+        lens = document.createElement("DIV");
+        lens.setAttribute("class", "img-zoom-lens");
+        img.parentElement.insertBefore(lens, img);
+      
+        // Calculate the ratio between result DIV and lens:
+        cx = result.offsetWidth / lens.offsetWidth;
+        cy = result.offsetHeight / lens.offsetHeight;
+      
+        // Set background properties for the result DIV
+        result.style.backgroundImage = "url('" + img.src + "')";
+        result.style.backgroundSize = (img.width * cx) + "px " + (img.height * cy) + "px";
+      
+        // Mouse enter event
+        img.addEventListener("mouseenter", function() {
+          lens.style.display = "block";
+          result.style.display = "block";
         });
-    </script>
-
+      
+        // Mouse leave event
+        img.addEventListener("mouseleave", function() {
+          lens.style.display = "none";
+          result.style.display = "none";
+        });
+      
+        // Mouse move event
+        lens.addEventListener("mousemove", moveLens);
+        img.addEventListener("mousemove", moveLens);
+      
+        function moveLens(e) {
+          var pos, x, y;
+          e.preventDefault();
+          pos = getCursorPos(e);
+          x = pos.x - (lens.offsetWidth / 2);
+          y = pos.y - (lens.offsetHeight / 2);
+      
+          if (x > img.width - lens.offsetWidth) {x = img.width - lens.offsetWidth;}
+          if (x < 0) {x = 0;}
+          if (y > img.height - lens.offsetHeight) {y = img.height - lens.offsetHeight;}
+          if (y < 0) {y = 0;}
+      
+          lens.style.left = x + "px";
+          lens.style.top = y + "px";
+          result.style.backgroundPosition = "-" + (x * cx) + "px -" + (y * cy) + "px";
+        }
+      
+        function getCursorPos(e) {
+          var a, x = 0, y = 0;
+          e = e || window.event;
+          a = img.getBoundingClientRect();
+          x = e.pageX - a.left;
+          y = e.pageY - a.top;
+          x = x - window.pageXOffset;
+          y = y - window.pageYOffset;
+          return {x : x, y : y};
+        }
+      }
+      
+      document.addEventListener('DOMContentLoaded', function () {
+        var carouselItems = document.querySelectorAll('.carousel-item');
+        carouselItems.forEach(function(item, index) {
+          var img = item.querySelector('.product-view-main-image');
+          var result = item.querySelector('.img-zoom-result');
+          
+          img.id = 'myimage' + index;
+          result.id = 'myresult' + index;
+      
+          imageZoom('myimage' + index, 'myresult' + index);
+        });
+      
+        // Handle carousel slide event
+        $('#carouselExampleIndicators').on('slide.bs.carousel', function () {
+          // Hide all zoom lenses and results
+          document.querySelectorAll('.img-zoom-lens, .img-zoom-result').forEach(function(el) {
+            el.style.display = 'none';
+          });
+        });
+      });
+      </script>
+  
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>

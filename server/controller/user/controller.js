@@ -11,9 +11,9 @@ const wishlistdb = require('../../model/wishlistModel')
 
 
 
-    const error = async (req, res) => {
-        res.render('error500')
-    }
+const error = async (req, res) => {
+    res.render('error500')
+}
 
 
 const applyoffer = async (product) => {
@@ -27,7 +27,7 @@ const applyoffer = async (product) => {
     if (productOffer && typeof productOffer.discount_Percentage === 'number') {
         product.offerPrice = Math.round(product.price - (product.price * (productOffer.discount_Percentage / 100)));
     } else if (categoryOffer && typeof categoryOffer.discount_Percentage === 'number') {
-        product.categoryOffer = categoryOffer; // Assign category offer to the product
+        product.categoryOffer = categoryOffer;
         product.offerPrice = Math.round(product.price - (product.price * (categoryOffer.discount_Percentage / 100)));
     } else {
         product.discountPercentage = 0;
@@ -63,22 +63,22 @@ const category = async (req, res) => {
             let cart = await cartdb.findOne({ user: userId });
             cartCount = cart ? cart.items.length : 0;
 
-            res.render('productList', { 
-                products, 
-                userToken: req.cookies.userToken, 
-                cartCount, 
-                user, 
-                Category, 
-                categoryId, 
+            res.render('productList', {
+                products,
+                userToken: req.cookies.userToken,
+                cartCount,
+                user,
+                Category,
+                categoryId,
                 wishlist,
                 searchQuery: searchQuery || ''
             });
         } else {
-            res.render('productList', { 
-                products, 
-                userToken: undefined, 
-                cartCount: 0, 
-                Category, 
+            res.render('productList', {
+                products,
+                userToken: undefined,
+                cartCount: 0,
+                Category,
                 wishlist,
                 categoryId,
                 searchQuery: searchQuery || ''

@@ -22,7 +22,7 @@ const offerSchema = new mongoose.Schema({
         default: function () {
             const currentDate = new Date();
             currentDate.setHours(0, 0, 0, 0);   
-            return currentDate.format('DD-MM-YYYY');
+            return currentDate
 
         }
     },
@@ -31,7 +31,7 @@ const offerSchema = new mongoose.Schema({
         default: function () {
             const currentDate = new Date();
             currentDate.setHours(0, 0, 0, 0);
-            return currentDate.format('DD-MM-YYYY');
+            return currentDate
 
         }
     },

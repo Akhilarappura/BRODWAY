@@ -12,7 +12,7 @@ const getWishlist = async (req, res) => {
         console.log(userId);
 
         const wishlist = await wishlistdb.findOne({ user: userId }).populate('items.productId');
-        const Category = await categorydb.find();  // Make sure Category is correctly defined and retrieved
+        const Category = await categorydb.find(); 
         const cart = await cartdb.findOne({ user: userId });
         let cartCount = cart ? cart.items.length : 0;
 
@@ -20,7 +20,7 @@ const getWishlist = async (req, res) => {
             return res.render('wishlist', { wishlist: { items: [] }, user, Category, userToken: req.cookies.userToken, cartCount });
         }
 
-        res.render('wishlist', { wishlist, user, Category, userToken: req.cookies.userToken, cartCount });  // Ensure Category is passed here
+        res.render('wishlist', { wishlist, user, Category, userToken: req.cookies.userToken, cartCount });  
     } catch (err) {
         console.error(err);
         res.render('error500');

@@ -68,7 +68,7 @@
         <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link text-white " href="/admin/admin">
+              <a class="nav-link text-white " href="">
                 <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                   <i class="material-icons opacity-10">dashboard</i>
                 </div>
@@ -76,7 +76,7 @@
               </a>
             </li> 
             <li class="nav-item">
-              <a class="nav-link text-white active bg-gradient-primary" href="/admin/category">
+              <a class="nav-link text-white active bg-gradient-primary" href="/category">
                 <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                   <i class="material-icons opacity-10">assignment</i>
                 </div>
@@ -84,7 +84,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-white" href="/admin/products">
+              <a class="nav-link text-white" href="/products">
                 <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                   <i class="material-icons opacity-10">table_view</i>
                 </div>
@@ -92,7 +92,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-white " href="/admin/orders">
+              <a class="nav-link text-white " href="/orders">
                 <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                   <i class="material-icons opacity-10">receipt_long</i>
                 </div>
@@ -100,7 +100,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-white" href="/admin/allusers">
+              <a class="nav-link text-white" href="/allusers">
                 <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                   <i class="material-icons opacity-10">person</i>
                 </div>
@@ -108,7 +108,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-white" href="/admin/coupon">
+              <a class="nav-link text-white" href="/coupon">
                 <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                   <i class="material-icons opacity-10">redeem</i> 
                 </div>
@@ -116,7 +116,7 @@
               </a>
             </li>  
             <li class="nav-item">
-              <a class="nav-link text-white" href="/admin/offers">
+              <a class="nav-link text-white" href="/offers">
                 <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                   <i class="material-icons opacity-10">local_offer</i> <!-- Material icon for a coupon -->
                 </div>
@@ -128,7 +128,7 @@
             </li>
             <hr class="light horizontal my-0">
             <li class="nav-item">
-              <a class="nav-link text-white " href="/admin/adminlogout">
+              <a class="nav-link text-white " href="/adminlogout">
                 <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                   <i class="material-icons opacity-10">login</i>
                 </div>
@@ -145,7 +145,7 @@
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="#" class="text-black">Admin</a></li>
-          <li class="breadcrumb-item"><a href="/admin/category" class="text-black">Category</a></li>
+          <li class="breadcrumb-item"><a href="/category" class="text-black">Category</a></li>
           <li class="breadcrumb-item active" aria-current="page">Add Category</li>
       </ol>
   </nav>
@@ -161,16 +161,18 @@
       
       <div class="row">
         <div class="col-12 col-lg-6  card rounded bg-black">
-          <div class="text-danger" ><%=message %></div>
+          <div class="text-danger" style="color: red;" ><%=message %></div>
         <form action="/addcategory" method="POST" onsubmit="return validateForm()">
           <div class="mb-3">
               <label for="p_name" class="form-label">Category Name:</label>
               <input type="text" class="form-control" id="categoryName" name="categoryName" required>
+              <span id="categoryError" class="error" style="color:red"></span>
           </div>
 
           <div class="mb-3">
               <label for="stat" class="form-label">Description:</label>
               <textarea class="form-control" id="discrip" name="discrip"></textarea>
+              <span id="descriptionError" class="error" style="color:red"></span>
           </div>
           <button type="submit" class="btn btn-primary">Submit</button>
       </form>
@@ -182,26 +184,25 @@
   </div>
 </main>
 
-  <script>
+<script>
   function validateForm() {
-    const categoryName = document.getElementById('categoryName').value.trim();
-    const description = document.getElementById('discrip').value.trim();
-
-    
-    if (categoryName === '') {
-      alert('Please enter a Category Name.');
-      return false;
-    }
-
-    if (description === '') {
-      alert('Please enter a Description.');
-      return false;
-    }
-
-    return true;
+      const categoryName = document.getElementById('categoryName').value.trim();
+      const categoryError = document.getElementById('categoryError');
+      categoryError.textContent = "";
+  
+      if (categoryName === "") {
+          categoryError.textContent = "Category name cannot be empty";
+          return false;
+      }
+  
+      if (!/^[A-Za-z\s]+$/.test(categoryName)) {
+          categoryError.textContent = "Category name should only contain letters and spaces";
+          return false;
+      }
+  
+      return true;
   }
-
-</script>
+  </script>
 
 <script>
     new DataTable('#userTable');

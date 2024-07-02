@@ -28,9 +28,11 @@ const checkBlocked = async (req, res, next) => {
     if (req.cookies && req.cookies.adminToken) {
       next();
     } else {
-      
+      console.log('clearing cookies');
+      res.clearCookie('adminToken');
       res.redirect('/adminsignup')
     }
+  
   }
 
 

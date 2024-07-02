@@ -3,13 +3,14 @@ const cartdb = require("../../model/cartmodel");
 const Categorydb = require("../../model/categoryModel");
 const productdb = require("../../model/productModel");
 const userdb = require("../../model/userModel");
+const offerdb = require("../../model/offerModel");
 
 
 
 
 
 //apply offer
-const offerdb = require("../../model/offerModel");
+
 
 const applyoffer = async (product) => {
     if (!product) {

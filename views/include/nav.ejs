@@ -7,69 +7,89 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BRODWAY</title>
 
-  <!-- 
-    - favicon
-  -->
   <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
-
-  <!-- 
-    - custom css link
-  -->
-<!-- <link rel="stylesheet" href="/public/css/style.css"> -->
   <link rel="stylesheet" href="/public/css/newIndex.css">
-
-  <!-- 
-    - google font link
-  -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
     href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&family=Roboto:wght@400;500;700&display=swap"
     rel="stylesheet">
-    
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-
-  <!-- 
-    - preload banner
-  -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="preload" href="/footwear-master/public/imgee/hero-banner.png" as="image">
-
 </head>
+
 <style>
-  .parallax {
-  /* The image used */
-  background-image: url("/public/imgee/hero-banner.png");
-
-  /* Full height */
-  height: 100%;
-
-  /* Create the parallax scrolling effect */
-  background-attachment: fixed;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+  .navbar-link {
+  font-size: 18px; /* Increase from 15px */
+  font-weight: bold;
+  padding: 10px 15px; /* Add padding */
+  line-height: 1.5; /* Improve line height */
 }
+
+/* For smaller screens */
+@media (max-width: 991px) {
+  .navbar-link {
+    font-size: 16px; /* Slightly smaller on mobile, but still larger than before */
+    padding: 8px 12px; /* Adjust padding for mobile */
+  }
+}
+
+/* Increase spacing between nav items */
+.navbar-nav .nav-item {
+  margin: 0 5px; /* Add some margin between items */
+}
+
+.cart-item {
+  position: relative;
+}
+
+.cart-icon-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.cart-badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  font-size: 0.75rem;
+  padding: 0.25em 0.4em;
+}
+
+/* Make the navbar taller */
+.navbar {
+  min-height: 60px; /* Increase the minimum height */
+}
+
+/* Adjust the brand/logo size if needed */
+.navbar-brand {
+  font-size: 24px; /* Larger brand/logo text */
+}
+  .parallax {
+    background-image: url("/public/imgee/hero-banner.png");
+    height: 100%;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
   .filter-products-wrapper {
     display: flex;
-    flex-direction: row;
-    align-items: flex-start;
+    flex-direction: column;
   }
 
   .filter-section {
-    flex: 0 0 200px;
-    /* Adjust the width as needed */
-    margin-right: 10px;
-    /* Adjust spacing between the filter and product sections */
-  }
-  .navbar-link{
-font-size: 15px;
-font-weight: bold;
+    width: 100%;
+    margin-bottom: 20px;
   }
 
+  .navbar-link {
+    font-size: 15px;
+    font-weight: bold;
+  }
 
   .productsContainer {
-    flex: 1;
-    /* Takes up the remaining space */
     display: flex;
     flex-wrap: wrap;
   }
@@ -77,14 +97,12 @@ font-weight: bold;
   .productsContainer .col-lg-2,
   .productsContainer .col-md-6,
   .productsContainer .col-sm-4 {
-    flex: 0 1 calc(25% - 20px);
-    /* Adjust based on breakpoints and spacing */
-    margin: 10px;
-    /* Adjust spacing between products */
+    flex: 0 1 100%;
+    margin: 10px 0;
   }
 
   .pro-img img {
-    max-width: 80%;
+    max-width: 100%;
     height: auto;
   }
 
@@ -122,135 +140,154 @@ font-weight: bold;
   .price {
     font-weight: bold;
   }
+
+  @media (min-width: 768px) {
+    .filter-products-wrapper {
+      flex-direction: row;
+    }
+
+    .filter-section {
+      width: 200px;
+      margin-right: 20px;
+    }
+
+    .productsContainer .col-lg-2,
+    .productsContainer .col-md-6,
+    .productsContainer .col-sm-4 {
+      flex: 0 1 calc(50% - 20px);
+    }
+  }
+
+  @media (min-width: 992px) {
+    .productsContainer .col-lg-2,
+    .productsContainer .col-md-6,
+    .productsContainer .col-sm-4 {
+      flex: 0 1 calc(33.333% - 20px);
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .productsContainer .col-lg-2,
+    .productsContainer .col-md-6,
+    .productsContainer .col-sm-4 {
+      flex: 0 1 calc(25% - 20px);
+    }
+  }
+  @media (max-width: 768px) {
+  .btn-add-cart {
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+  }
+}
+@media (max-width: 768px) {
+  .responsive-button {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+}
 </style>
 
 <body id="top">
-
-  <!-- 
-    - #HEADER
-  -->
-
-  <header class="header" data-header >
+  <header class="header" data-header>
     <div class="container">
-
       <div class="overlay" data-overlay></div>
-
       <h1>BRODWAY</h1>
 
-      <button class="nav-open-btn" data-nav-open-btn aria-label="Open Menu">
+      <button class="nav-open-btn d-lg-none" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <ion-icon name="menu-outline"></ion-icon>
       </button>
 
-      <nav class="navbar" data-navbar>
-
-        <button class="nav-close-btn" data-nav-close-btn aria-label="Close Menu">
-          <ion-icon name="close-outline"></ion-icon>
-        </button>
-
-        <a href="#" class="logo">
-          <img src="./assets/images/logo.svg" width="190" height="50" alt="Footcap logo">
-        </a>
-
-        <ul class="navbar-list">
-
-          <li class="navbar-item">
-            <a href="/" class="navbar-link">Home</a>
-          </li>
-
-          <li class="navbar-item">
-            <%Category?.forEach(category=>{%>
-              <a href="/productCategory?id=<%=category._id%>" class="navbar-link">
-                <span>
-                  <%=category.categoryName%>
-                </span></a>
-          </li>
-          <%})%>
-
-            <li class="navbar-item">
-              <a href="/about" class="navbar-link">About</a>
-            </li>
-            <li class="navbar-item">
-              <a href="/contact" class="navbar-link">Contact</a>
-            </li>
-
-
-
-        </ul>
-
-        <ul class="nav-action-list">
-
-          <li>
-            <button class="nav-action-btn">
-              <ion-icon name="search-outline" aria-hidden="true"></ion-icon>
-
-              <span class="nav-action-text">Search</span>
-            </button>
-          </li>
-
-
-          <% if (!userToken) { %>
-            <li>
-              <a href="/login" class="nav-action-btn">
-                <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
-
-                <span class="nav-action-text">Login </span>
-              </a>
-            </li>
-            <% } %>
-
+      <nav class="navbar navbar-expand-lg" id="navbarNav" style="font-family: sans-serif;
+      font-weight: bold;
+      font-size: large;
+      margin: -2rem -6rem -6rem 4rem;">
+        <div class="container-fluid">
+          <a class="navbar-brand d-lg-none" href="#">BRODWAY</a>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link" href="/">Home</a>
+              </li>
+              <% Category?.forEach(category => { %>
+              <li class="nav-item">
+                <a class="nav-link" href="/productCategory?id=<%= category._id %>">
+                  
+                  <span><%= category.categoryName %></span>
+                </a>
+              </li>
+              <% }) %>
+              <li class="nav-item">
+                <a class="nav-link" href="/about">About</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/contact">Contact</a>
+              </li>
+            </ul>
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" href="#" aria-label="Search">
+                  <ion-icon name="search-outline"></ion-icon>
+                  <span class="d-lg-none ms-2">Search</span>
+                </a>
+              </li>
+              <% if (!userToken) { %>
+              <li class="nav-item">
+                <a class="nav-link" href="/login">
+                  <ion-icon name="person-outline"></ion-icon>
+                  <span class="d-lg-none ms-2">Login</span>
+                </a>
+              </li>
+              <% } else { %>
+              <li class="nav-item">
+                <a class="nav-link" href="/profile">
+                  <ion-icon name="person-outline"></ion-icon>
+                  <span class="d-lg-none ms-2">Profile</span>
+                </a>
+              </li>
+              <% } %>
+              <li class="nav-item">
+                <a class="nav-link" href="/wishlist">
+                  <ion-icon name="heart-outline"></ion-icon>
+                  <span class="d-lg-none ms-2">Wishlist</span>
+                </a>
+              </li>
               <% if (userToken) { %>
-                <li>
-                  <a href="/profile" class="nav-action-btn">
-                    <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
-
-                    <span class="nav-action-text">Login </span>
+                <li class="nav-item cart-item">
+                  <a class="nav-link" href="/cart">
+                    <div class="cart-icon-wrapper">
+                      <span class="badge bg-danger cart-badge"><%= cartCount %></span>
+                      <ion-icon name="cart-outline"></ion-icon>
+                    </div>
+                    <span class="d-lg-none ms-2">Cart</span>
                   </a>
                 </li>
-                <% } %>
-                  <li>
-                    <a href="/wishlist" class="nav-action-btn">
-                      <ion-icon name="heart-outline" aria-hidden="true"></ion-icon>
-                      <span class="nav-action-text">Wishlist</span>
-                    </a>
-                  </li>
-                  <% if (userToken) { %>
-                    <li>
-                      <a href="/cart" class="nav-action-btn">
-                        <ion-icon name="cart-outline" aria-hidden="true"></ion-icon>
-                        <span class="nav-action-text">cart</span>
-                        <data class="nav-action-badge" value="" aria-hidden="true">
-                          <%= cartCount %>
-                        </data>
-                      </a>
-                    </li>
-                    <% } %>
-                      <% if (!userToken) { %>
-                        <li>
-                          <a href="/login" class="nav-action-btn">
-                            <ion-icon name="cart-outline" aria-hidden="true"></ion-icon>
-
-                            <span class="nav-action-text">Login </span>
-                          </a>
-                        </li>
-                        <% }  else{%>
-                          <li>
-                            <a href="/userlogout" class="nav-action-btn">
-                              <ion-icon name="log-out-outline"></ion-icon>
-  
-                              <span class="nav-action-text">Logout </span>
-                            </a>
-                          </li>
-
-
-                          <%}%>
-
-
-
-
-
-        </ul>
-
+              <% } else { %>
+              <li class="nav-item">
+                <a class="nav-link" href="/login">
+                  <ion-icon name="cart-outline"></ion-icon>
+                  <span class="d-lg-none ms-2">Login</span>
+                </a>
+              </li>
+              <% } %>
+              <% if (userToken) { %>
+              <li class="nav-item">
+                <a class="nav-link" href="/userlogout">
+                  <ion-icon name="log-out-outline"></ion-icon>
+                  <span class="d-lg-none ms-2">Logout</span>
+                </a>
+              </li>
+              <% } %>
+            </ul>
+          </div>
+        </div>
       </nav>
-
     </div>
   </header>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+

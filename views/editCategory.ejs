@@ -249,55 +249,35 @@
 </script> 
 <script>
   function validateForm() {
-    // Get the category name input field
-    const categoryNameInput = document.getElementById('categoryName');
-    
-    // Get the value of the category name
-    const categoryName = categoryNameInput.value.trim().toLowerCase(); // Convert to lowercase for case-insensitive comparison
-
-    // Check if the category name is empty
-    if (categoryName === '') {
-      // Display error message
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Please enter a category name.',
-      });
-
-      // Focus on the category name input field
-      categoryNameInput.focus();
-
-      // Prevent form submission
-      return false;
-    }
-
-    // Check if the category name already exists (you need to implement this logic)
-    // You may need to make an AJAX request to your server to check for duplicate category names
-    // Replace 'checkDuplicateCategory' with the actual endpoint to check for duplicate category names
-    $.get('/checkDuplicateCategory?categoryName=' + categoryName, function(response) {
-      if (response.exists) {
-        // Display error message
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'Category name already exists. Please enter a different name.',
-        });
-
-        // Focus on the category name input field
-        categoryNameInput.focus();
-
-        // Prevent form submission
-        return false;
-      } else {
-        // No duplicate category name found, allow form submission
-        return true;
+      const categoryNameInput = document.getElementById('categoryName');
+      const categoryName = categoryNameInput.value.trim();
+  
+      // Check if the category name is empty
+      if (categoryName === '') {
+          Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Category name cannot be empty.',
+          });
+          categoryNameInput.focus();
+          return false;
       }
-    });
-
-    // Prevent form submission before the AJAX request completes
-    return false;
+  
+      // Check if the category name contains only letters and spaces
+      if (!/^[A-Za-z\s]+$/.test(categoryName)) {
+          Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Category name should only contain letters and spaces.',
+          });
+          categoryNameInput.focus();
+          return false;
+      }
+  
+      // If all validations pass, return true to submit the form
+      return true;
   }
-</script>
+  </script>
 
 
 </body>

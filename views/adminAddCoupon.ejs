@@ -197,7 +197,6 @@
         </div>
     </div>
     </main>
-    <script>
       function validate(){
         document.getElementById("nameError").textContent='';
         document.getElementById("discountError").textContent='';
@@ -236,7 +235,87 @@
         return true;
 
       }
-    </script>
+    </script> -->
+    <script>
+      function validate() {
+          let isValid = true;
+          clearErrors();
+      
+          // Coupon Name validation
+          const couponcode = document.getElementById('couponcode');
+          if (couponcode.value.trim() === '') {
+              showError('nameError', 'Coupon Name is required');
+              isValid = false;
+          } else if (couponcode.value.length < 3 || couponcode.value.length > 20) {
+              showError('nameError', 'Coupon Name must be between 3 and 20 characters');
+              isValid = false;
+          }
+      
+          // Discount Percentage validation
+          const discountPercentage = document.getElementById('discountPercentage');
+          if (discountPercentage.value === '' || isNaN(discountPercentage.value)) {
+              showError('discountError', 'Please enter a valid discount percentage');
+              isValid = false;
+          } else if (discountPercentage.value < 0 || discountPercentage.value > 100) {
+              showError('discountError', 'Discount percentage must be between 0 and 100');
+              isValid = false;
+          }
+      
+          // Expiry Date validation
+          const expireDate = new Date(document.getElementById('expireDate').value);
+          const today = new Date();
+          today.setHours(0, 0, 0, 0);
+          if (isNaN(expireDate.getTime())) {
+              showError('expiryDateError', 'Please enter a valid expiry date');
+              isValid = false;
+          } else if (expireDate <= today) {
+              showError('expiryDateError', 'Expiry date must be in the future');
+              isValid = false;
+          }
+      
+          // Minimum Purchase Amount validation
+          const minPurchaseAmount = document.getElementById('minPurchaseAmount');
+          if (minPurchaseAmount.value === '' || isNaN(minPurchaseAmount.value) || minPurchaseAmount.value <= 0) {
+              showError('minPurchaseError', 'Please enter a valid minimum purchase amount');
+              isValid = false;
+          }
+      
+          // Max Discount Amount validation
+          const maxDiscount = document.getElementById('maxDiscount');
+          if (maxDiscount.value === '' || isNaN(maxDiscount.value) || maxDiscount.value <= 0) {
+              showError('maxDiscount', 'Please enter a valid maximum discount amount');
+              isValid = false;
+          }
+      
+          // Additional validation: Max discount should not exceed minimum purchase amount
+          if (parseFloat(maxDiscount.value) > parseFloat(minPurchaseAmount.value)) {
+              showError('maxDiscount', 'Max discount cannot exceed minimum purchase amount');
+              isValid = false;
+          }
+      
+          return isValid;
+      }
+      
+      function showError(id, message) {
+          const errorElement = document.getElementById(id);
+          errorElement.textContent = message;
+      }
+      
+      function clearErrors() {
+          const errorElements = document.getElementsByClassName('error-text');
+          for (let element of errorElements) {
+              element.textContent = '';
+          }
+      }
+      
+      // Optional: Real-time validation
+      document.addEventListener('DOMContentLoaded', function() {
+          const inputs = document.querySelectorAll('input');
+          inputs.forEach(input => {
+              input.addEventListener('blur', validate);
+          });
+      });
+      </script>
 
 
     

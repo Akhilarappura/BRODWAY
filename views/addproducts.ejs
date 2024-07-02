@@ -267,6 +267,10 @@
             <input type="number" min="1" class="form-control" id="final_price" name="final_price" required>
             <span id="finalPriceError" class="error" style="color:red"></span>
         </div>
+        <div class="mb-3">
+          <label for="stat" class="form-label">Description:</label>
+          <textarea class="form-control" id="stat" name="stat"></textarea>
+      </div>
     
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
@@ -312,9 +316,13 @@
       preview.innerHTML = "";
 
       if (files.length > 4) {
-          alert("You can upload a maximum of 4 images.");
-          return;
-      }
+        Swal.fire({
+            icon: 'warning',
+            title: 'Too many images',
+            text: 'You can upload a maximum of 4 images.',
+        });
+        return;
+    }
 
       for (let i = 0; i < files.length; i++) {
           const file = files[i];
@@ -419,5 +427,6 @@
     new DataTable('#userTable');
   
   </script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>

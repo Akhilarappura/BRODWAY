@@ -22,35 +22,49 @@ const get_add = async (req, res) => {
 
 const add = async (req, res) => {
     try {
-
-        // Validate request
         if (!req.body) {
-            res.status(400).send({ message: 'Content cannot be empty' });
-            return;
+            return res.status(400).render('addcategory', { message: 'Content cannot be empty' });
         }
 
-        let category = await categorydb.findOne({ categoryName: req.body.categoryName });
+        const { categoryName, description } = req.body;
 
-        if (category) {
-            res.render('addcategory', { message: 'Category already exists' });
-            return;
-        } else {
-            const newCategory = new categorydb({
-                categoryName: req.body.categoryName,
-                description: req.body.description
-            });
-
-            // Save category in the database
-            await newCategory.save();
-            res.redirect('/category');
+        if (!categoryName || categoryName.trim() === '') {
+            return res.status(400).render('addcategory', { message: 'Category name cannot be empty' });
         }
+
+        const trimmedCategoryName = categoryName.trim();
+
+
+        if (!/^[A-Za-z\s]+$/.test(trimmedCategoryName)) {
+            return res.status(400).render('addcategory', { message: 'Category name should only contain letters and spaces' });
+        }
+
+
+        const existingCategory = await categorydb.findOne({
+            categoryName: { $regex: new RegExp(`^${trimmedCategoryName}$`, 'i') }
+        });
+
+        if (existingCategory) {
+            return res.status(400).render('addcategory', { message: 'Category already exists' });
+        }
+
+
+        const newCategory = new categorydb({
+            categoryName: trimmedCategoryName,
+            description: description ? description.trim() : ''
+        });
+
+        await newCategory.save();
+
+
+
+        res.redirect('/category');
 
     } catch (err) {
-        res.status(500).send({
-            message: err.message || 'Some error occurred while creating this category'
-        });
+        console.error(err);
+        res.status(500).render('addcategory', { message: 'An error occurred while adding the category' });
     }
-}
+};
 
 
 const getEdit = async (req, res) => {

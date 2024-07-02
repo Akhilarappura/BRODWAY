@@ -123,18 +123,16 @@ const posteditCoupon = async (req, res) => {
             return res.render('editCoupon', { get: updatedCoupon, message: 'All fields are required.' });
         }
 
-        // Ensure discountPercentage is within valid range
+
         if (updatedCoupon.discountPercentage < 10 || updatedCoupon.discountPercentage > 70) {
             return res.render('editCoupon', { get: updatedCoupon, message: 'Discount percentage must be between 10 and 70.' });
         }
 
-        // Fetch existing coupon data
         const existingCoupon = await coupondb.findById(couponId);
         if (!existingCoupon) {
             return res.render('editCoupon', { get: updatedCoupon, message: 'Coupon not found.' });
         }
 
-        // Check for duplicate coupon code
         const couponSame = await coupondb.findOne({ couponcode: updatedCoupon.couponcode });
         if (couponSame && couponSame._id.toString() !== couponId) {
             return res.render('editCoupon', { get: updatedCoupon, message: 'Coupon already exists.' });

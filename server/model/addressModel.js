@@ -42,7 +42,7 @@ const addressSchema = new Schema({
     landmark: String,
     alternateMobile: String,
 
-}, { timestamps: true }); // Adds createdAt and updatedAt fields
+}, { timestamps: true }); 
 
 const Addressdb = mongoose.model('addressdb', addressSchema);
 

@@ -675,212 +675,144 @@
 
 
 
-	<script>
-
-		document.getElementById("placeOrder").addEventListener("click", () => {
-			const items = [];
-			document.querySelectorAll('#orderItems .item').forEach(item => {
-				const productId = item.dataset.productId;
-				const quantity = item.dataset.quantity;
-				items.push({ productId, quantity });
-			});
-
-
-
+<script>
+	document.getElementById("placeOrder").addEventListener("click", async () => {
+		try {
+			const items = Array.from(document.querySelectorAll('#orderItems .item')).map(item => ({
+				productId: item.dataset.productId,
+				quantity: item.dataset.quantity
+			}));
+	
 			const selectedAddress = document.getElementById("address").value;
-			console.log('selectedAddress', selectedAddress);
 			if (!selectedAddress) {
-				document.getElementById('errorMessage').innerHTML = 'Please Add the Address'
-				return
+				document.getElementById('errorMessage').innerHTML = 'Please Add the Address';
+				return;
 			}
-			const paymentMethod1 = document.querySelector('input[name="optradio"]:checked');
-
-			const paymentMethod = paymentMethod1.value
-			console.log('paymentMethod', paymentMethod);
-
-
-
-			fetch("/verifyStock", {
+	
+			const paymentMethod = document.querySelector('input[name="optradio"]:checked')?.value;
+			if (!paymentMethod) {
+				document.getElementById('errorMessage').innerHTML = 'Please select a payment method';
+				return;
+			}
+	
+			const stockResponse = await fetch("/verifyStock", {
 				method: "POST",
-				headers: {
-					'Content-Type': 'application/json'
-				},
+				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify({ allItems: items })
-			})
-				.then(response => response.json())
-				.then(res => {
-					console.log(res, 'response');
-
-					res.outOfStockItems.forEach(item => {
-
-						document.getElementById(item).innerHTML = 'Out of stock'
-					})
-
-					if (res.outOfStockItems.length === 0) {
-
-						console.log('res22222', res.outOfStockItems.length);
-
-
-
-						const data = {
-							items: items,
-							addressId: selectedAddress
-						}
-
-
-
-						if (paymentMethod === 'cod' && items.length != 0) {
-							const codeAvailability = document.getElementById('codeAvailability')
-							let totalamount = parseFloat(document.getElementById("totalamountid").textContent.trim().replace(',', ''));
-							console.log(totalamount, "amount");
-							console.log('totalamount', totalamount);
-							console.log('2020', items.length)
-							console.log("payment", paymentMethod);
-							fetch("/stockresult", {
-								method: 'post',
-								headers: {
-									'content-Type': 'application/json'
-								},
-								body: JSON.stringify({ data, paymentMethod, totalamount })
-							})
-								.then(res => res.json())
-								.then(response => {
-									console.log("hi1111");
-									if (res.status === 401) {
-										console.log("hi");
-										toastr.error('Please add the Address to checkout');
-									}
-									console.log("response from backend:", data);
-									if (response.message === 'order completed') {
-										window.location.href = '/thankyou'
-									}
-								})
-								.catch(error => {
-									console.log('cod error');
-									console.error("Error in Razorpay payment:", error)
-								})
-
-						}
-						console.log('im in1');
-						if (paymentMethod === 'netBanking' && items.length !== 0) {
-							console.log("in in 2");
-							const totalAmount = document.getElementById('totalAmountid').value;
-							console.log(totalAmount, "totalAmount");
-
-
-							fetch('/razorpayment', {
-								method: 'post',
-								headers: {
-									'content-Type': 'application/json'
-								},
-								body: JSON.stringify({ totalAmount })
-							})
-								.then(res => res.json())
-								.then(res => {
-									console.log("data", res);
-
-									const options = {
-										"key": "rzp_test_Yf4QX1fH3V3BDE", // Enter the Key ID generated from the Dashboard
-										"amount": res.order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
-										"currency": "INR",
-										"name": 'BRODWAY', //your business name
-										"description": "Test Transaction",
-										"image": "",
-										"order_id": res.order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-										"callback_url": `/onlinepayment?paymentMethod=${paymentMethod}&data=${JSON.stringify(data)}`,
-										"prefill": { //We recommend using the prefill parameter to auto-fill customer's contact information especially their phone number
-											// "name": "Gaurav Kumar", //your customer's name
-											// "email": "",
-											// "contact": "" //Provide the customer's phone number for better conversion rates 
-										},
-										"notes": {
-											"address": "Razorpay Corporate Office"
-										},
-										"theme": {
-											"color": "#3399cc"
-										}
-									};
-									const rzp1 = new Razorpay(options);
-									// Add the success and failure handlers
-
-									rzp1.on('payment.failed', function (response) {
-										console.error("Payment failed:", response);
-										alert("Payment failed. Redirecting to orders page.");
-										console.log("is it");
-
-
-										// Call a backend endpoint to update the order status
-										fetch('/failurePayment', {
-											method: 'POST',
-											headers: {
-												'Content-Type': 'application/json',
-											},
-											body: JSON.stringify({ data }),
-										}).then(() => {
-											window.location.href = '/orderpage'; // Redirect to the orders page
-										}).catch(error => {
-											console.error("Error updating order status:", error);
-										});
-									});
-
-									rzp1.open()
-								})
-								.catch(error => {
-									console.log('123');
-									console.error("Error in Razorpay payment:", error)
-								})
-						}
-						// 
-						if (paymentMethod === 'walletPayment' && items.length !== 0) {
-							const totalamount = parseFloat(document.getElementById('walletid').value);
-							const orderAmount = parseFloat(document.getElementById('totalAmountid').value);
-
-							console.log("totalamount", totalamount);
-							console.log("orderamount", orderAmount);
-
-							if (totalamount >= orderAmount) {
-								fetch('/walletPayment', {
-									method: 'post',
-									headers: {
-										'Content-Type': 'application/json'
-									},
-									body: JSON.stringify({ totalamount, data, paymentMethod, orderAmount })
-								})
-									.then(res => res.json())
-									.then(response => {
-										console.log("hi1111");
-										if (res.status === 401) {
-											console.log("hi");
-											toastr.error('Please add the Address to checkout');
-										}
-										console.log("response from backend:", data);
-										if (response.message === 'order completed') {
-											window.location.href = '/thankyou'
-										}
-									})
-									.catch(error => {
-										console.error("Error in wallet payment:", error);
-									});
-							} else {
-								console.log("Insufficient wallet balance.");
-								// Handle insufficient balance scenario
-							}
-						}
-						else {
-							res.outOfStockItems.forEach(item => {
-								document.getElementById(item).innerHTML = 'Out of stock';
-							});
-						}
-
-					}
-				})
-				.catch(error => {
-					console.log('2222222222222222222222222');
-					console.error("Error verifying stock:", error.message);
-					window.location.href = '/login'
+			});
+	
+			if (!stockResponse.ok) {
+				throw new Error('Failed to verify stock');
+			}
+	
+			const stockResult = await stockResponse.json();
+			
+			if (stockResult.outOfStockItems.length > 0) {
+				stockResult.outOfStockItems.forEach(item => {
+					document.getElementById(item).innerHTML = 'Out of stock';
 				});
+				return;
+			}
+	
+			const data = { items, addressId: selectedAddress };
+			const totalAmount = parseFloat(document.getElementById("totalamountid").textContent.trim().replace(',', ''));
+	
+			if (paymentMethod === 'cod') {
+				await handleCODPayment(data, paymentMethod, totalAmount);
+			} else if (paymentMethod === 'netBanking') {
+				await handleNetBankingPayment(data, totalAmount);
+			} else if (paymentMethod === 'walletPayment') {
+				await handleWalletPayment(data, paymentMethod, totalAmount);
+			}
+		} catch (error) {
+			console.error("Error in payment process:", error);
+			document.getElementById('errorMessage').innerHTML = 'An error occurred. Please try again.';
+		}
+	});
+	
+	async function handleCODPayment(data, paymentMethod, totalAmount) {
+		const response = await fetch("/stockresult", {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ data, paymentMethod, totalamount: totalAmount })
 		});
-
+	
+		const result = await response.json();
+		if (result.message === 'order completed') {
+			window.location.href = '/thankyou';
+		} else {
+			document.getElementById('errorMessage').innerHTML = result.message || 'Failed to place order';
+		}
+	}
+	
+	async function handleNetBankingPayment(data, totalAmount) {
+		const response = await fetch('/razorpayment', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ totalAmount })
+		});
+	
+		const result = await response.json();
+		const options = {
+			"key": "rzp_test_Yf4QX1fH3V3BDE",
+			"amount": result.order.amount,
+			"currency": "INR",
+			"name": 'BRODWAY',
+			"description": "Test Transaction",
+			"image": "",
+			"order_id": result.order.id,
+			"callback_url": `/onlinepayment?paymentMethod=netBanking&data=${encodeURIComponent(JSON.stringify(data))}`,
+			"prefill": {},
+			"notes": {
+				"address": "Razorpay Corporate Office"
+			},
+			"theme": {
+				"color": "#3399cc"
+			}
+		};
+	
+		const rzp1 = new Razorpay(options);
+		rzp1.on('payment.failed', handlePaymentFailure);
+		rzp1.open();
+	}
+	
+	async function handleWalletPayment(data, paymentMethod, orderAmount) {
+		const walletBalance = parseFloat(document.getElementById('walletid').value);
+		if (walletBalance < orderAmount) {
+			document.getElementById('errorMessage').innerHTML = 'Insufficient wallet balance';
+			return;
+		}
+	
+		const response = await fetch('/walletPayment', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ totalamount: walletBalance, data, paymentMethod, orderAmount })
+		});
+	
+		const result = await response.json();
+		if (result.message === 'order completed') {
+			window.location.href = '/thankyou';
+		} else {
+			document.getElementById('errorMessage').innerHTML = result.message || 'Failed to process wallet payment';
+		}
+	}
+	
+	function handlePaymentFailure(response) {
+		console.error("Payment failed:", response);
+		document.getElementById('errorMessage').innerHTML = 'Payment failed. Please try again.';
+		
+		fetch('/failurePayment', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({ data: response }),
+		}).then(() => {
+			window.location.href = '/orderpage';
+		}).catch(error => {
+			console.error("Error updating order status:", error);
+		});
+	}
 	</script>
 
 	<button id="rzp-button1">Pay</button>

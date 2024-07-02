@@ -6,7 +6,7 @@ const ExcelJS = require('exceljs');
 
 //dailyChart
 
-const dailyChart=async(req,res)=>{
+const dailyChart = async (req, res) => {
     try {
         const dailySales = await orderdb.aggregate([
             {
@@ -23,15 +23,15 @@ const dailyChart=async(req,res)=>{
         console.log(dailySales);
         res.status(200).json(dailySales);
 
-        
+
     } catch (error) {
         console.log(error);
         res.status(500).redirect('/error500')
-        
+
     }
 
 }
-const monthlySales=async(req,res)=>{
+const monthlySales = async (req, res) => {
     try {
         const monthlySales = await orderdb.aggregate([
             {
@@ -48,16 +48,16 @@ const monthlySales=async(req,res)=>{
         console.log(monthlySales);
         res.status(200).json(monthlySales);
 
-        
+
     } catch (error) {
         console.log(error);
         res.status(500).redirect('/error500')
-        
+
     }
 }
 
 
-const yearlySales=async(req,res)=>{
+const yearlySales = async (req, res) => {
     try {
         const yearlySales = await orderdb.aggregate([
             {
@@ -74,13 +74,13 @@ const yearlySales=async(req,res)=>{
         console.log(yearlySales);
         res.status(200).json(yearlySales);
 
-        
-        
+
+
     } catch (error) {
         console.log(error);
         res.status(500).redirect('/error500')
-        
-        
+
+
     }
 }
 
@@ -93,7 +93,6 @@ const yearlySales=async(req,res)=>{
 
 
 
-// 
 
 const getSalesReport = async (req, res) => {
     try {
@@ -307,14 +306,14 @@ async function getOrderData(startDate, endDate) {
             totalSales += item.quantity;
             const productPrice = item.price * item.quantity;
 
-           // Ensure item.productId is not null and has discount property
-           if (item.productId && item.productId.discount !== undefined) {
-            const discountAmount = productPrice - item.productId.discount;
-            totalDiscount += Math.round(discountAmount);
-        } else {
-            console.warn(`Missing or invalid discount for item: ${item.productId}`);
-        }
-    });
+            // Ensure item.productId is not null and has discount property
+            if (item.productId && item.productId.discount !== undefined) {
+                const discountAmount = productPrice - item.productId.discount;
+                totalDiscount += Math.round(discountAmount);
+            } else {
+                console.warn(`Missing or invalid discount for item: ${item.productId}`);
+            }
+        });
 
         if (order.couponused) {
             totalCouponDiscount += order.couponused.maxdiscount;
@@ -355,7 +354,7 @@ const modalgenerateReport = async (req, res) => {
             salesData = await getMonthlySales();
             dailySalesData = salesData;
             const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-            reportTitle = monthNames[new Date().getMonth()]; // Use current month if no startDate provided
+            reportTitle = monthNames[new Date().getMonth()];
         } else if (filterType === 'yearly') {
             salesData = await getYearlySales();
             dailySalesData = salesData;
@@ -371,7 +370,7 @@ const modalgenerateReport = async (req, res) => {
         console.log(reportType);
 
         if (reportType === 'pdf') {
-            generatePDFReport(res, reportTitle, salesData, dailySalesData); // Pass dailySalesData here
+            generatePDFReport(res, reportTitle, salesData, dailySalesData);
         } else if (reportType === 'excel') {
             generateExcelReport(res, reportTitle, salesData, dailySalesData);
         } else if (reportType === 'html') {

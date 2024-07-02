@@ -354,6 +354,110 @@
             }
         });
     </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('offerForm');
+            const offerType = document.getElementById('offerType');
+            const categoryFields = document.getElementById('categoryFields');
+            const productFields = document.getElementById('productFields');
+        
+            offerType.addEventListener('change', function() {
+                categoryFields.style.display = this.value === 'category' ? 'block' : 'none';
+                productFields.style.display = this.value === 'product' ? 'block' : 'none';
+            });
+        
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                if (validateForm()) {
+                    this.submit();
+                }
+            });
+        
+            function validateForm() {
+                let isValid = true;
+                clearErrors();
+        
+                // Offer Name validation
+                const offerName = document.getElementById('offerName');
+                if (offerName.value.trim() === '') {
+                    showError('offerNameError', 'Offer Name is required');
+                    isValid = false;
+                }
+        
+                // Offer Type validation
+                if (offerType.value === '') {
+                    showError('offerTypeError', 'Please select an Offer Type');
+                    isValid = false;
+                }
+        
+                // Category/Product specific validations
+                if (offerType.value === 'category') {
+                    const category = document.getElementById('category');
+                    const categoryDiscount = document.getElementById('categoryDiscount');
+        
+                    if (category.value === '') {
+                        showError('categoryError', 'Please select a Category');
+                        isValid = false;
+                    }
+        
+                    if (categoryDiscount.value === '' || isNaN(categoryDiscount.value) || categoryDiscount.value < 0 || categoryDiscount.value > 100) {
+                        showError('categoryDiscountError', 'Please enter a valid discount percentage (0-100)');
+                        isValid = false;
+                    }
+                } else if (offerType.value === 'product') {
+                    const product = document.getElementById('product');
+                    const productDiscount = document.getElementById('productDiscount');
+        
+                    if (product.value === '') {
+                        showError('productError', 'Please select a Product');
+                        isValid = false;
+                    }
+        
+                    if (productDiscount.value === '' || isNaN(productDiscount.value) || productDiscount.value < 0 || productDiscount.value > 100) {
+                        showError('productDiscountError', 'Please enter a valid discount percentage (0-100)');
+                        isValid = false;
+                    }
+                }
+        
+                // Date validations
+                const startingDate = new Date(document.getElementById('StartingDate').value);
+                const expiryDate = new Date(document.getElementById('expiryDate').value);
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+        
+                if (isNaN(startingDate.getTime())) {
+                    showError('StartingDateError', 'Please enter a valid Starting Date');
+                    isValid = false;
+                } else if (startingDate < today) {
+                    showError('StartingDateError', 'Starting Date cannot be in the past');
+                    isValid = false;
+                }
+        
+                if (isNaN(expiryDate.getTime())) {
+                    showError('expiryDateError', 'Please enter a valid Expiry Date');
+                    isValid = false;
+                } else if (expiryDate <= startingDate) {
+                    showError('expiryDateError', 'Expiry Date must be after the Starting Date');
+                    isValid = false;
+                }
+        
+                return isValid;
+            }
+        
+            function showError(id, message) {
+                const errorElement = document.getElementById(id);
+                errorElement.textContent = message;
+                errorElement.style.color = 'red';
+            }
+        
+            function clearErrors() {
+                const errorElements = document.getElementsByClassName('error-text');
+                for (let element of errorElements) {
+                    element.textContent = '';
+                }
+            }
+        });
+        </script>
     <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script> 
 
     

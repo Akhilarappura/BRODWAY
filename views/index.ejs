@@ -4,131 +4,140 @@
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <article>
       <style>
-       
+      .product-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 0;
+  list-style-type: none;
+}
+
+.product-item {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
+}
+
+.product-item:hover {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
 
 .product_details-card {
-    width: 300px;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .product_details-card-header {
-    position: relative;
+  position: relative;
 }
 
 .product_details-image {
-    width: 100%;
-    height: auto;
-}
-
-.product_details-colors {
-    position: absolute;
-    bottom: 10px;
-    left: 10px;
-    background: rgba(255, 255, 255, 0.8);
-    padding: 5px 10px;
-    border-radius: 4px;
-    font-size: 0.9em;
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
 }
 
 .product_details-card-body {
-    padding: 15px;
-    text-align: center;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 }
 
 .product_details-sponsored {
-    color: #888;
-    font-size: 0.8em;
-    margin-bottom: 5px;
+  font-size: 0.8em;
+  color: #888;
+  margin-bottom: 5px;
 }
 
 .product_details-title {
-    font-size: 1.2em;
-    margin: 0;
-    color: #333;
+  margin: 0 0 10px;
+  font-size: 1.2em;
 }
 
 .product_details-description {
-    font-size: 0.9em;
-    color: #555;
-    margin: 10px 0;
-}
-
-.product_details-rating {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 10px 0;
-}
-
-.product_details-stars {
-    color: #f5a623;
-    margin-right: 5px;
-}
-
-.product_details-reviews {
-    color: #888;
-    font-size: 0.9em;
+  font-size: 0.9em;
+  color: #555;
+  margin-bottom: 10px;
 }
 
 .product_details-pricing {
-    font-size: 1em;
-    color: #333;
-    margin: 10px 0;
+  margin-bottom: 10px;
 }
 
 .product_details-offer-price {
-    font-size: 1.5em;
-    color: #B12704;
-    display: block;
+  color: #B12704;
+  margin: 0;
 }
 
 .product_details-original-price {
-    font-size: 0.9em;
-    color: #888;
-    text-decoration: line-through;
-    display: block;
+  text-decoration: line-through;
+  color: #565959;
+  font-size: 0.9em;
 }
 
 .product_details-discount {
-    font-size: 0.9em;
-    color: #B12704;
+  color: #067D62;
+  font-size: 0.9em;
 }
 
-.product_details-prime {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 10px;
-    color: #555;
+.stock-warning {
+  color: #B12704;
+  font-weight: bold;
+  margin-bottom: 10px;
 }
 
-.product_details-prime-icon {
-    color: #00a8e1;
-    margin-right: 5px;
+.product-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: auto;
 }
 
-.product_details-delivery {
-    font-size: 0.9em;
-}
-.icon-wishlist{
-  position: absolute;
-  color: #fff;
-    translate: 324% 1719%;
-  
-}
-.akhil{
-  background-color:blue ;
+.btn {
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 0.9em;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
 }
 
-@media (max-width: 768px) {
-    .product_details-card {
-        width: 100%;
-    }
+.btn-primary {
+  background-color: #FFD814;
+  border: 1px solid #FCD200;
+  color: #0F1111;
 }
 
+.btn-secondary {
+  background-color: #fff;
+  border: 1px solid #D5D9D9;
+  color: #0F1111;
+}
+
+.btn-outline-secondary {
+  background-color: transparent;
+  border: 1px solid #D5D9D9;
+  color: #0F1111;
+}
+
+.out-of-stock {
+  color: #B12704;
+  font-weight: bold;
+}
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.blink-text {
+  animation: blink 1s linear infinite;
+  color: rgb(237, 40, 10);
+}
       </style>
 
       <section class="section hero" style="background-image: url('/public/imgee/hero-banner.png')">
@@ -212,7 +221,7 @@
 
           <h2 class="h2 section-title">Bestsellers Products</h2>
 
-          <ul class="filter-list">
+          <ul class="filter-list" >
 
             <li>
               <button class="filter-btn  active">All</button>
@@ -244,82 +253,62 @@
               <% products.forEach(product => { %>
                 <% if (product.list === 'listed' && product.category.list === 'listed') { %>
                   <li class="product-item">
-                    <!--  -->
                     <div class="product_details-card">
                       <div class="product_details-card-header">
-                          <a href="/productdetail?id=<%= product._id %>">
-                              <img src="<%= product.images[0] %>" alt="<%= product.product_name %>" class="product_details-image">
-                          </a>
-                          <div class="product_details-colors">
-                              <a href="#"></a>
-                          </div>
+                        <a href="/productdetail?id=<%= product._id %>">
+                          <img src="<%= product.images[0] %>" alt="<%= product.product_name %>" class="product_details-image">
+                        </a>
+                        <div class="product_details-colors">
+                          <a href="#"></a>
+                        </div>
                       </div>
                       
                       <div class="product_details-card-body">
-                          <div class="product_details-sponsored">Sponsored</div>
-                          <h5 class="product_details-title"><%= product.product_name %></h5>
-                          <p class="product_details-description">
-                            <%= product.description %>
-                          </p>
-                          <div class="product_details-rating">
-                            
-                          </div>
-                          <div class="product_details-pricing">
-                              <% if (product.offerPrice && product.offerPrice < product.price) { %>
-                                  <h4 class="product_details-offer-price">&#8377;<%= product.offerPrice %></h4>
-                                  <span class="product_details-original-price">M.R.P.: &#8377;<%= product.price %></span>
-                                  <span class="product_details-discount">(<%= Math.round(((product.price - product.offerPrice) / product.price) * 100) %> % off)</span>
-                              <% } else { %>
-                                  <h4 class="product_details-price">&#8377;<%= product.price %></h4>
-                              <% } %>
-                          </div>
-                          <div class="product_details-prime">
-                            
-                              <span class="product_details-delivery"></span>
-                          </div>
-                          <div style="display: flex; gap: 9px;">
-                          <% if (product.stock > 0) { %>
-                              <button class="btn btn-success btn-add-cart">
-                                  <a href="/cart/<%= product._id %>" class="text-white"><ion-icon name="cart-outline"></ion-icon></a>
-                              </button>
+                        <span class="product_details-sponsored">Sponsored</span>
+                        <h3 class="product_details-title"><%= product.product_name %></h3>
+                  
+                        <div class="product_details-rating"></div>
+                        <div class="product_details-pricing">
+                          <% if (product.offerPrice && product.offerPrice < product.price) { %>
+                            <h4 class="product_details-offer-price">&#8377;<%= product.offerPrice %></h4>
+                            <span class="product_details-original-price">M.R.P.: &#8377;<%= product.price %></span>
+                            <span class="product_details-discount">(<%= Math.round(((product.price - product.offerPrice) / product.price) * 100) %>% off)</span>
                           <% } else { %>
-                              <p class="out-of-stock text-danger">Out of Stock</p>
+                            <h4 class="product_details-price">&#8377;<%= product.price %></h4>
+                          <% } %>
+                        </div>
+                        <div class="product_details-prime">
+                          <span class="product_details-delivery"></span>
+                        </div>
+                        <% if(product.stock!=0) { %>
+                          <h5 style="color: rgb(237, 40, 10);">Hurry Up!</h5>
+                          <h4 class="blink-text">Only <%= product.stock %> left</h4>
+                        <% } %>
+                        
+                        <div class="product-actions">
+                          <% if (product.stock > 0) { %>
+                            <a href="/cart/<%= product._id %>" class="btn btn-primary btn-add-cart">
+                              <ion-icon name="cart-outline"></ion-icon> Add to Cart
+                            </a>
+                          <% } else { %>
+                            <p class="out-of-stock">Out of Stock</p>
                           <% } %>
                           
-                           
-                      
-                        <% if (wishlist && wishlist.items.some(items=>items.productId.toString()===product._id.toString())) { %>
-                          <button class="btn btn-success btn-add-cart">
-                            <a href="/wishlist" class="text-white"><ion-icon name="heart-outline"></ion-icon></a>
-                        </button>
-                      
-                          <!-- <a href="/wishlist"><img src="/public/imgee/bro-logo-bro-letter-bro-letter-logo-design-initials-bro-logo-linked-bro.jpg" alt=""></a>
-                         -->
-                        <% } else { %>
-                          <button class="btn btn-success btn-add-cart">
-                            <a href="/wishlist/<%= product._id %>" class="text-white"><ion-icon name="heart-circle-outline"></ion-icon></a>
-                        </button>
-                        
-                          <!-- <a href="/wishlist/<%= product._id %>"><i class="far fa-heart wishlist-icon"></i></a> -->
-                        
-                        <% } %>
+                          <% if (wishlist && wishlist.items.some(items => items.productId.toString() === product._id.toString())) { %>
+                            <a href="/wishlist" class="btn btn-secondary btn-wishlist">
+                              <ion-icon name="heart"></ion-icon> In Wishlist
+                            </a>
+                          <% } else { %>
+                            <a href="/wishlist/<%= product._id %>" class="btn btn-outline-secondary btn-wishlist">
+                              <ion-icon name="heart-outline"></ion-icon> Add to Wishlist
+                            </a>
+                          <% } %>
+                        </div>
                       </div>
-                          
-                      </div>
-                  </div>
-                  
-  
-  
-  
-  
-  
-  
-                    <!--  -->
-  
-          
+                    </div>
                   </li>
                 <% } %>
-            <%})%>
+              <% }) %>
             </ul>
           </div>
 
@@ -436,7 +425,7 @@
         <div class="footer-brand">
 
           <a href="#" class="logo">
-            <img src="../public/imgee/bro-logo-bro-letter-bro-letter-logo-design-initials-bro-logo-linked-bro.jpg"
+            <img src="../public/imgee/logobro.jpg"
               width="90" height="50" alt="Footcap logo">
           </a>
 
