@@ -13,6 +13,7 @@ const adminOrderController = require('../controller/admin/adminOrderController')
 const userOrderController = require('../controller/user/userOrderController')
 const priceFilterController = require('../controller/user/priceFilterController')
 const invoicController = require('../controller/user/invoiceController')
+const userroute=require('../controller/admin/adminController')
 const multer = require('multer')
 const path = require('path')
 
@@ -34,7 +35,7 @@ const upload = multer({ storage: storage });
 
 
 
-
+route.get('/', userroute.index);
 
 route.get('/err', Controller.error);
 route.get('/productCategory', Controller.category);
@@ -134,6 +135,12 @@ route.post('/priceFilter', priceFilterController.getShop)
 
 //invoicController
 route.get('/invoice', invoicController.generateOrderInvoice)
+
+//error handling
+route.all('*',(req,res,next)=>{
+    res.render('error500')
+})
+
 
 
 

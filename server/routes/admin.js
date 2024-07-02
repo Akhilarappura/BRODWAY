@@ -38,7 +38,7 @@ const upload = multer({ storage: storage });
 route.get('/adminlogout', adminController.adm_logout);
 route.get('/adminsignup', adminController.adminlog);
 route.post('/adminsignup', adminController.adminsign);
-route.get('/', adminController.index);
+
 
 
 

@@ -206,7 +206,7 @@
       <div class="productside">
         <div class="row">
           <div class="col-6"><h2 class="me-3 text-decoration-underline">Edit Products</h2></div>
-          <div class="col-6"> <a href="/admin/addproduct" class="bg-dark btn border-shadow shadow update">
+          <div class="col-6"> <a href="/addproduct" class="bg-dark btn border-shadow shadow update">
             <span class="text-white">Edit Productss <b>+</b></span>
         </a>
     </div>
@@ -308,38 +308,47 @@
   </main>
 
 
-  <script>
+  <!-- <script>
     // Global variables
     let cropper;
     let currentImageElement;
-  
+
     // Add event listener to the file input
     document.getElementById('images').addEventListener('change', previewImages);
-  
+
     // Function to preview images
     function previewImages(event) {
         const files = event.target.files;
         const previewContainer = document.getElementById('imageContainer');
-        previewContainer.innerHTML = "";
-  
+        previewContainer.innerHTML = ""; // Clear existing previews
+
         if (files.length > 4) {
             alert("You can upload a maximum of 4 images.");
             return;
         }
-  
+
         for (let i = 0; i < files.length; i++) {
             const file = files[i];
             const reader = new FileReader();
-  
+
             reader.onload = function(e) {
+                // Check if this image already exists in the preview
+                const existingImages = previewContainer.getElementsByTagName('img');
+                for (let j = 0; j < existingImages.length; j++) {
+                    if (existingImages[j].src === e.target.result) {
+                        console.log('This image is already in the preview.');
+                        return; // Skip adding this image
+                    }
+                }
+
                 const imgContainer = document.createElement('div');
                 imgContainer.classList.add('image-preview', 'me-2', 'position-relative');
-  
+
                 const img = document.createElement('img');
                 img.classList.add('w-75');
                 img.src = e.target.result;
                 imgContainer.appendChild(img);
-  
+
                 const removeBtn = document.createElement('button');
                 removeBtn.classList.add('btn', 'btn-danger', 'btn-sm', 'delete-image', 'position-absolute');
                 removeBtn.innerHTML = 'x';
@@ -348,37 +357,37 @@
                     updateFileInput();
                 };
                 imgContainer.appendChild(removeBtn);
-  
+
                 img.onclick = function() {
                     openCropModal(img);
                 };
-  
+
                 previewContainer.appendChild(imgContainer);
             };
-  
+
             reader.readAsDataURL(file);
         }
     }
-  
+
     // Function to open crop modal
     function openCropModal(imgElement) {
         const cropModal = document.getElementById('cropModal');
         const cropImage = document.getElementById('cropImage');
         cropImage.src = imgElement.src;
         currentImageElement = imgElement;
-  
+
         $(cropModal).modal('show');
-  
+
         if (cropper) {
             cropper.destroy();
         }
-  
+
         cropper = new Cropper(cropImage, {
             aspectRatio: 1,
             viewMode: 2
         });
     }
-  
+
     // Function to crop image
     function cropImage() {
         const croppedCanvas = cropper.getCroppedCanvas();
@@ -386,29 +395,29 @@
             alert('Could not crop image. Please try again.');
             return;
         }
-  
+
         currentImageElement.src = croppedCanvas.toDataURL();
-  
+
         $('#cropModal').modal('hide');
         updateFileInput();
     }
-  
+
     // Function to update file input
     function updateFileInput() {
         const previewContainer = document.getElementById('imageContainer');
         const images = previewContainer.getElementsByTagName('img');
-  
+
         const dataTransfer = new DataTransfer();
-  
+
         for (let i = 0; i < images.length; i++) {
             const dataURL = images[i].src;
             const file = dataURLtoFile(dataURL, 'image' + i + '.png');
             dataTransfer.items.add(file);
         }
-  
+
         document.getElementById('images').files = dataTransfer.files;
     }
-  
+
     // Function to convert data URL to file
     function dataURLtoFile(dataurl, filename) {
         const arr = dataurl.split(',');
@@ -421,7 +430,7 @@
         }
         return new File([u8arr], filename, { type: mime });
     }
-  </script>
+</script> -->
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

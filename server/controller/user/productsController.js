@@ -6,6 +6,7 @@ const addressdb = require('../../model/addressModel')
 const cartdb = require('../../model/cartmodel');
 const userdb = require('../../model/userModel');
 const coupondb = require('../../model/couponModel');
+const wishlistdb = require('../../model/wishlistModel');
 
 
 
@@ -52,6 +53,11 @@ const get_productDetail = async (req, res) => {
 
             const prod = await productdb.findById(id).populate('category')
             const user = req.session.email;
+            const userEmail = await userdb.findOne({ email: req.session.email });
+            const userId = userEmail._id;
+            console.log('user',user);
+            const wishlist = await wishlistdb.findOne({ user: userId }).populate('items.productId');
+            console.log('wishlist',wishlist);
 
             const detail = await userdb.findOne({ email: user })
             const Category = await categorydb.find()
@@ -76,7 +82,7 @@ const get_productDetail = async (req, res) => {
             await applyoffer(prod)
             console.log('products', prod);
 
-            res.render('productdetail', { productInCart, userToken: req.cookies.userToken, user, Category, cartCount: cartCount, prod, coupons, address })
+            res.render('productdetail', { productInCart, userToken: req.cookies.userToken, user, Category, cartCount: cartCount, prod, coupons, address,wishlist })
         } else {
             console.log('id', id);
 

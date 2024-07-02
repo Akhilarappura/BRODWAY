@@ -57,8 +57,9 @@
 }
 
 .order-box .subtotal h3 {
-    font-size: 20px;
-    font-weight: bold;
+  font-size: 20px;
+    font-weight: 700;
+    font-family: sans-serif;
 }
 
 .order-box .btn-warning {
@@ -327,15 +328,17 @@
         <% }) %>
       
     </div>
-    <div class="row justify-content-center">
-      <div class="col-md-6">
+    <div class="row justify-content-center" >
+      <div class="col-md-6" style="margin: -11rem 0rem 0rem 86rem ;">
           <div class="order-box text-center shadow-sm p-4 rounded">
               <h2 class="text-success mt-3">Place Your Order</h2>
               <div class="total-wrap mt-4">
                   <div class="subtotal">
                       <h3 class="mb-3">Sub Total<span id="subtotal"> &#8377;<%= totalAmount %></span></h3>
                   </div>
-                  <button type="submit" class="btn btn-warning btn-lg">
+                  <button type="submit" class="btn btn-warning btn-lg" style="    width: 38%;
+                  height: 0px;
+                  border-radius: 8px;     margin: 0rem 0rem 0rem 11rem; background: #ed7d05;">
                       <a href="/checkout" class="checkout-link">CheckOut</a>
                   </button>
               </div>

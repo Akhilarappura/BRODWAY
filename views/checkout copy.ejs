@@ -33,7 +33,6 @@
 	<link rel="preload" href="/footwear-master/public/imgee/hero-banner.png" as="image">
 
 </head>
-
 <style>
 	.filter-products-wrapper {
 		display: flex;
@@ -384,190 +383,234 @@
 										<select name="people" id="people" class="form-control">
 											<option value="#">Select country</option>
 											<option value="#">India</option>
-											<!-- Add more country options as needed -->
+											<option value="#"></option>
+											<option value="#"></option>
+											<option value="#"></option>
+											<option value="#"></option>
 										</select>
 									</div>
 								</div>
 							</div>
-			
+
 							<div class="col-md-6">
 								<div class="form-group">
-									<label for="fname">Name</label>
-									<p class="text-muted mb-0"><%=detail.name%></p>
+									<label for="fname"> Name</label>
+									<!-- <input type="text" id="fname" class="form-control" placeholder="Your firstname"> -->
+									<p class="text-muted mb-0">
+										<%=detail.name%>
+									</p>
 								</div>
 							</div>
-			
+
+
 							<div class="col-md-12">
 								<div class="form-group">
 									<label for="companyname">Email</label>
-									<p class="text-muted mb-0"><%=detail.email%></p>
+									<p class="text-muted mb-0">
+										<%=detail.email%>
+									</p>
+
 								</div>
 							</div>
-			
 							<div class="col-md-12">
 								<div class="form-group">
 									<label for="address">Select Address</label>
+
 									<select id="address" name="address" class="form-control custom-select">
-										<% address.forEach(addr => { %>
+										<% address.forEach(addr=> { %>
 											<option value="<%= addr._id %>">
 												<%= addr.name %>, <%= addr.mobileNumber %>, <%= addr.district %>,
-												<%= addr.locality %>, <%= addr.pincode %>
+															<%= addr.locality %>, <%= addr.pincode %>
 											</option>
-										<% }); %>
+											<% }); %>
 									</select>
 								</div>
 							</div>
+
+							<div class="col-md-12">
+								<div class="form-group">
+									<div class="radio">
+										<!-- <label><input type="radio" name="optradio"> Create an Account? </label>
+										<label><input type="radio" name="optradio"> Ship to different address -->
+										</label>
+									</div>
+								</div>
+							</div>
+
 						</div>
 					</form>
-			
+					<!-- <div class="coupon-section col-md-12">
+							<div class="form-group">
+								<label for="apply-coupon-code">
+									<h2>Apply Coupon Code</h2>
+								</label>
+								<input type="text" id="apply-coupon-code" name="apply_coupon_code" class="form-control"
+									placeholder="Enter coupon code">
+							</div>
+						</div> -->
 					<div class="col-md-12">
 						<div class="coupon-section">
 							<div class="form-group">
 								<label for="available-coupon-code">
 									<h2>Available Coupon Code</h2>
 								</label><br>
-								<button class="btn btn-warning apply-button" data-toggle="modal" data-target="#couponModal">
-									Click here
-								</button>
+								<button class="btn btn-warning apply-button" data-toggle="modal"
+									data-target="#couponModal">Click
+									here</button>
 							</div>
 						</div>
 					</div>
+
+
 				</div>
-			
-				<div class="col-lg-4" style="
-				display: flex;
-				gap: 12px;
-				flex-direction: column;">
-					<div class="card">
-						<div class="card-body">
-							<h3 class="card-title mb-4">Order Summary</h3>
-							<ul class="list-group list-group-flush" id="orderItems">
-								<li class="list-group-item d-flex justify-content-between align-items-center">
-									<span>Subtotal</span>
-									<strong>₹<span id="subtotalAmount"><%= total?.totalAmount %></span></strong>
-								</li>
-								<% total?.items.forEach(item => { %>
-									<li class="list-group-item d-flex justify-content-between align-items-center small item" 
-										data-product-id="<%= item.productId._id %>" 
-										data-quantity="<%= item.quantity %>">
-										<span><%= item.quantity %> x <%= item.productId.product_name %></span>
-										<span>₹<%= item.productId.price * item.quantity %></span>
+				<div class="col-lg-4">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="cart-detail">
+								<h2>Cart Total</h2>
+								<ul id="orderItems">
+									<li>
+										<input hidden id="allItems" value="<%= total %>" type="text">
+										<span>Subtotal : </span> <span>&#8377; <%= total?.totalAmount %></span>
+										<ul>
+											<% total?.items.forEach(item=>{%>
+												<!-- <li><%= item.productId._id %></li> -->
+												<li><span>
+														<%=item.quantity%> x <%=item.productId.product_name%>
+																<div style="color: red;" id="<%= item.productId._id%>">
+																</div>
+													</span> <span>
+														<%=item.productId.price%>
+													</span></li>
+												<li class="item" data-product-id="<%= item.productId._id %>"
+													data-quantity="<%= item.quantity %>">
+
+													<% }) %>
+										</ul>
 									</li>
-								<% }); %>
-								<li class="list-group-item d-flex justify-content-between align-items-center">
-									<span>Delivery Charge</span>
-									<span id="deliveryCharge">Free</span>
-								</li>
-								<li id="couponDiscountLine" class="list-group-item d-flex justify-content-between align-items-center text-success" style="display: none;">
-									<span>Coupon Discount</span>
-									<span>- ₹<span id="couponDiscountAmount">0</span></span>
-								</li>
-								<li class="list-group-item d-flex justify-content-between align-items-center">
-									<span>Order Total</span>
-									<strong>₹<span id="totalamountid"><%= total?.totalAmount %></span></strong>
-								</li>
-							</ul>
-							<div class="mt-3">
-								<button id="removeCoupon" style="display: none;" class="btn btn-sm btn-outline-danger w-100">Remove Coupon</button>
+
+									<li><span id="deliveryCharge">Delivery Charge</span> </li>
+									<li><span>Order Total : &#8377; <span id="totalamountid">
+												<%=total?.totalAmount%>
+											</span></span></li>
+									<li><span>Wallet balance: <%=walet.balance%></span></li>
+									<input type="hidden" id="walletid" value="<%=walet.balance%>">
+
+									<input type="text" value="<%=total?.totalAmount%>" hidden id="totalAmountid">
+
+								</ul>
 							</div>
-							<div class="mt-3 p-2 bg-light rounded">
-								<small class="text-muted">Wallet Balance: ₹<%= walet.balance %></small>
-							</div>
-							<input type="hidden" id="walletid" value="<%= walet.balance %>">
-							<input type="hidden" id="totalAmountid" value="<%= total?.totalAmount %>">
 						</div>
-					</div>
-					
-					<div class="col-md-12">
-						<div class="cart-detail">
-							<h2>Payment Method</h2>
-							<div class="form-group">
-								<div class="col-md-12">
-									<div class="radio">
-										<label style="display: flex;">
-											<input type="radio" name="optradio" value="netBanking" style="width: 20px;">
-											<h4>Online Payments</h4>
-										</label>
+
+						<div class="w-100"></div>
+
+						<div class="col-md-12">
+							<div class="cart-detail">
+								<h2>Payment Method</h2>
+								<div class="form-group">
+									<div class="col-md-12">
+										<div class="radio">
+											<label style="display: flex;"><input type="radio" name="optradio"
+													value="netBanking" style="width: 20px;">
+												<h4>Online Payments</h4>
+											</label>
+										</div>
 									</div>
 								</div>
-							</div>
-							<div class="form-group">
-								<div class="col-md-12">
-									<div class="radio">
-										<label style="display: flex;">
-											<input type="radio" name="optradio" value="walletPayment" style="width: 20px;">
-											<h4>Wallet Payment</h4>
-										</label>
+								<div class="form-group">
+									<div class="col-md-12">
+										<div class="radio">
+											<label style="display: flex;"><input type="radio" name="optradio"
+													value="walletPayment" style="width: 20px;">
+												<h4>Wallet Payment</h4>
+											</label>
+										</div>
 									</div>
 								</div>
-							</div>
-							<div class="form-group">
-								<div class="col-md-12">
-									<div class="radio">
-										<label style="display: flex;">
-											<input type="radio" name="optradio" value="cod" style="width: 20px;" id="cashondelivery">
-											<h4>Cash on Delivery</h4>
-										</label>
-										<span id="codeAvailability" style="color: #9d8888; font-size: 9px;"></span>
+								<div class="form-group">
+									<div class="col-md-12">
+										<div class="radio">
+											<label style="display: flex;"><input type="radio" name="optradio"
+													value="cod" style="width: 20px;" id="cashondelivery">
+												<h4> Cash on
+													Delivery</h4>
+											</label>
+											<span id="codeAvailability" style="color: #9d8888; font-size: 9px;"></span>
+										</div>
 									</div>
 								</div>
+								<!-- <div class="form-group">
+										<div class="col-md-12">
+											<div class="checkbox">
+												<label><input type="checkbox" value=""> I have read and accept the terms
+													and conditions</label>
+											</div>
+										</div>
+									</div> -->
 							</div>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-md-12 text-center" style="position: absolute;
-						translate: 122px -46rem;">
-							<button class="btn-btn-orange" id="placeOrder" style="border-radius: 30px; width: 154px; background-color: rgb(79, 189, 0); color: aliceblue; height: 54px;">
-								Place an order
-							</button>
+						<div class="col-md-12 text-center">
+							<button class="btn-btn-orange" id="placeOrder" style="border-radius: 30px;
+								width: 154px;
+								background-color: rgb(79, 189, 0);
+								color: aliceblue;
+								height: 54px;"> place an order</button>
 							<div id="errorMessage"></div>
 						</div>
 					</div>
 				</div>
-			
 			</div>
 		</div>
-		 	
-					
+	</div>
+
+	<!-- Modal -->
+	<div class="modal fade" id="couponModal" tabindex="-1" role="dialog" aria-labelledby="couponModalLabel"
+		aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="couponModalLabel">Available Coupons</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
 				</div>
-			
-			<!-- Coupon Modal -->
-			<div class="modal fade" id="couponModal" tabindex="-1" role="dialog" aria-labelledby="couponModalLabel" aria-hidden="true">
-				<div class="modal-dialog modal-dialog-centered" role="document">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="couponModalLabel">Available Coupons</h5>
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
-						</div>
-						<div class="modal-body">
-							<div class="form-group">
-								<label for="paste-coupon">Paste Coupon Code:</label>
-								<input type="text" id="paste-coupon" class="form-control" placeholder="Paste coupon code here">
-							</div>
-							<div class="form-group">
-								<label for="coupon-select">Select Coupon:</label>
-								<select id="coupon-select" class="form-control">
-									<option value="">Select a coupon</option>
-									<% if (applicableCoupons && applicableCoupons.length > 0) { %>
-										<% applicableCoupons.forEach((coupon, index) => { %>
-											<option value="<%= coupon.couponcode %>">
-												<%= coupon.couponcode %> (<%= coupon.discountPercentage %>% off, Expires: <%= coupon.expireDate.toLocaleDateString() %>)
-											</option>
-										<% }); %>
-									<% } %>
-								</select>
-							</div>
-							<input type="hidden" id="isCouponApplied" value="false">
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
-							<button type="button" class="btn btn-warning" id="applySelectedCoupon">Apply Selected Coupon</button>
-						</div>
-					</div>
+				<div class="modal-body">
+					<% if (applicableCoupons && applicableCoupons.length> 0) { %>
+						<h2>Available Coupons</h2>
+						<ul>
+							<% applicableCoupons.forEach((coupon, index)=> { %>
+
+								<li>
+
+									<input type="radio" name="couponS" id="coupon_<%= index%>"
+										value="<%=coupon.couponcode%>">
+									<input type="text" value="<%=coupon?.couponcode%>" hidden id="couponId">
+									<label for="coupon_<%= index %>">
+										<b>Code:</b>
+										<%= coupon.couponcode %> (Expires: <%= coupon.expireDate.toLocaleDateString() %>
+												)<br>
+												<b>discountPercentage:</b>
+												<%= coupon.discountPercentage %>
+									</label>
+								</li>
+								<% }); %>
+						</ul>
+						<% } else { %>
+							<p>No applicable coupons found.</p>
+							<% } %>
+								<input type="hidden" id="isCouponApplied" value="false">
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-warning" id="applySelectedCoupon">Apply Selected
+						Coupon</button>
 				</div>
 			</div>
+		</div>
+	</div>
 
 
 	</div>
@@ -641,7 +684,6 @@
 				const quantity = item.dataset.quantity;
 				items.push({ productId, quantity });
 			});
-			console.log('items',items);
 
 
 
@@ -684,7 +726,6 @@
 							items: items,
 							addressId: selectedAddress
 						}
-						console.log('data',data);
 
 
 
@@ -848,104 +889,81 @@
 
 	<script>
 
-document.addEventListener("DOMContentLoaded", function () {
-    const applyButton = document.getElementById("applySelectedCoupon");
-    const isCouponApplied = document.getElementById("isCouponApplied");
-    const couponSelect = document.getElementById("coupon-select");
-    const pasteCouponInput = document.getElementById("paste-coupon");
-    const removeCouponButton = document.getElementById("removeCoupon");
+		document.addEventListener("DOMContentLoaded", function () {
+			const applyButton = document.getElementById("applySelectedCoupon");
+			const isCouponApplied = document.getElementById("isCouponApplied");
 
-    // Update paste-coupon input when a coupon is selected
-    couponSelect.addEventListener("change", function() {
-        pasteCouponInput.value = this.value;
-    });
+			applyButton.addEventListener("click", function () {
+				console.log('isCouponApplied', isCouponApplied.value);
+				if (isCouponApplied.value === 'false') {
+					const selectedCoupon = document.querySelector('input[name="couponS"]:checked');
+					const totalAmount = document.getElementById('totalAmountid').value;
 
-    applyButton.addEventListener("click", function () {
-        if (isCouponApplied.value === 'false') {
-            const couponCode = pasteCouponInput.value.trim();
-            const totalAmount = parseFloat(document.getElementById('subtotalAmount').textContent);
-            const userEmail = '<%= detail.email %>';
+					console.log(selectedCoupon);
+					const userEmail = '<%= detail.email %>';
+					if (selectedCoupon) {
+						const couponCode = selectedCoupon.value;
+						console.log(`Applying coupon: ${couponCode}`);
 
-            if (couponCode) {
-                applyCoupon(couponCode, userEmail, totalAmount);
-            } else {
-                Swal.fire({
-                    title: "Warning!",
-                    text: "Please enter a coupon code.",
-                    icon: "warning",
-                });
-            }
-        } else {
-            Swal.fire({
-                title: "Warning!",
-                text: "A coupon has already been applied!",
-                icon: "warning",
-            });
-        }
-    });
+						// Send request to apply the selected coupon
+						fetch(`/applyCoupon`, {
+							method: "POST",
+							headers: {
+								'Content-Type': 'application/json'
+							},
+							body: JSON.stringify({ couponCode, userEmail, totalAmount })
+						})
+							.then(response => response.json())
+							.then(data => {
+								if (data.newTotalAmount !== undefined) {
+									Swal.fire({
+										title: "Success!",
+										text: `Coupon has been applied. You saved ₹${data.discount}.`,
+										icon: "success",
+									}).then(() => {
+										document.getElementById('isCouponApplied').value = 'true';
+										// Update the total amount on the page
+										document.getElementById("totalAmountid").value = data.newTotalAmount;
+										document.getElementById("totalamountid").innerHTML = data.newTotalAmount;
+										document.querySelector("span#totalAmountDisplay").innerText = `₹ ${data.newTotalAmount}`;
 
-    removeCouponButton.addEventListener("click", function() {
-        removeCoupon();
-    });
 
-    function applyCoupon(couponCode, userEmail, totalAmount) {
-        fetch(`/applyCoupon`, {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ couponCode, userEmail, totalAmount })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.newTotalAmount !== undefined) {
-                updateTotalWithCoupon(data.newTotalAmount, data.discount);
-                Swal.fire({
-                    title: "Success!",
-                    text: `Coupon has been applied. You saved ₹${data.discount}.`,
-                    icon: "success",
-                });
-            } else {
-                Swal.fire({
-                    title: "Failed!",
-                    text: data.message || "Failed to apply coupon.",
-                    icon: "error",
-                });
-            }
-        })
-        .catch(error => {
-            console.error("Error:", error);
-            Swal.fire({
-                title: "Error!",
-                text: "An error occurred while applying the coupon.",
-                icon: "error",
-            });
-        });
-    }
+									});
+								} else {
+									Swal.fire({
+										title: "Failed!",
+										text: data.message || "Failed to apply coupon.",
+										icon: "error",
+									});
+								}
+							})
+							.catch(error => {
+								console.error("Error:", error);
+								Swal.fire({
+									title: "Error!",
+									text: "An error occurred while applying the coupon.",
+									icon: "error",
+								});
+							});
+					} else {
+						Swal.fire({
+							title: "Warning!",
+							text: "Please select a coupon to apply.",
+							icon: "warning",
+						});
+					}
+				} else {
+					Swal.fire({
+						title: "Warning!",
+						text: "Already Applied!",
+						icon: "warning",
+					});
+				}
 
-    function updateTotalWithCoupon(newTotal, discount) {
-        document.getElementById('isCouponApplied').value = 'true';
-        document.getElementById("totalamountid").textContent = newTotal;
-        document.getElementById("couponDiscountAmount").textContent = discount;
-        document.getElementById("couponDiscountLine").style.display = "list-item";
-        removeCouponButton.style.display = "inline-block";
-    }
+			});
 
-    function removeCoupon() {
-        const originalTotal = parseFloat(document.getElementById('subtotalAmount').textContent);
-        document.getElementById('isCouponApplied').value = 'false';
-        document.getElementById("totalamountid").textContent = originalTotal;
-        document.getElementById("couponDiscountLine").style.display = "none";
-        removeCouponButton.style.display = "none";
-        pasteCouponInput.value = "";
-        couponSelect.value = "";
-        Swal.fire({
-            title: "Coupon Removed",
-            text: "The coupon has been removed and the total has been updated.",
-            icon: "info",
-        });
-    }
-});
+		});
+
 
 
 	</script>

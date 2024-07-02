@@ -12,16 +12,29 @@ const moment = require('moment')
 const get_orderpage = async (req, res) => {
     try {
 
+        const page=parseInt(req.query.page)||1;
+        const perPage=9;
+        const startIndex= (page-1)*perPage;
         const user = await userdb.findOne({ email: req.session.email });
         console.log(user, "user");
         const userId = user._id;
-        const orders = await orderdb.find({ userId: user._id }).populate('items.productId').sort({ _id: -1 })
+        const orders = await orderdb.find({ userId: user._id }).populate('items.productId').sort({ _id: -1 }).skip(startIndex).limit(perPage)
         console.log('order', orders)
+
+        const totalOrders=await orderdb.countDocuments();
+        const totalPages=Math.ceil(totalOrders/perPage)
+
+        const sortOption = req.query.sortOption || null;
+        const order = req.query.order || null;
+        const search = req.query.search || null;
+
+
+
 
         const Address = await Addressdb.find({ user: userId })
         console.log(Address, "address");
 
-        res.render('userorder', { Address, orders, detail: user, moment })
+        res.render('userorder', { Address, orders, detail: user, moment,page,totalPages,sortOption,order,search })
 
     } catch (error) {
         console.log(error.message)

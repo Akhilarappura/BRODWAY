@@ -288,6 +288,7 @@ font-weight: bold;
 
     </div>
   </header>
+ 
 
 
   <section class="section hero" style="background-image: url('../public/images/banner2.jpg') ">
@@ -327,8 +328,20 @@ font-weight: bold;
             <option value="newest-first">Newest First</option>
         </select>
         <input type="hidden" id="catt" value="<%=categoryId%>">
-    </p>     
+    </p>   
+    <div class="search-container" style="margin: 20px 0;">
+      <form action="/productCategory" method="GET" style="display: flex; justify-content: center;">
+          <input type="text" name="q" placeholder="Search products..." 
+                 value="<%= typeof searchQuery !== 'undefined' ? searchQuery : '' %>"
+                 style="padding: 10px; width: 300px; border-radius: 5px 0 0 5px; border: 1px solid #ccc;">
+          <input type="hidden" name="id" value="<%= categoryId %>">
+          <button type="submit" style="padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 0 5px 5px 0; cursor: pointer;">
+              Search
+          </button>
+    </form>
+    </div>  
 </div>
+
 
 <script src="script.js"></script>
 </div>

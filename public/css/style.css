@@ -8144,11 +8144,16 @@ h1, h2, h3, h4, h5,
     font-weight: 500; }
 
 .cart-detail {
-  background: whitesmoke;
-  padding: 2em 3em;
-  float: left;
-  width: 100%;
-  margin-bottom: 20px; }
+
+background: white;
+padding: 2em 3em;
+float: left;
+width: 100%;
+margin-bottom: 20px;
+border: #c7c2c2;
+border-style: solid;
+border-radius: 5px;
+} 
   @media (max-width: 767.98px) {
     .cart-detail {
       padding: 1em; } }
@@ -8177,8 +8182,11 @@ h1, h2, h3, h4, h5,
           width: 100px; }
 
 .colorlib-form {
-  background: whitesmoke;
+  background: white;
   padding: 2em;
+  border: #c7c2c2;
+  border-style: solid;
+  border-radius: 5px;
   margin-bottom: 30px; }
   @media (max-width: 767.98px) {
     .colorlib-form {

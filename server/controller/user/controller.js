@@ -11,9 +11,9 @@ const wishlistdb = require('../../model/wishlistModel')
 
 
 
-const error = async (req, res) => {
-    res.render('error500')
-}
+    const error = async (req, res) => {
+        res.render('error500')
+    }
 
 
 const applyoffer = async (product) => {
@@ -35,56 +35,60 @@ const applyoffer = async (product) => {
     }
     return product;
 };
-
-
 const category = async (req, res) => {
     try {
-        
+        const categoryId = req.query.id;
+        const searchQuery = req.query.q;
+        const userEmail = await userdb.findOne({ email: req.session.email });
+        let products = await productdb.find({ category: categoryId }).populate('category');
+        const wishlist = await wishlistdb.findOne({ user: userEmail });
+        const Category = await Categorydb.find();
 
-        const categoryId = req.query.id
-        const userEmail = await userdb.findOne({ email: req.session.email })
-        const products = await productdb.find({ category: categoryId }).populate('category')
-        const wishlist = await wishlistdb.findOne({ user: userEmail })
+        // Apply search filter if search query exists
+        if (searchQuery) {
+            products = products.filter(product =>
+                product.product_name.toLowerCase().includes(searchQuery.toLowerCase())
+            );
+        }
+
+        // Apply offers to products
+        for (const product of products) {
+            await applyoffer(product);
+        }
+
         if (req.cookies.userToken) {
-
-            const Category = await Categorydb.find()
-            for (const product of products) {
-                await applyoffer(product);
-            }
-
             let cartCount;
-            const user = await userdb.findOne({ email: req.session.email })
-            console.log(user);
-            const userId = user._id
+            const user = await userdb.findOne({ email: req.session.email });
+            const userId = user._id;
+            let cart = await cartdb.findOne({ user: userId });
+            cartCount = cart ? cart.items.length : 0;
 
-            let cart = await cartdb.findOne({ user: userId })
-            if (!cart) {
-                cartCount = 0;
-            }
-            else {
-                cartCount = cart.items.length
-            }
-
-            res.render('productList', { products, userToken: req.cookies.userToken, cartCount: cartCount, user, Category, categoryId, wishlist })
+            res.render('productList', { 
+                products, 
+                userToken: req.cookies.userToken, 
+                cartCount, 
+                user, 
+                Category, 
+                categoryId, 
+                wishlist,
+                searchQuery: searchQuery || ''
+            });
         } else {
-            const Category = await Categorydb.find()
-            const wishlist = await wishlistdb.findOne({ user: userEmail })
-
-            const products = await productdb.find().populate('category')
-            for (const product of products) {
-                await applyoffer(product);
-            }
-
-
-            res.render('productList', { products, userToken: undefined, cartCount: 0, Category, wishlist,categoryId})
-
+            res.render('productList', { 
+                products, 
+                userToken: undefined, 
+                cartCount: 0, 
+                Category, 
+                wishlist,
+                categoryId,
+                searchQuery: searchQuery || ''
+            });
         }
     } catch (error) {
         console.log(error);
-        res.status(400).render('error500')
+        res.status(400).render('error500');
     }
-}
-
+};
 
 
 

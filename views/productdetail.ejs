@@ -178,9 +178,20 @@
                                     <button type="button" class="btn btn-danger" style="width: 50%;
                               height: 60px;"> <a href="/cart/<%= prod._id %>" class="text-white">Add to Cart</a>
                                     </button>
-                                    <button type="button" class="btn btn-danger" style="width: 50%;">
-                                        <a href="/wishlist/<%= prod._id %>" class="text-white">Add to Wishlist</a>
-                                    </button>
+                                    <% if (wishlist && wishlist.items.some(items=>items.productId.toString()===prod._id.toString())) { %>
+                                        <button class="btn btn-danger btn-add-cart" style="width: 50%;
+                              height: 60px;">
+                                          <a href="/wishlist/<%= prod._id %>" class="text-white">Add to wishlist</a>
+                                      </button>
+                                    
+                                        <!-- <a href="/wishlist"><img src="/public/imgee/bro-logo-bro-letter-bro-letter-logo-design-initials-bro-logo-linked-bro.jpg" alt=""></a>
+                                       -->
+                                      <% } else { %>
+                                        <button class="btn btn-danger btn-add-cart" style="width: 50%;
+                              height: 60px;">
+                                          <a href="/wishlist" class="text-white">Add to wishlist</a>
+                                      </button>
+                                      <% } %>
                                 </div>
                                 <button class="carousel-control-prev" type="button"
                                     data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">

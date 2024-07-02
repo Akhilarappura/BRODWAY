@@ -53,7 +53,7 @@ app.use('/fonts', express.static(path.resolve(__dirname, "public/fonts")))
 
 app.use('/', adminRouter)
 app.use('/', userRouter)
-// app.get('/', (req, res) => { res.redirect('/') })
+
 
 //auth google
 app.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }))
