@@ -464,6 +464,8 @@ const getWallet = async (req, res) => {
     try {
 
         const user = req.session.email;
+       
+
 
         const detail = await userdb.findOne({ email: user })
         if (!detail) {
@@ -482,7 +484,11 @@ const getWallet = async (req, res) => {
 
          walet = await walletdb.findOne({ user: detail._id });
         walet.transactions.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
-        res.render("wallet", { detail, user, walet })
+        const Category=await categorydb.find();
+        let cartCount = 0;
+        const cart = await cartdb.findOne({ user: detail._id  });
+        cartCount = cart ? cart.items.length : 0;
+        res.render("wallet", { detail, user, walet,Category,userToken:req.cookies.userToken ,cartCount,cart})
 
 
     } catch (error) {

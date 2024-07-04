@@ -1,143 +1,297 @@
-<%-include('include/profileHeader')-%> 
+<%-include('include/profileHeader')-%>
 
-  <div class="col-lg-9">
-    <div class="content" id="account-settings">
-      <p>Profile Information
-        <button type="submit" class="btn btn-success"><a href="/editProfile" class="text-white">Edit</a></button>
-        <!-- Button trigger modal -->
+<style>
+  :root {
+    --primary-color: #4a90e2;
+    --secondary-color: #f3f4f6;
+    --accent-color: #ffa41b;
+    --text-color: #333333;
+    --light-text-color: #757575;
+    --border-color: #e0e0e0;
+    --success-color: #4caf50;
+    --danger-color: #f44336;
+  }
+
+  body {
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    font-family: 'Roboto', sans-serif;
+  }
+
+  .container-fluid {
+    padding: 1.5rem 9rem;
+  }
+
+  .card {
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+  }
+
+  .card:hover {
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .card-body {
+    padding: 1.5rem;
+  }
+
+  .profile-header {
+    background-color: white;
+    border-radius: 8px;
+    padding: 2rem;
+    text-align: center;
+  }
+
+  .profile-header img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid var(--primary-color);
+    margin-bottom: 1rem;
+  }
+
+  .settings-box {
+    margin-top: 1.5rem;
+  }
+
+  .btn-white {
+    background-color: white;
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+  }
+
+  .btn-white:hover {
+    background-color: var(--secondary-color);
+  }
+
+  .dropdown-menu {
+    border: none;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .dropdown-item {
+    padding: 0.5rem 1rem;
+    color: var(--text-color);
+    transition: background-color 0.3s ease;
+  }
+
+  .dropdown-item:hover {
+    background-color: var(--secondary-color);
+  }
+
+  .breadcrumb {
+    background-color: transparent;
+    padding: 0;
+  }
+
+  .breadcrumb-item a {
+    color: var(--primary-color);
+    text-decoration: none;
+  }
+
+  .content {
+    background-color: white;
+    border-radius: 8px;
+    padding: 2rem;
+    margin-top: 2rem;
+  }
+
+  .content h5 {
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+  }
+
+  .btn-success {
+    background-color: var(--success-color);
+    border: none;
+  }
+
+  .btn-success:hover {
+    background-color: #43a047;
+  }
+
+  .text-muted {
+    color: var(--light-text-color) !important;
+  }
+
+  #icon {
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: var(--primary-color);
+  }
+
+  .file-input {
+    display: none;
+  }
+
+  @media (max-width: 768px) {
+    .container-fluid {
+      padding: 1rem;
+    }
+  }
+</style>
+
+<div class="container-fluid py-5">
+  <div class="row">
+    <div class="col">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item"><a href="#">User</a></li>
+          <li class="breadcrumb-item active" aria-current="page">User Profile</li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-3">
+      <div class="profile-header">
+        <form action="/profileedit" method="post" enctype="multipart/form-data" id="profileForm">
+          <div class="position-relative d-inline-block">
+            <img id="profileImage" src="/<%= detail.profilePicture %>" alt="Profile Picture">
+            <label for="fileInput" class="position-absolute bottom-0 end-0 bg-white rounded-circle p-2" style="cursor: pointer;">
+              <i class="fas fa-camera text-primary"></i>
+            </label>
+          </div>
+          <input id="fileInput" name="images" type="file" class="file-input" accept="image/*" onchange="previewImage(event)">
+          <button type="submit" class="btn btn-primary btn-sm mt-2">Update Picture</button>
+        </form>
+        <h4 class="mt-3">Hello, <%= detail.name %></h4>
+
+        <div class="settings-box mt-4">
+          <button class="btn btn-white dropdown-toggle w-100" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Account Settings
+          </button>
+          <ul class="dropdown-menu w-100">
+            <li><a class="dropdown-item" href="/profile">Profile Information</a></li>
+            <li><a class="dropdown-item" href="/address">Manage Address</a></li>
+          </ul>
+        </div>
+
+        <div class="settings-box mt-4">
+          <button class="btn btn-white dropdown-toggle w-100" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            My Orders
+          </button>
+          <ul class="dropdown-menu w-100">
+            <li><a class="dropdown-item" href="/orderpage">Orders</a></li>
+          </ul>
+        </div>
+
+        <div class="settings-box mt-4">
+          <button class="btn btn-white dropdown-toggle w-100" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            My Stuff
+          </button>
+          <ul class="dropdown-menu w-100">
+            <li><a class="dropdown-item" href="/wallet">My wallet</a></li>
+            <li><a class="dropdown-item" href="/contact">My Reviews</a></li>
+            <li><a class="dropdown-item" href="/contact">All Notifications</a></li>
+            <li><a class="dropdown-item" href="/wishlist">My Wishlist</a></li>
+          </ul>
+        </div>
+
+        <div class="settings-box mt-4">
+          <a href="/userlogout" class="btn btn-danger w-100">Logout</a>
+        </div>
+      </div>
+    </div>
 
 
-        <!-- Modal -->
-      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-    
+    <!-- Main Content -->
+    <div class="col-lg-9">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Profile Information</h5>
+          <hr>
+          <div class="row mb-3">
+            <div class="col-sm-3">
+              <h6 class="mb-0">Name:</h6>
             </div>
-            <div class="modal-body">
-              <form action="/profileEdit" method="post">
-             
-              </form>
+            <div class="col-sm-9 text-secondary">
+              <%= detail.name %>
             </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+          <div class="row mb-3">
+            <div class="col-sm-3">
+              <h6 class="mb-0">Email:</h6>
+            </div>
+            <div class="col-sm-9 text-secondary">
+              <%= detail.email %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-3">
+              <h6 class="mb-0">Address:</h6>
+            </div>
+            <div class="col-sm-9 text-secondary">
+              <button type="button" class="btn btn-primary" onclick="location.href='/address'">Manage Address</button>
             </div>
           </div>
         </div>
       </div>
-      <hr>
-      <div class="row">
-        <div class="col-sm-3">
-          <p class="mb-0">Name:</p>
-        </div>
-        <div class="col-sm-9">
-          <p class="text-muted mb-0">
-            <%= detail.name %>
-          </p>
-        </div>
-      </div>
-      <hr>
-      <div class="row">
-        <div class="col-sm-3">
-          <p class="mb-0">Email:</p>
-        </div>
-        <div class="col-sm-9">
-          <p class="text-muted mb-0">
-            <%= detail.email %>
-          </p>
-        </div>
-      </div>
-      <hr>
-      <div class="row">
-        <div class="col-sm-3">
-          <p class="mb-0">Address:</p>
-        </div>
-        <div class="col-sm-9">
-          <button type="button" class="btn btn-success" onclick="location.href='/address'">Manage
-            Address</button>
+
+      <div class="card mt-4">
+        <div class="card-body">
+          <h5 class="card-title">Payments</h5>
+          <hr>
+          <p class="text-muted">No payment methods added.</p>
         </div>
       </div>
     </div>
-
-    <div class="content mt-4" id="payments">
-      <h5>Payments</h5>
-      <hr>
-      <!-- Payments content goes here -->
-      <p class="text-muted">No payment methods added.</p>
-    </div>
   </div>
+</div>
 
+<style>
+  .profile-image-container {
+    position: relative;
+    display: inline-block;
+  }
 
+  .image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+    border-radius: 50%;
+  }
 
-  </div>
-  </div>
-  </section>
-  </div>
+  .profile-image-container:hover .image-overlay {
+    opacity: 1;
+  }
 
-  <!-- <script>
+  .edit-icon {
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+  }
 
+  @media (max-width: 991px) {
+    .col-lg-3 {
+      margin-bottom: 20px;
+    }
+  }
+</style>
 
-    document.getElementById('icon').addEventListener('click', function () {
-      document.getElementById('images').click();
-    });
+<script>
+  function previewImage(event) {
+    var reader = new FileReader();
+    reader.onload = function() {
+      var output = document.getElementById('profileImage');
+      output.src = reader.result;
+    }
+    reader.readAsDataURL(event.target.files[0]);
+  }
+</script>
 
-    document.getElementById('images').addEventListener('change', function () {
-      const imagePreview = document.getElementById('imagePreview');
-      imagePreview.innerHTML = '';
-      const files = this.files;
-
-      for (let i = 0; i < files.length; i++) {
-        const file = files[i];
-        const reader = new FileReader();
-
-        reader.onload = function (e) {
-          const img = document.createElement('img');
-          img.src = e.target.result;
-          imagePreview.appendChild(img);
-        };
-
-        reader.readAsDataURL(file);
-      }
-    });
-
-  </script> -->
-  <script>
-    document.getElementById('icon').addEventListener('click', function () {
-      document.getElementById('images').click();
-    });
-
-    document.getElementById('uploadForm').addEventListener('submit', function (event) {
-      event.preventDefault();
-      const formData = new FormData(this);
-      fetch('/profileedit', {
-        method: 'POST',
-        body: formData
-      })
-        .then(response => response.json())
-        .then(data => {
-          const imagePreview = document.getElementById('imagePreview');
-          imagePreview.innerHTML = '';
-          data.fileURLs.forEach(url => {
-            const img = document.createElement('img');
-            img.src = url;
-            imagePreview.appendChild(img);
-          });
-        })
-        .catch(error => {
-          console.error('Error:', error);
-        });
-    });
-  </script>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-    crossorigin="anonymous"></script>
-  </body>
-
-  </html>
+<%-include('footer')-%>

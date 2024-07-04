@@ -1,121 +1,304 @@
 
 <%-include('header')-%> 
+<style>
+    :root {
+      --primary-color: #ff9900;
+      --secondary-color: #146eb4;
+      --text-color: #080101;
+      --error-color: #e53e3e;
+      --background-color: #f3f3f3;
+    }
+  
+    body {
+      background-color: var(--background-color);
+      font-family: Arial, sans-serif;
+    }
+  
+    #login {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+  
+    .container {
+      max-width: 400px;
+      width: 100%;
+      padding: 30px;
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+  
+    .title h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: var(--text-color);
+      font-size: 1.75rem;
+      font-weight: 600;
+    }
+  
+    .form-group {
+      margin-bottom: 20px;
+    }
+  
+    .form-control {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 1rem;
+      line-height: 1.5;
+      transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
+  
+    .form-control:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(255, 153, 0, 0.25);
+    }
+  
+    .btn {
+      width: 100%;
+      padding: 0.75rem;
+      border-radius: 4px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.15s ease-in-out;
+    }
+  
+    .btn-success {
+      background-color: var(--primary-color);
+      border: none;
+      color: white;
+    }
+  
+    .btn-success:hover {
+      background-color: #e68a00;
+    }
+  
+    .btn-secondary {
+      background-color: #f3f3f3;
+      border: 1px solid #ddd;
+      color: var(--text-color);
+    }
+  
+    .btn-secondary:hover {
+      background-color: #e9e9e9;
+    }
+  
+    .error {
+      color: var(--error-color);
+      font-size: 0.875rem;
+      margin-top: 5px;
+    }
+  
+    .divider {
+      text-align: center;
+      position: relative;
+      margin: 25px 0;
+    }
+  
+    .divider:before, .divider:after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      width: 45%;
+      height: 1px;
+      background-color: #e7e7e7;
+    }
+  
+    .divider:before {
+      left: 0;
+    }
+  
+    .divider:after {
+      right: 0;
+    }
+  
+    .divider-text {
+      display: inline-block;
+      position: relative;
+      padding: 0 10px;
+      background-color: #fff;
+      color: #767676;
+      font-size: 0.875rem;
+    }
 
-<div class="container-fluid ali"> <button class="btn btn-light align-items-end"><a href="/login">login</a></button></div>
-<div class="text-center " id="login">
-<div class="container w-25 border py-5 shadow mt-5">
-<div class="title pb-5">
-<h2 class="font-weight-bold text-light">Sign Up</h2>
+    .google-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      color: var(--text-color);
+      padding: 0.75rem;
+      border-radius: 4px;
+      font-size: 1rem;
+      font-weight: 600;
+      margin-top: 15px;
+      transition: background-color 0.15s ease-in-out;
+    }
 
- <%if(locals.logout){%>
-            <div class="aleret alert-success text-center">
-                <%= logout %>
-            </div>
-            <%}%>
+    .google-btn:hover {
+      background-color: #f9f9f9;
+    }
 
-            <%if(locals.message){%>
-                <div class="alert alert-sucess text-center" style="color:red;">
-                    <%=message%>
-                </div>          
-            <%}%>       
+    .google-btn img {
+      width: 20px;
+      margin-right: 10px;
+    }
+
+    .login-section {
+      text-align: center;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid #e7e7e7;
+    }
+
+    .login-text {
+      margin-bottom: 10px;
+      font-size: 0.875rem;
+      color: #555;
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 20px;
+      }
+      
+      .title h2 {
+        font-size: 1.5rem;
+      }
+      
+      .form-control, .btn {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+
+<div class="text-center" id="login">
+  <div class="container shadow">
+    <div class="title">
+      <h2>Create Account</h2>
+    </div>
+
+    <%if(locals.logout){%>
+      <div class="alert alert-success text-center">
+        <%= logout %>
+      </div>
+    <%}%>
+
+    <%if(locals.message){%>
+      <div class="alert alert-danger text-center">
+        <%=message%>
+      </div>          
+    <%}%>       
 
 
+<form action="/signup" method="post" class="pt-3" name="formval" onsubmit="return validate()">
+    <div class="form-group">
+      <input type="email" class="form-control" placeholder="Email" name="email" id="email">
+      <span id="emailError" class="error"><%=message%></span>
+    </div>
+    <div class="form-group">
+      <input type="text" class="form-control" name="name" placeholder="Username" id="name">
+      <span id="nameError" class="error"></span>
+    </div>
+    <div class="form-group">
+      <input type="password" class="form-control" name="password" placeholder="Password" id="password">
+      <span id="passwordError" class="error"></span>
+    </div>
+    <div class="form-group">
+      <input type="password" class="form-control" name="cpassword" placeholder="Confirm password" id="cpassword">
+      <span id="confirmPasswordError" class="error"></span>
+    </div>
+    <button type="submit" class="btn btn-success">Create your account</button>
+  </form>
+
+  <div class="divider">
+    <span class="divider-text">or</span>
+  </div>
+
+  <a href="/auth/google" class="google-btn">
+    <img src="images/1657952641google-logo-png-image.webp" alt="Google logo">
+    Sign up with Google
+  </a>
+
+  <div class="login-section">
+    <p class="login-text">Already have an account?</p>
+    <a href="/login" class="btn btn-secondary">Sign In</a>
+  </div>
+</div>
 </div>
 <script>
-  function validate() {
-    document.getElementById('nameError').textContent = "";
-    document.getElementById('emailError').textContent = "";
-    document.getElementById('passwordError').textContent = "";
-    document.getElementById('confirmPasswordError').textContent = "";
+    function validate() {
+      document.getElementById('nameError').textContent = "";
+      document.getElementById('emailError').textContent = "";
+      document.getElementById('passwordError').textContent = "";
+      document.getElementById('confirmPasswordError').textContent = "";
+  
+      var username = document.getElementById('name').value.trim();
+      var email = document.getElementById('email').value.trim();
+      var password = document.getElementById('password').value.trim();
+      var cpassword = document.getElementById('cpassword').value.trim();
+  
+      if (email === "") {
+          document.getElementById('emailError').textContent = "Email cannot be empty";
+          return false;
+      }
+      if (!/^\S+@\S+\.\S+$/.test(email)) {
+          document.getElementById("emailError").textContent = "Email should be in specific format..!";
+          return false;
+      }
+  
+      if (username === "") {
+          document.getElementById('nameError').textContent = "Username cannot be empty";
+          return false;
+      }
+      if (username.length < 4) {
+          document.getElementById('nameError').textContent = "Username must contain at least 4 characters";
+          return false;
+      }
+  
+      if (!/^[a-zA-Z]+$/.test(username)) {
+          document.getElementById("nameError").textContent = "Username cannot contain symbols or numbers";
+          return false;
+      }
+  
+      if (password === "") {
+          document.getElementById('passwordError').textContent = "Password cannot be empty";
+          return false;
+      }
+      if (password.length < 5) {
+          document.getElementById('passwordError').textContent = "Password should contain at least 5 characters";
+          return false;
+      }
+  
+      if (!/(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/.test(password)) {
+          document.getElementById('passwordError').textContent = "Password must contain at least one letter, one number, and one special character";
+          return false;
+      }
+  
+      if (password !== cpassword) {
+          document.getElementById('confirmPasswordError').textContent = "Passwords don't match";
+          return false;
+      }
+  
+      if (cpassword === "") {
+          document.getElementById('confirmPasswordError').textContent = "Confirm password cannot be empty";
+          return false;
+      }
+  
+      return true;
+  }
+  
+  
+      
+  </script>
+  
 
-    var username = document.getElementById('name').value.trim();
-    var email = document.getElementById('email').value.trim();
-    var password = document.getElementById('password').value.trim();
-    var cpassword = document.getElementById('cpassword').value.trim();
-
-    if (email === "") {
-        document.getElementById('emailError').textContent = "Email cannot be empty";
-        return false;
-    }
-    if (!/^\S+@\S+\.\S+$/.test(email)) {
-        document.getElementById("emailError").textContent = "Email should be in specific format..!";
-        return false;
-    }
-
-    if (username === "") {
-        document.getElementById('nameError').textContent = "Username cannot be empty";
-        return false;
-    }
-    if (username.length < 4) {
-        document.getElementById('nameError').textContent = "Username must contain at least 4 characters";
-        return false;
-    }
-
-    if (!/^[a-zA-Z]+$/.test(username)) {
-        document.getElementById("nameError").textContent = "Username cannot contain symbols or numbers";
-        return false;
-    }
-
-    if (password === "") {
-        document.getElementById('passwordError').textContent = "Password cannot be empty";
-        return false;
-    }
-    if (password.length < 5) {
-        document.getElementById('passwordError').textContent = "Password should contain at least 5 characters";
-        return false;
-    }
-
-    if (!/(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/.test(password)) {
-        document.getElementById('passwordError').textContent = "Password must contain at least one letter, one number, and one special character";
-        return false;
-    }
-
-    if (password !== cpassword) {
-        document.getElementById('confirmPasswordError').textContent = "Passwords don't match";
-        return false;
-    }
-
-    if (cpassword === "") {
-        document.getElementById('confirmPasswordError').textContent = "Confirm password cannot be empty";
-        return false;
-    }
-
-    return true;
-}
-
-
-    
-</script>
-
-<form action="/signup" method= "post" class="pt-3" name="formval" onsubmit="return validate()">
-    
-<div class="form-group">
-<input type="email" class= "form-control" placeholder="email" name="email" id="email">
-<span id="emailError" class="error" style="color:red"> <%=message%></span>
-<small class="form-text text-muted text-left"></small>
-</div>
-<div class="form-group mt-4">
-    <input type="name" class="form-control" name="name" placeholder="username" id="name">
-    <span id="nameError" class="error" style="color:red"></span>
-    </div>
-
-<div class="form-group mt-4">
-<input type="password" class="form-control" name="password" placeholder="password" id="password">
-<span id="passwordError" class="error" style="color:red"></span>
-</div>
-
-<div class="form-group mt-4">
-    <input type="password" class="form-control" name="cpassword" placeholder="confirm password" id="cpassword">
-    <span id="confirmPasswordError" class="error" style="color:red"></span>
-    </div>
-<button type="submit" class="btn btn-success mt-3 rounded-pill">Submit</button>
-<div>
-    <a href="/auth/google" class="btn btn-primary mt-3"><img class="w-10" style="width: 20px;" src="images/1657952641google-logo-png-image.webp" > SignUp with google</a>
-</div>
-
-</form>
-</div>
-</div>
-
-
-<%-include('footer')-%>
+</body>
+</html> 

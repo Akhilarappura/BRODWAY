@@ -16,7 +16,7 @@ const get_orderpage = async (req, res) => {
         const perPage=9;
         const startIndex= (page-1)*perPage;
         const user = await userdb.findOne({ email: req.session.email });
-        console.log(user, "user");
+        const Category = await categorydb.find();
         const userId = user._id;
         const orders = await orderdb.find({ userId: user._id }).populate('items.productId').sort({ _id: -1 }).skip(startIndex).limit(perPage)
         console.log('order', orders)
@@ -33,8 +33,12 @@ const get_orderpage = async (req, res) => {
 
         const Address = await Addressdb.find({ user: userId })
         console.log(Address, "address");
+        let cartCount = 0;
+        const cart = await cartdb.findOne({ user: userId });
+        cartCount = cart ? cart.items.length : 0;
 
-        res.render('userorder', { Address, orders, detail: user, moment,page,totalPages,sortOption,order,search })
+
+        res.render('userorder', { Address, orders, user, moment,page,totalPages,sortOption,order,search,Category,cartCount,cart, userToken: req.cookies.userToken })
 
     } catch (error) {
         console.log(error.message)

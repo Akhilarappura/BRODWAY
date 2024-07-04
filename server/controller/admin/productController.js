@@ -81,7 +81,7 @@ const list = async (req, res) => {
 }
 
 
-
+``
 
 const createproduct = async (req, res) => {
     if (!req.body) {

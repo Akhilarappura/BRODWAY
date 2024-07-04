@@ -138,6 +138,7 @@
   animation: blink 1s linear infinite;
   color: rgb(237, 40, 10);
 }
+
       </style>
 
       <section class="section hero" style="background-image: url('/public/imgee/hero-banner.png')">
@@ -405,6 +406,30 @@
 
         </div>
       </section>
+      <script>
+        // JavaScript to control the rotation
+        const shoe = document.getElementById('rotatingShoe');
+        let rotationPaused = false;
+  
+        shoe.addEventListener('mouseover', () => {
+          rotationPaused = true;
+          shoe.style.animationPlayState = 'paused';
+        });
+  
+        shoe.addEventListener('mouseout', () => {
+          rotationPaused = false;
+          shoe.style.animationPlayState = 'running';
+        });
+  
+        // Optional: Change rotation direction on click
+        shoe.addEventListener('click', () => {
+          if (shoe.style.animationDirection === 'reverse') {
+            shoe.style.animationDirection = 'normal';
+          } else {
+            shoe.style.animationDirection = 'reverse';
+          }
+        });
+      </script>
 
     </article>
   </main>

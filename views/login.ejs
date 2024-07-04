@@ -1,95 +1,220 @@
+<%- include('header') -%>
 
-<%-include('header')-%> 
+<style>
+  :root {
+    --primary-color: #ff9900;
+    --secondary-color: #146eb4;
+    --text-color: #111;
+    --error-color: #e53e3e;
+    --background-color: #f3f3f3;
+  }
 
+  body {
+    background-color: var(--background-color);
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
 
-<div class="text-center align-items-center " id="login">
-<div class="container top-50 mt-5   w-25 border py-5 shadow mt-[121px] pt-16 ">
-<div class="title pb-10">
-<h2 class="font-weight-bold  text-white">Login</h2>
-<div class="title pb-5 text-white">
-    <small> Don't have an Account <a href="/signup" class="btn btn-outlined-white">SIGNUP</a></small>
+  .login-container {
+    max-width: 350px;
+    width: 100%;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .login-title {
+    text-align: center;
+    margin-bottom: 20px;
+    color: var(--text-color);
+    font-size: 28px;
+    font-weight: 400;
+  }
+
+  .form-group {
+    margin-bottom: 15px;
+  }
+
+  .form-control {
+    width: 100%;
+    padding: 7px;
+    border: 1px solid #a6a6a6;
+    border-radius: 3px;
+    box-shadow: 0 1px 0 rgba(255,255,255,.5), 0 1px 0 rgba(0,0,0,.07) inset;
+    font-size: 13px;
+    line-height: 19px;
+  }
+
+  .form-control:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(255, 153, 0, .5);
+  }
+
+  .btn-submit {
+    width: 100%;
+    padding: 7px 0;
+    background: linear-gradient(to bottom, #f7dfa5, #f0c14b);
+    border: 1px solid #a88734;
+    border-radius: 3px;
+    color: var(--text-color);
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 1px 0 rgba(255,255,255,.4) inset;
+  }
+
+  .btn-submit:hover {
+    background: linear-gradient(to bottom, #f5d78e, #eeb933);
+  }
+
+  .btn-google {
+    width: 100%;
+    padding: 7px 0;
+    background-color: #fff;
+    border: 1px solid #a6a6a6;
+    border-radius: 3px;
+    color: var(--text-color);
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 15px;
+    box-shadow: 0 1px 0 rgba(255,255,255,.5), 0 1px 0 rgba(0,0,0,.07) inset;
+  }
+
+  .btn-google:hover {
+    background-color: #f9f9f9;
+  }
+
+  .google-icon {
+    width: 18px;
+    margin-right: 10px;
+  }
+
+  .error-message {
+    color: var(--error-color);
+    font-size: 12px;
+    margin-top: 5px;
+  }
+
+  .signup-link, .forgot-password {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 12px;
+    color: var(--secondary-color);
+  }
+
+  .signup-link a, .forgot-password a {
+    color: var(--secondary-color);
+    text-decoration: none;
+  }
+
+  .signup-link a:hover, .forgot-password a:hover {
+    text-decoration: underline;
+    color: #c45500;
+  }
+
+  .divider {
+    text-align: center;
+    position: relative;
+    margin: 20px 0;
+  }
+
+  .divider:before, .divider:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 45%;
+    height: 1px;
+    background-color: #e7e7e7;
+  }
+
+  .divider:before {
+    left: 0;
+  }
+
+  .divider:after {
+    right: 0;
+  }
+
+  .divider-text {
+    display: inline-block;
+    position: relative;
+    padding: 0 10px;
+    background-color: #fff;
+    color: #767676;
+    font-size: 12px;
+  }
+</style>
+
+<div class="login-container">
+  <h2 class="login-title">Sign In</h2>
+
+  <form action="/login" method="post" onsubmit="return validate()">
+    <% if (message) { %>
+      <div class="error-message mb-3"><%= message %></div>
+    <% } %>
+
+    <div class="form-group">
+      <input type="email" class="form-control" placeholder="Email" name="email" id="email" value="aravind@gmail.com" required>
+      <small id="emailError" class="error-message"></small>
+    </div>
+
+    <div class="form-group">
+      <input type="password" class="form-control" name="password" placeholder="Password" id="password" value="aravind@123" required>
+      <small id="passwordError" class="error-message"></small>
+    </div>
+
+    <button type="submit" class="btn-submit">Sign In</button>
+
+    <div class="forgot-password">
+      <a href="/forgot">Forgot Password?</a>
+    </div>
+  </form>
+
+  <div class="divider">
+    <span class="divider-text">New to our store?</span>
+  </div>
+
+  <a href="/signup" class="btn-google" style="text-decoration: none;">
+    Create your account
+  </a>
 </div>
 
-
-</div>
 <script>
-    function validate() {
+function validate() {
+  let isValid = true;
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value.trim();
+  const emailError = document.getElementById('emailError');
+  const passwordError = document.getElementById('passwordError');
 
-     document.getElementById('emailError').textContent="";
-     document.getElementById('passwordError').textContent="";
-    
- 
- 
+  emailError.textContent = "";
+  passwordError.textContent = "";
 
-     var email = document.getElementById('email').value.trim();
-     var password = document.getElementById('password').value.trim();
+  if (email === "") {
+    emailError.textContent = "Enter your email";
+    isValid = false;
+  } else if (!/^\S+@\S+\.\S+$/.test(email)) {
+    emailError.textContent = "Enter a valid email address";
+    isValid = false;
+  }
 
- 
- 
- 
- 
- 
-     if (email === "") {
-        
-        document.getElementById('emailError').textContent="Email cannot be empty";
-        return false;
-    }
-    if (!/^\S+@\S+\.\S+$/.test(email)) {
-                document.getElementById("emailError").textContent = "Email should be in specific format..!";
-                return false
-            }
- 
-     
-     if (password === "") {
-         document.getElementById('passwordError').textContent="password cannot be empty";
-         return false;
-     }
-     
-     
-     if (!/(?=.[a-zA-Z])(?=.\d)(?=.[@$!%?&])[A-Za-z\d@$!%?&]+$/.test(password)) {
-     document.getElementById('passworError').textContent = 'Password must be a combination of letters, digits, and symbols';
-     return false;
- }
-    
-     
-     return true;
- }
- 
- 
-     
- </script>
- 
+  if (password === "") {
+    passwordError.textContent = "Enter your password";
+    isValid = false;
+  }
 
+  return isValid;
+}
+</script>
 
-<form action="/login" method= "post" class="pt-3" name="formlogin" onsubmit="return validate" >
-<div class="form-group">
- <p style="background-color: rgb(255, 0, 0); color: white;">   <%=message %></p>
-<input type="email" class= "form-control" placeholder="email" name="email" id="email" value="aravind@gmail.com" required>
-<span id="emailError" class="error" style="color:red"></span>
-
-<!-- <small class="form-text text-muted text-left"></small> -->
-</div>
-<div></div>
-<!-- <div class="form-group mt-4">
-    <input type="password" class="form-control" name="name" placeholder="username" required>
-    </div> -->
-<div class="form-group mt-4">
-<input type="password" class="form-control" name="password" placeholder="password" value="aravind@123" required >
-<span id="passwordError" class="error" style="color:red"></span>
-</div>
-<button type="submit" class="btn btn-success mt-3 rounded-pill">Submit</button>
-<div id="forgotPasswordLink" style="color: black;">
-    <a href="/forgot">Forgot Password?</a>
-</div>
-</form>
-
-<div>
-    <a href="/auth/google" class="btn btn-primary mt-3"><img class="w-10" style="width: 20px;" src="images/1657952641google-logo-png-image.webp" >  Login with google</a>
-</div>
-</div>
-</div>
-
-
-
-
-<%-include('footer')-%>
+</body>
+</html>

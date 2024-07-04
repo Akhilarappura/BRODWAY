@@ -1,0 +1,51 @@
+<div class="row">
+    <div class="col-lg-3">
+      <div class="profile-header">
+        <form action="/profileedit" method="post" enctype="multipart/form-data" id="profileForm">
+          <div class="position-relative d-inline-block">
+            <img id="profileImage" src="/<%= detail.profilePicture %>" alt="Profile Picture">
+            <label for="fileInput" class="position-absolute bottom-0 end-0 bg-white rounded-circle p-2" style="cursor: pointer;">
+              <i class="fas fa-camera text-primary"></i>
+            </label>
+          </div>
+          <input id="fileInput" name="images" type="file" class="file-input" accept="image/*" onchange="previewImage(event)">
+          <button type="submit" class="btn btn-primary btn-sm mt-2">Update Picture</button>
+        </form>
+        <h4 class="mt-3">Hello, <%= detail.name %></h4>
+
+        <div class="settings-box mt-4">
+          <button class="btn btn-white dropdown-toggle w-100" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Account Settings
+          </button>
+          <ul class="dropdown-menu w-100">
+            <li><a class="dropdown-item" href="/profile">Profile Information</a></li>
+            <li><a class="dropdown-item" href="/address">Manage Address</a></li>
+          </ul>
+        </div>
+
+        <div class="settings-box mt-4">
+          <button class="btn btn-white dropdown-toggle w-100" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            My Orders
+          </button>
+          <ul class="dropdown-menu w-100">
+            <li><a class="dropdown-item" href="/orderpage">Orders</a></li>
+          </ul>
+        </div>
+
+        <div class="settings-box mt-4">
+          <button class="btn btn-white dropdown-toggle w-100" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            My Stuff
+          </button>
+          <ul class="dropdown-menu w-100">
+            <li><a class="dropdown-item" href="/wallet">My wallet</a></li>
+            <li><a class="dropdown-item" href="/contact">My Reviews</a></li>
+            <li><a class="dropdown-item" href="/contact">All Notifications</a></li>
+            <li><a class="dropdown-item" href="/wishlist">My Wishlist</a></li>
+          </ul>
+        </div>
+
+        <div class="settings-box mt-4">
+          <a href="/userlogout" class="btn btn-danger w-100">Logout</a>
+        </div>
+      </div>
+    </div>

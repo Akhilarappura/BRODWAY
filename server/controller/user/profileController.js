@@ -1,5 +1,7 @@
 const userdb = require('../../model/userModel')
 const Addressdb = require("../../model/addressModel")
+const categorydb=require('../../model/categoryModel')
+const cartdb=require('../../model/cartmodel')
 const moment = require('moment')
 
 
@@ -12,8 +14,12 @@ const get_profile = async (req, res) => {
         const user = req.session.email;
         const detail = await userdb.findOne({ email: user })
         const address = await Addressdb.find({ user: detail._id })
+        const Category = await categorydb.find();
+        let cartCount = 0;
+        const cart = await cartdb.findOne({ user: detail._id  });
+        cartCount = cart ? cart.items.length : 0;
 
-        res.render("userProfile", { detail, address, moment, user })
+        res.render("userProfile", { detail, address, moment, user,Category,cartCount,cart, userToken: req.cookies.userToken})
 
 
     } catch (error) {
@@ -31,8 +37,12 @@ const get_address = async (req, res) => {
         const detail = await userdb.findOne({ email: user })
         const userdetail = await userdb.findOne({ email: user })
         const address = await Addressdb.find({ user: userdetail._id })
+        const Category = await categorydb.find();
+        let cartCount = 0;
+        const cart = await cartdb.findOne({ user: detail._id  });
+        cartCount = cart ? cart.items.length : 0;
 
-        res.render("address", { address, userdetail, moment, detail })
+        res.render("address", { address, userdetail, moment, detail,Category,cartCount, userToken: req.cookies.userToken })
 
     } catch (error) {
         console.log(error.message)
@@ -156,7 +166,7 @@ const addProfilePicture = async (req, res) => {
     try {
         const userEmail = req.session.email
 
-        console.log("uyuyu", userEmail);
+    
         const images = req.files;
         const newImage = images[0]
         console.log('newImage', newImage);
