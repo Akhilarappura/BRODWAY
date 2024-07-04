@@ -69,6 +69,7 @@ const get_addAddress = async (req, res) => {
 
 const post_address = async (req, res) => {
     try {
+        console.log("hi");
         const user = await userdb.findOne({ email: req.session.email })
         const add = new Addressdb({
             user: user._id,
@@ -80,11 +81,13 @@ const post_address = async (req, res) => {
             district: req.body.district,
             state: req.body.state,
             country: req.body.country,
+          
 
 
 
 
         })
+        console.log(add,"jij");
         await add.save()
         res.redirect('/address')
 

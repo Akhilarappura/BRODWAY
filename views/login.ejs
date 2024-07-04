@@ -21,13 +21,14 @@
   }
 
   .login-container {
-    max-width: 350px;
-    width: 100%;
-    padding: 20px;
-    background-color: #ffffff;
-    border-radius: 4px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
+  max-width: 350px;
+  width: 100%;
+  padding: 20px;
+  background-color:rgb(255 255 255 / 12%); /* Semi-transparent white */
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(-11px); /* Adds a blur effect to the background */
+}
 
   .login-title {
     text-align: center;
@@ -155,7 +156,7 @@
 </style>
 
 <div class="login-container">
-  <h2 class="login-title">Sign In</h2>
+  <h2 class="login-title" style="color: white;">Sign In</h2>
 
   <form action="/login" method="post" onsubmit="return validate()">
     <% if (message) { %>

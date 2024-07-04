@@ -31,7 +31,7 @@ const orderSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        default: "Pending",
+        default: "Pending"
 
     },
     returned: {

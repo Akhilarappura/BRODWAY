@@ -154,12 +154,13 @@
         <form action="/profileedit" method="post" enctype="multipart/form-data" id="profileForm">
           <div class="position-relative d-inline-block">
             <img id="profileImage" src="/<%= detail.profilePicture %>" alt="Profile Picture">
-            <label for="fileInput" class="position-absolute bottom-0 end-0 bg-white rounded-circle p-2" style="cursor: pointer;">
-              <i class="fas fa-camera text-primary"></i>
+            <label for="fileInput" class="position-absolute bottom-0 end-0 bg-white rounded-circle p-2 d-flex align-items-center" style="cursor: pointer;">
+              <i class="fas fa-camera text-primary me-1"></i>
+              <span id="editSaveText" class="text-primary" style="font-size: 0.9rem;">EDIT</span>
             </label>
           </div>
-          <input id="fileInput" name="images" type="file" class="file-input" accept="image/*" onchange="previewImage(event)">
-          <button type="submit" class="btn btn-primary btn-sm mt-2">Update Picture</button>
+          <input id="fileInput" name="images" type="file" class="file-input" accept="image/*" style="display: none;">
+          <button type="submit" class="btn btn-primary btn-sm mt-2" style="display: none;">Update Picture</button>
         </form>
         <h4 class="mt-3">Hello, <%= detail.name %></h4>
 
@@ -199,7 +200,6 @@
         </div>
       </div>
     </div>
-
 
     <!-- Main Content -->
     <div class="col-lg-9">
@@ -283,6 +283,7 @@
   }
 </style>
 
+
 <script>
   function previewImage(event) {
     var reader = new FileReader();
@@ -293,5 +294,51 @@
     reader.readAsDataURL(event.target.files[0]);
   }
 </script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const fileInput = document.getElementById('fileInput');
+    const editSaveText = document.getElementById('editSaveText');
+    const profileForm = document.getElementById('profileForm');
+    let isEditing = false;
+  
+    document.querySelector('label[for="fileInput"]').addEventListener('click', function(e) {
+      e.preventDefault();
+      if (!isEditing) {
+        // If in "EDIT" mode, trigger file input
+        fileInput.click();
+      } else {
+        // If in "SAVE" mode, submit the form
+        profileForm.submit();
+      }
+    });
+  
+    fileInput.addEventListener('change', function(event) {
+      if (event.target.files && event.target.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          document.getElementById('profileImage').src = e.target.result;
+        };
+        reader.readAsDataURL(event.target.files[0]);
+        
+        // Change to "SAVE" mode
+        isEditing = true;
+        editSaveText.textContent = 'SAVE';
+      }
+    });
+  
+    profileForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Simulating form submission (replace with actual AJAX call if needed)
+      setTimeout(function() {
+        // Reset to "EDIT" mode after submission
+        isEditing = false;
+        editSaveText.textContent = 'EDIT';
+        alert('Profile picture updated successfully!');
+      }, 1000);
+    });
+  });
+  </script>
 
 <%-include('footer')-%>

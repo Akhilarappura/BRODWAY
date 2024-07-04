@@ -1,16 +1,39 @@
 <%-include('include/nav')-%>
+<style>
+	.breadcrumb-nav {
+    padding: 15px 0;
+    background-color: #f8f9fa;
+    margin-bottom: 30px;
+  }
 
-		<div class="breadcrumbs">
-			<div class="container">
-				<div class="row">
-					<div class="col">
-						<p class="bread"><span><a href="/">Home</a></span> / <span>Contact</span></p>
-					</div>
-				</div>
-			</div>
-		</div>
+  .breadcrumb {
+    margin-bottom: 0;
+    background-color: transparent;
+    padding: 0;
+  }
 
+  .breadcrumb-item + .breadcrumb-item::before {
+    content: ">";
+  }
 
+  .breadcrumb-item a {
+    color: #007bff;
+    text-decoration: none;
+  }
+
+  .breadcrumb-item.active {
+    color: #6c757d;
+  }
+</style>
+
+<div class="container">
+	<nav aria-label="breadcrumb" class="breadcrumb-nav">
+	  <ol class="breadcrumb">
+		<li class="breadcrumb-item"><a href="/">Home</a></li>
+		<li class="breadcrumb-item active" aria-current="page">About</li>
+	  </ol>
+	</nav>
+  </div>
 
 		<div class="colorlib-about">
 			<div class="container">

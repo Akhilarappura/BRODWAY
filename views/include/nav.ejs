@@ -337,7 +337,19 @@ font-weight: bold;
     font-size: 14px;
     font-weight: 500;
   }
-
+  @media (max-width: 991px) {
+  .navbar-list {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .nav-action-list {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .nav-action-btn {
+    margin-bottom: 10px;
+  }
+}
 </style>
 
 <body id="top">
@@ -408,21 +420,23 @@ font-weight: bold;
             <li>
               <a href="/login" class="nav-action-btn">
                 <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
-
-                <span class="nav-action-text">Login </span>
+                <span class="nav-action-text">Login</span>
               </a>
             </li>
-            <% } %>
-
-              <% if (userToken) { %>
-                <li>
-                  <a href="/profile" class="nav-action-btn">
-                    <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
-
-                    <span class="nav-action-text">Login </span>
-                  </a>
-                </li>
-                <% } %>
+          <% } else { %>
+            <li>
+              <a href="/profile" class="nav-action-btn">
+                <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
+                <span class="nav-action-text">Profile</span>
+              </a>
+            </li>
+            <li>
+              <a href="/userlogout" class="nav-action-btn">
+                <ion-icon name="log-out-outline" aria-hidden="true"></ion-icon>
+                <span class="nav-action-text">Logout</span>
+              </a>
+            </li>
+          <% } %>
                   <li>
                     <a href="/wishlist" class="nav-action-btn">
                       <ion-icon name="heart-outline" aria-hidden="true"></ion-icon>
