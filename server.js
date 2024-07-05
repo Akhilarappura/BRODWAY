@@ -51,10 +51,6 @@ app.use('/imagee', express.static(path.resolve(__dirname, "public/imagee")))
 app.use('/js', express.static(path.resolve(__dirname, "public/js")))
 app.use('/fonts', express.static(path.resolve(__dirname, "public/fonts")))
 
-app.use('/', adminRouter)
-app.use('/', userRouter)
-
-
 //auth google
 app.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }))
 
@@ -68,6 +64,12 @@ app.get('/auth/google/callback',
         res.cookie('userToken', userToken)
         res.redirect('/')
     })
+
+app.use('/', adminRouter)
+app.use('/', userRouter)
+
+
+
 
 
 

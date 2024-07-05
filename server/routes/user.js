@@ -56,6 +56,7 @@ route.get('/userlogout', signupController.userlogout);
 route.get('/forgot', signupController.forgot)
 route.post('/postforgot', signupController.postforgot)
 route.post('/forgototp', signupController.verifypostotp)
+route.get('/resendForgot',signupController.resendForgotOtp)
 route.post('/confirmotp', signupController.confirmotp)
 route.get('/error500', Controller.error)
 route.get('/reset', signupController.getreset)

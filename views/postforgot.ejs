@@ -1,92 +1,66 @@
+<%- include('header') %>
 
-<%-include('header')-%> 
+<div class="d-flex justify-content-center align-items-center min-vh-100" style="background-image: url('your-background-image.jpg'); background-size: cover; background-position: center;">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6 col-lg-4">
+        <div class="card shadow" style="background-color: rgba(255, 255, 255, 0.1); backdrop-filter: blur(-6px);">
+          <div class="card-body text-center py-5" style="margin: 0rem 0rem 5rem 0rem;">
+            <h2 class="font-weight-bold text-white mb-4">Forgot Password</h2>
+            <p class="text-white mb-4">
+              <h6 style="color: black;">Don't have an Account? </h6>
+              <a href="/signup" class="btn btn-outline-light btn-sm ml-2"><h6 style="color: black;">SIGN UP</h6></a>
+            </p>
 
-
-<div class="text-center align-items-center " id="login">
-<div class="container top-50 mt-5   w-25 border py-5 shadow mt-[121px] pt-16 ">
-<div class="title pb-10">
-<h2 class="font-weight-bold  text-white">Forgot Password</h2>
-<div class="title pb-5 text-white">
-    <small> Don't have an Account <a href="/signup" class="btn btn-outlined-white">SIGNUP</a></small>
+            <form action="/confirmotp" method="post" onsubmit="return validate()">
+              <div class="form-group mb-3">
+                <input type="password" class="form-control bg-transparent text-white" placeholder="New password" name="password" id="password" required>
+                <span id="passwordError" class="error text-danger"></span>
+              </div>
+              <div class="form-group mb-4">
+                <input type="password" class="form-control bg-transparent text-white" placeholder="Confirm password" name="cpassword" id="cpassword" required>
+                <span id="cpasswordError" class="error text-danger"></span>
+              </div>
+              <button type="submit" class="btn btn-success btn-block rounded-pill">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
-
-</div>
 <script>
-    function validate() {
-
-     document.getElementById('emailError').textContent="";
-     document.getElementById('passwordError').textContent="";
+  function validate() {
+    document.getElementById('passwordError').textContent = "";
+    document.getElementById('cpasswordError').textContent = "";
     
- 
- 
-
-     var email = document.getElementById('email').value.trim();
-     var password = document.getElementById('password').value.trim();
-
- 
- 
- 
- 
- 
-     if (password === "") {
-        
-        document.getElementById('passwordError').textContent="Email cannot be empty";
-        return false;
+    var password = document.getElementById('password').value.trim();
+    var cpassword = document.getElementById('cpassword').value.trim();
+    
+    if (password === "") {
+      document.getElementById('passwordError').textContent = "Password cannot be empty";
+      return false;
     }
-   
-     
-     if (!/(?=.[a-zA-Z])(?=.\d)(?=.[@$!%?&])[A-Za-z\d@$!%?&]+$/.test(password)) {
-     document.getElementById('passworError').textContent = 'Password must be a combination of letters, digits, and symbols';
-     return false;
- }if (password !== cpassword) {
-        document.getElementById('cPasswordError').textContent = "Passwords don't match";
-        return false;
+    
+    if (!/(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/.test(password)) {
+      document.getElementById('passwordError').textContent = 'Password must be a combination of letters, digits, and symbols';
+      return false;
     }
-
+    
     if (cpassword === "") {
-        document.getElementById('cPasswordError').textContent = "Confirm password cannot be empty";
-        return false;
+      document.getElementById('cpasswordError').textContent = "Confirm password cannot be empty";
+      return false;
     }
-
     
-     
-     return true;
- }
- 
- 
-     
- </script>
- 
+    if (password !== cpassword) {
+      document.getElementById('cpasswordError').textContent = "Passwords don't match";
+      return false;
+    }
+    
+    return true;
+  }
+</script>
 
-
-<form action="/confirmotp" method= "post" class="pt-3" name="formlogin" onsubmit="return validateLogin" >
-<div class="form-group">
- <p style="background-color: blue; color: white;"> </p>
-<input type="password" class= "form-control" placeholder="New password" name="password" id="password" required>
-<span id="passwordError" class="error" style="color:red"></span>
-<input type="password" class= "form-control" placeholder="confirm password" name="cpassword" id="cpassword" required>
-<span id="cpasswordError" class="error" style="color:red"></span>
-
-
-<!-- <small class="form-text text-muted text-left"></small> -->
-</div>
-<div></div>
-<!-- <div class="form-group mt-4">
-    <input type="password" class="form-control" name="name" placeholder="username" required>
-    </div> -->
-<div></div>
-<button type="submit" class="btn btn-success mt-3 rounded-pill">Submit</button>
-
-</form>
-
-<div>
-   
-</div>
-</div>
-</div>
-
-
-
-
-<%-include('footer')-%>
+</body>
+</html>

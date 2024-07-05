@@ -7,16 +7,16 @@ dotenv.config({ path: '.env' })
 
 
 
-// const client_secret =process.env.client_secret
+const client_secret ='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';
 
-// const client_ID = process.env.client_ID
+const client_ID ='283362262673-hk8boalou32njckhuhc3vvtc9rki1sgb.apps.googleusercontent.com';
 
 
 
 passport.use(new GoogleStrategy({
-  clientID: process.env.client_ID,
-  clientSecret: process.env.client_secret,
-  callbackURL: 'http://localhost:3006/auth/google/callback'
+  clientID: client_ID,
+  clientSecret: client_secret,
+  callbackURL: '/auth/google/callback'
 }, async (accessToken, refreshToken, profile, done) => {
   try {
     let user = await userModel.findOne({ email: profile.emails[0].value });

@@ -74,12 +74,13 @@ const signup = async (req, res) => {
     req.session.Eemail = req.body.email;
     req.session.Ppass = req.body.password;
 
+    console.log(req.body.email,"email");
+
 
     if (existingUser) {
       res.render('signup', { message: 'Email already exists' })
     }
     else {
-
       const recipientEmail = req.body.email;
       const otp = generateOTP();
       req.session.otp = otp;
@@ -117,8 +118,10 @@ const signup = async (req, res) => {
 
 const resendotp = async (req, res) => {
   try {
+    
 
     const recipientEmail = req.session.Eemail || req.session.email
+    console.log(recipientEmail);
 
 
     const otp = generateOTP();
@@ -134,7 +137,7 @@ const resendotp = async (req, res) => {
     }, (error, info) => {
       if (error) {
         console.error('Error sending email:', error)
-        res.status(500).send('Error sending OTP via email');
+        res.status(500).redirect('/error500');
       } else {
         console.log(`OTP resent succesfully:`, info.response)
         console.log(otp)
@@ -286,6 +289,7 @@ const postforgot = async (req, res) => {
 
       const recipientEmail = req.body.email
       req.session.forgotemail = email;
+      console.log('email',email);
 
 
       const otp = generateOTP();
@@ -332,6 +336,45 @@ const verifypostotp = async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(400).render('error500')
+  }
+}
+
+
+
+const resendForgotOtp = async (req, res) => {
+  console.log("hi");
+  try {
+    
+
+    const recipientEmail =req.session.forgotemail
+    console.log(recipientEmail,"poi");
+
+
+    const otp = generateOTP();
+    req.session.otp = otp;
+
+
+    createTransporter.sendMail({
+      from: 'akhilarappura1989@gmail.com',
+      to: recipientEmail,
+      subject: `Your OTP for Verification`,
+      text: `Your new OTP is ${otp}`,
+
+    }, (error, info) => {
+      if (error) {
+        console.error('Error sending email:', error)
+        res.status(500).redirect('/error500');
+      } else {
+        console.log(`OTP resent succesfully:`, info.response)
+        console.log(otp)
+        res.render('forgototp', { email: recipientEmail, error: 'OTP resent succesfully', message: '' })
+      }
+    })
+
+  } catch (error) {
+    console.error('Error resending OTP', error)
+    res.status(500).send('Error resending OTP', { message: 'ERROR OCCURED' })
+
   }
 }
 
@@ -432,6 +475,6 @@ const cnfirmreset = async (req, res) => {
 
 module.exports = {
   otp, getsignup, signup, resendotp, verify, userlogout, loginpage, post_login, forgot, postforgot, verifypostotp, confirmotp,
-  getreset, postreset, cnfirmreset
+  getreset, postreset, cnfirmreset,resendForgotOtp
 
 }

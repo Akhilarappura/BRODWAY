@@ -140,8 +140,8 @@
     <div class="col">
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="/">Home</a></li>
-          <li class="breadcrumb-item"><a href="/profile">User</a></li>
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item"><a href="#">User</a></li>
           <li class="breadcrumb-item active" aria-current="page">User Profile</li>
         </ol>
       </nav>
@@ -159,7 +159,7 @@
             </label>
           </div>
           <input id="fileInput" name="images" type="file" class="file-input" accept="image/*" onchange="previewImage(event)">
- 
+          <button type="submit" class="btn btn-primary btn-sm mt-2">Update Picture</button>
         </form>
         <h4 class="mt-3">Hello, <%= user.name %></h4>
 
@@ -218,21 +218,21 @@
                                     <div class="tab-pane fade show active" id="nav-pending">
                                         <div class="table-responsive">
                                             <table class="table table-borderless">
-                                                <thead>
-                                                    <tr>
-                                                        <th scope="col">SL No.</th>
-                                                        <th scope="col">Payment Status</th>
-                                                        <th scope="col">Order Date</th>
-                                                        <th scope="col">Order Status</th>
-                                                        <th scope="col">Order Total</th>
-                                                        <th scope="col">Actions</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody id="innerPeace">
+                                                <tr> 
+                                                    
+                                                        <th scope="col" class="text-center align-middle" ><h3>SL No.</h3></th>
+                                                        <th scope="col" class="text-center align-middle">Payment Status</th>
+                                                        <th scope="col" class="text-center align-middle">Order Date</th>
+                                                        <th scope="col" class="text-center align-middle">Order Status</th>
+                                                        <th scope="col" class="text-center align-middle">Order Total</th>
+                                                        <th scope="col" class="text-center align-middle">Actions</th>
+                                             
+                                            </tr>
+                                                
                                                     <% orders.forEach((order, i) => { %>
                                                     <tr>
-                                                        <td class="text-center align-middle"> <%= i + 1 %> </td>
-                                                        <td class="text-center align-middle">
+                                                        <td scope="col" class="text-center align-middle"> <%= i + 1 %> </td>
+                                                        <td scope="col" class="text-center align-middle">
                                                             <% if (order.paymentStatus === 'Return Accepted') { %>
                                                                 <span class="alert alert-danger">Returned</span>
                                                             <% }
@@ -249,11 +249,11 @@
                                                                 <span class="alert alert-warning"><%= order.paymentStatus %></span>
                                                             <% } %>
                                                         </td>
-                                                        <td class="text-center align-middle">                                   
+                                                        <td scope="col" class="text-center align-middle">                                   
                                                              <%= new Date(order.orderedDate).toDateString() %>
                                                         </td>
                                                     
-                                                        <td class="text-center align-middle">
+                                                        <td scope="col" class="text-center align-middle">
                                                             <% if (order.status === 'Return Accepted') { %>
                                                                 <span class="alert alert-danger">Returned</span>
                                                             <% }
@@ -270,8 +270,8 @@
                                                                 <span class="alert alert-success">Delivered</span>
                                                             <% } %>     
                                                         </td>
-                                                        <td class="text-center align-middle">&#x20a8; <%= order.totalAmount %></td>
-                                                        <td class="text-center align-middle">
+                                                        <td scope="col" class="text-center align-middle">&#x20a8; <%= order.totalAmount %></td>
+                                                        <td scope="col" class="text-center align-middle">
                                                             <div class="d-flex flex-column align-items-center">
                                                                 <% if (order.status == 'Completed') { %>
                                                                     <p class="text-danger">paid</p>
@@ -293,9 +293,11 @@
                                                                 </a>
                                                             </div>
                                                         </td>
+                                                    
                                                     </tr>
+                                                
                                                     <% }) %>
-                                                </tbody>
+                                                
                                             </table>
                                         </div>
                                     </div>
