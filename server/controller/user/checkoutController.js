@@ -25,7 +25,7 @@ const get_checkout = async (req, res) => {
             return res.status(404).render('error404');
         }
 
-        const userId = user._id;
+     
         const walet = await walletdb.findOne({ user: user._id }) || { balance: 0, transactions: [] };
         console.log('walet', walet);
 
@@ -38,6 +38,7 @@ const get_checkout = async (req, res) => {
         const Category = await categorydb.find();
         const address = await Addressdb.find({ user: detail._id });
         const total = await cartdb.findOne({ user: detail._id }).populate('items.productId');
+        console.log('total',total);
         const today = new Date();
         const applicableCoupons = await coupondb.find({
             expireDate: { $gte: today },

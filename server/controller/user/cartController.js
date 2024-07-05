@@ -164,14 +164,20 @@ const quantity = async (req, res) => {
         if (!cart) {
             return res.status(404).json({ error: 'Cart not found' });
         }
-        const item = cart.items.find(item => item._id.toString() === id);
 
+        const item = cart.items.find(item => item._id.toString() === id);
         if (!item) {
             return res.status(404).json({ error: 'Item not found in the cart' });
         }
 
+        // Check if quantity exceeds stock
         if (qua > item.productId.stock) {
             return res.status(400).json({ error: 'Quantity exceeds available stock' });
+        }
+
+        // Check if quantity exceeds the limit of 5
+        if (qua > 5) {
+            return res.status(400).json({ error: 'Maximum quantity limit is 5' });
         }
 
         const result = await cartdb.findOneAndUpdate(
@@ -179,16 +185,13 @@ const quantity = async (req, res) => {
                 "items._id": id
             },
             {
-
                 $set: { "items.$.quantity": qua }
             }
         );
 
         if (result) {
-
             res.status(200).json({ message: 'Quantity updated successfully' });
         } else {
-
             res.status(404).json({ error: 'Item not found' });
         }
     } catch (error) {
@@ -196,7 +199,6 @@ const quantity = async (req, res) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 };
-
 
 
 

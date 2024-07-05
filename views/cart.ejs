@@ -28,7 +28,7 @@
     }
 
     /* Process steps */
-    .process-wrap {
+    /* .process-wrap {
         display: flex;
         justify-content: space-between;
         margin-bottom: 40px;
@@ -57,7 +57,7 @@
     .process h3 {
         font-size: 16px;
         color: #343a40;
-    }
+    } */
 
     /* Product list header */
     .product-name {
@@ -65,9 +65,12 @@
         padding: 15px 0;
         border-bottom: 2px solid #e9ecef;
         font-weight: bold;
+        display: flex;
+        justify-content: space-between;
     }
 
     .product-name div {
+        flex: 1;
         text-align: center;
     }
 
@@ -81,9 +84,11 @@
 
     .product-cart .one-forth {
         flex: 3;
+        display: flex;
+        align-items: center;
     }
 
-    .product-cart .one-eight {
+    .product-cart  {
         flex: 1;
         text-align: center;
     }
@@ -139,40 +144,71 @@
         cursor: pointer;
     }
 
-    /* Order box */
+  
+    /* ... (keep your existing styles) ... */
+
+    /* Updated Order box */
     .order-box {
-        background-color: #fff;
-        border: 21px solid #e9ecef;
+        background-color: #f8f9fa;
+        border: 1px solid #e9ecef;
         border-radius: 8px;
         padding: 20px;
         margin-top: 30px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
 
     .order-box h2 {
-        color: #28a745;
+        color: #333;
         margin-bottom: 20px;
+        font-size: 18px;
+        font-weight: 600;
     }
 
     .order-box .subtotal {
+      display: flex;
+        justify-content: space-between;
+        margin-top: 15px;
+        padding-top: 15px;
+        border-top: 1px solid #e9ecef;
+        font-size: 18px;
+        font-weight: 600;
+        color: #333;
+    }
+
+    .order-box .total {
         display: flex;
         justify-content: space-between;
-        margin-bottom: 20px;
+        margin-top: 15px;
+        padding-top: 15px;
+        border-top: 1px solid #e9ecef;
         font-size: 18px;
+        font-weight: 600;
+        color: #333;
     }
 
     .order-box .btn-warning {
-        background-color: #ffc107;
-        border: none;
-        color: #212529;
+        background-color: #f0c14b;
+        border: 1px solid #a88734;
+        color: #111;
         padding: 10px 20px;
-        font-size: 18px;
-        text-transform: uppercase;
+        font-size: 16px;
+        font-weight: 400;
         cursor: pointer;
         transition: background-color 0.3s;
+        width: 100%;
+        margin-top: 20px;
+        border-radius: 4px;
     }
 
     .order-box .btn-warning:hover {
-        background-color: #e0a800;
+        background-color: #ddb347;
+    }
+
+    .checkout-link {
+        color: #111;
+        text-decoration: none;
+        display: block;
+        width: 100%;
     }
 
     /* Responsive styles */
@@ -187,7 +223,7 @@
         }
 
         .product-cart .one-forth,
-        .product-cart .one-eight {
+        .product-cart  {
             width: 100%;
             margin-bottom: 15px;
         }
@@ -369,26 +405,27 @@
                     </div>
                 </div>
             </div>
-            <div class="row row-pb-lg">
+            <div class="row row-pb-lg ">
                 <div class="col-md-12">
-                    <div class="product-name d-flex">
-                        <div class="one-forth text-left px-4">
+                    <div class="row " style="width: 100vw;">
+                        <div class="col-2">
                             <span>Product Details</span>
                         </div> 
-                        <div class="one-eight text-center">
-                            <span style="padding-right: 90px;">Price</span>
+                        <div class="col-3 text-center">
+                            <span >Price</span>
                         </div>
-                        <div class="one-eight text-center">
-                            <span style="padding-right: 100px;">Quantity</span>
+                        <div class="col-2 text-center">
+                            <span >Quantity</span>
                         </div>
-                        <div class="one-eight text-center">
-                            <span style="padding-right: 70px;">Total</span>
+                        <div class="col-2 text-center">
+                            <span>Total</span>
                         </div>
-                        <div class="one-eight text-center px-4">
-                            <span style="padding-right: 100px;">Remove</span>
+                        <div class="col-2 text-center" style="margin: 0rem 0rem 0rem -5rem;">
+                            <span >Remove</span>
                         </div>
                     </div>
-                    <div></div>
+                    </div>  
+                    
                     
 
     
@@ -398,25 +435,27 @@
        
     </div>
 <% } else { %>
-  <div class="container">
-    <div class="row row-pb-lg">
+
+    <div class="col-md-12" style="margin-top: 7rem;">
         <% user.items.forEach((item, index) => { %>
      
-            <div class="product-cart d-flex">
-                <div class="one-forth">
+            <div class="row "  style="width: 100vw;">
+                <div class="col-2">
                     <div class="display-tc">
                         <h3><%= item.productId.product_name %></h3>
                         <img src="<%= item.productId.images[0] %>" alt="" style="width:100px;">
                     </div>
                 </div>
-                <div class="one-eight text-center">
+                <div class="col-3 text-center">
                     <div class="display-tc">
-                        <span class="original-price" style="text-decoration: line-through; color: grey;">&#8377;<p id="originalPrice<%= item._id %>"><%= item.productId.originalPrice %></p> </span>
-                        <span class="offer-price" style="color: green;">&#8377; <p id="offerPrice<%= item._id %>"><%= item.productId.offerPrice %></p></span>
+                        <span class="original-price" style="text-decoration: line-through; color: grey;"><p id="originalPrice<%= item._id %>">&#8377;<%= item.productId.originalPrice %></p> </span>
+                        <span class="offer-price" style="color: green;"> <p id="offerPrice<%= item._id %>">&#8377;<%= item.productId.offerPrice %></p></span>
                     </div>
                 </div>
-                <div class="one-eight text-center">
+                <div class="col-2 text-center">
                     <div class="input-group mb-4">
+                      <% if (item.productId.stock > 0) { %>
+
                         <span class="input-group-btn">
                             <button type="button" class="quantity-left-minus btn" onclick="quantity('dec', <%= JSON.stringify(item) %>)" id="decrese">
                                 <i class="icon-minus2"></i>-
@@ -428,43 +467,49 @@
                                 <i class="icon-plus2"></i>
                             </button>
                         </span>
+                        <% } else { %>
+                          <span class="text-danger">Out of Stock</span>
+                      <% } %>
                     </div>
                 </div>
-                <div class="one-eight text-center">
+                <div class="col-2 text-center">
                     <div class="display-tc">
                         <span class="total-price" id="total_price_<%= item._id %>">&#8377; <%= item.productId.offerPrice * item.quantity %> </span>
                     </div>
                 </div>
-                <div class="one-eight text-center">
-                    <div class="display-tc">
-                        <a class="btn btn-danger delete" data-id="<%= item.productId._id %>" style="width: 70px;">
-                            <i class="bi bi-trash">Remove</i>
+                <div class="col-2 text-center" style="margin: 0rem 0rem 0rem 3rem;">
+                    
+                        <a class="btn btn-danger delete" data-id="<%= item.productId._id %>" style="width: 80px; padding: -2rem;">
+                            <i class="bi bi-trash"> <h4 style="color: white;">Remove</h4></i>
                         </a>
-                    </div>
+                    
                 </div>
             </div>
+
           
         <% }) %>
       
     </div>
-    <div class="row justify-content-center" >
-      <div class="col-md-6" style="margin: -11rem 0rem 0rem 86rem ;">
-          <div class="order-box text-center shadow-sm p-4 rounded">
-              <h2 class="text-success mt-3">Place Your Order</h2>
-              <div class="total-wrap mt-4">
-                  <div class="subtotal">
-                      <h3 class="mb-3" style="    margin: 1rem 1rem 0rem 22rem; font-family: sans-serif;">Sub Total<span id="subtotal" > &#8377;<%= totalAmount %></span></h3>
-                  </div>
-                  <button type="submit" class="btn btn-warning btn-lg" style="    width: 38%;
-                  height: 0px;
-                  border-radius: 8px;     margin: 0rem 0rem 0rem 11rem; background: #ed7d05;">
-                      <a href="/checkout" class="checkout-link">CheckOut</a>
-                  </button>
-              </div>
-          </div>
+            </div>
+    <div class="order-box" style="width: 419px;
+    margin: 0rem 0rem 0rem 70rem;">
+      <h2>Order Summary</h2>
+      <div class="subtotal">
+          <span>Subtotal:</span>
+          <span id="subtotal">₹<%= totalAmount %></span>
       </div>
+      <!-- <div class="subtotal">
+          <span>Shipping:</span>
+          <span>FREE</span>
+      </div>
+      <div class="total">
+        <span>Subtotal:</span>
+        <span id="subtotal">₹<%= totalAmount %></span>
+      </div> -->
+      <button type="submit" class="btn btn-warning">
+          <a href="/checkout" class="checkout-link">Proceed to Checkout</a>
+      </button>
   </div>
-  
 </div>
 <% } %>
 
@@ -539,8 +584,16 @@
                 const offerPrice = parseFloat(item.productId.offerPrice);
                 
                 if (type === 'inc') {
-                    if (quantityValue < item.productId.stock) {
+                  if (quantityValue < Math.min(5, item.productId.stock)) {
                         quantityValue++;
+                      } else if (quantityValue >= 5) {
+                            Swal.fire({
+                                title: 'Quantity Limit Reached!',
+                                text: 'You can only purchase up to 5 of this item.',
+                                icon: 'warning',
+                                confirmButtonText: 'OK'
+            });
+            return;
                     } else {
                         Swal.fire({
                             title: 'Stock Exceeded!',
@@ -573,10 +626,12 @@
                     if (!res.ok) {
                         throw new Error('Failed to update quantity on server');
                     }
+                    window.location.reload()
                 } catch (error) {
                     console.error('Error:', error);
                     // Optionally, show an error message to the user
                 }
+                
             };
             
             function updateSubtotal() {
@@ -595,6 +650,7 @@
             
             // Call updateSubtotal on page load to ensure correct initial value
             document.addEventListener('DOMContentLoaded', updateSubtotal);
+          
             </script>
     
 
@@ -617,7 +673,7 @@
         <div class="footer-brand">
 
           <a href="#" class="logo">
-            <img src="./assets/images/logo.svg" width="160" height="50" alt="Footcap logo">
+            <img src="../public/imgee/logobro.jpg" width="160" height="50" alt="Footcap logo">
           </a>
 
           <ul class="social-list">
