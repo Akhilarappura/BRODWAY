@@ -7,15 +7,12 @@ dotenv.config({ path: '.env' })
 
 
 
-const client_secret ='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';
-
-const client_ID ='283362262673-hk8boalou32njckhuhc3vvtc9rki1sgb.apps.googleusercontent.com';
 
 
 
 passport.use(new GoogleStrategy({
-  clientID: client_ID,
-  clientSecret: client_secret,
+  clientID: process.env.client_ID,
+  clientSecret: process.env.client_secret,
   callbackURL: '/auth/google/callback'
 }, async (accessToken, refreshToken, profile, done) => {
   try {
