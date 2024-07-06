@@ -49,7 +49,7 @@ route.post('/signup', signupController.signup);
 route.get('/signup', signupController.getsignup);
 route.get('/otp', signupController.otp);
 route.get('/resend', signupController.resendotp)
-route.post('/otp', signupController.verify);
+route.post('/otp', signupController.verify);    
 route.get('/login', signupController.loginpage)
 route.post('/login', signupController.post_login)
 route.get('/userlogout', signupController.userlogout);

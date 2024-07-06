@@ -120,7 +120,7 @@ const resendotp = async (req, res) => {
   try {
     
 
-    const recipientEmail = req.session.Eemail || req.session.email
+    const recipientEmail = req.session.Eemail;
     console.log(recipientEmail);
 
 
@@ -141,7 +141,7 @@ const resendotp = async (req, res) => {
       } else {
         console.log(`OTP resent succesfully:`, info.response)
         console.log(otp)
-        res.render('otp', { email: recipientEmail, error: 'OTP resent succesfully', message: '' })
+        res.render('otp', { email: recipientEmail, error: ' Validation failed. OTP resent succesfully', message: '' })
       }
     })
 
@@ -182,8 +182,35 @@ const verify = async (req, res) => {
       );
       res.cookie('userToken', userToken);
       res.redirect('/')
-    } else {
-      res.status(400).render('otp', { message: 'OTP is not matching', error: '' });
+    }  else {
+      // OTP doesn't match, let's generate and send a new one
+      const recipientEmail = req.session.Eemail;
+      const newOtp = generateOTP();
+      req.session.otp = newOtp;
+      console.log(newOtp);
+
+      createTransporter.sendMail({
+        from: 'akhilarappura1989@gmail.com',
+        to: recipientEmail,
+        subject: 'Your New OTP for Verification',
+        text: `Your new OTP is : ${newOtp}`,
+      }, (error, info) => {
+        if (error) {
+          console.error('Error sending email', error);
+          res.render('otp', { 
+            email: recipientEmail, 
+            error: 'Error sending new OTP. Please try again.', 
+            message: '' 
+          });
+        } else {
+          console.log('New OTP sent Successfully', info.response);
+          res.render('otp', { 
+            email: recipientEmail, 
+            error: 'Invalid OTP. A new OTP has been sent to your email.', 
+            message: '' 
+          });
+        }
+      });
     }
   } catch (error) {
     console.log(error);
@@ -197,10 +224,9 @@ const verify = async (req, res) => {
 //login
 const loginpage = async (req, res) => {
   try {
-    if (req.cookies.userToken) {
+    if (req.cookies.userToken && req.session.email) {
       res.redirect('/')
-    } else
-      res.render('login', { message: "" })
+    } else  res.render('login', { message: "" })
   } catch (error) {
     console.log(error);
     res.status(400).render('error500')

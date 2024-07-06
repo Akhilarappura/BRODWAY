@@ -40,6 +40,9 @@ const userLoggedIn = async (req, res, next) => {
   if (req.session.email && req.cookies.userToken) {
     next()
   } else {
+    if(req.cookies.userToken) {
+      res.clearCookie('userToken')
+    }
     res.redirect('/login')
   }
 }

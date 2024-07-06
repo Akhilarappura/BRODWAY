@@ -16,22 +16,17 @@ const generateOrderInvoice = async (req, res) => {
       return res.status(404).json({ message: 'Order not found' });
     }
 
-    const doc = new PDFDocument({ margin: 50 });
-    const downloadsFolder = path.join(os.homedir(), 'Downloads');
-    const filePath = path.join(downloadsFolder, `${orderId}.pdf`);
+    const doc = new PDFDocument();
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', 'attachment; filename=order_invoice.pdf');
+    doc.pipe(res);
 
-    const stream = fs.createWriteStream(filePath);
-    doc.pipe(stream);
-
-      // Add logo
-      const logoPath = path.join(__dirname, '/imgee/logobro.jpg');
-      if (fs.existsSync(logoPath)) {
-        doc.image(logoPath, 50, 45, { width: 50 });
-      } else {
-        console.error('Logo image not found at', logoPath);
-      }
-
-    doc.moveDown();
+    // Header Section
+    doc.image('public/imgee/logobro.jpg', { width: 50, align: 'right' }).moveDown(0.5);
+    doc.fontSize(20).text('BRODWAY', { align: 'center' });
+    doc.moveDown(0.5);
+    doc.fontSize(16).text('Invoice', { align: 'center' });
+    doc.moveDown();
 
     // Invoice details
     doc.fontSize(12)
@@ -40,19 +35,18 @@ const generateOrderInvoice = async (req, res) => {
        .text(`Due Date: ${new Date().toISOString().split('T')[0]}`, { align: 'right' })
        .moveDown();
 
-    // Billed from
-    doc.text('Billed From', 50, 160)
+    // Billed from and Billed to
+    const billingInfoY = doc.y;
+    doc.text('Billed From', 50, billingInfoY)
        .font('Helvetica-Bold')
        .text('BRODWAY')
        .font('Helvetica')
        .text('BRODWAY@gmail.com')
        .text('123 Arappura Street')
        .text('TVM, ST 12345')
-       .text('INDIA')
-       .moveDown();
+       .text('INDIA');
 
-    // Billed to
-    doc.text('Billed To', 300, 160)
+    doc.text('Billed To', 300, billingInfoY)
        .font('Helvetica-Bold')
        .text(order.address.name)
        .font('Helvetica')
@@ -60,11 +54,12 @@ const generateOrderInvoice = async (req, res) => {
        .text(order.address.address)
        .text(order.address.locality)
        .text(order.address.state)
-       .text(order.address.pincode)
-       .moveDown();
+       .text(order.address.pincode);
+
+    doc.moveDown();
 
     // Table headers
-    const tableTop = 250;
+    const tableTop = Math.max(doc.y, 250);
     const itemCodeX = 50;
     const descriptionX = 150;
     const quantityX = 280;
@@ -87,9 +82,9 @@ const generateOrderInvoice = async (req, res) => {
     let position = tableTop + 30;
     order.items.forEach(item => {
       const product = item.productId;
-      doc.text(product._id, itemCodeX, position)
+      doc.text(product._id.toString().slice(-6), itemCodeX, position)
          .text(product.product_name, descriptionX, position)
-         .text(item.quantity, quantityX, position)
+         .text(item.quantity.toString(), quantityX, position)
          .text(`Rs.${product.price}`, priceX, position)
          .text(`Rs.${product.price * item.quantity}`, amountX, position);
       position += 20;
@@ -108,11 +103,6 @@ const generateOrderInvoice = async (req, res) => {
 
     doc.end();
 
-    stream.on('finish', () => {
-      res.download(filePath, `${orderId}.pdf`, () => {
-        fs.unlinkSync(filePath);
-      });
-    });
 
   } catch (error) {
     console.error(error);

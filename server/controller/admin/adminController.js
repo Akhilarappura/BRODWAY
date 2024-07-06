@@ -111,7 +111,7 @@ const index = async (req, res) => {
         }
 
 
-        if (req.cookies.userToken) {
+        if (req.cookies.userToken && req.session.email) {
             user = await userdb.findOne({ email: req.session.email });
             const userId = user._id;
 
