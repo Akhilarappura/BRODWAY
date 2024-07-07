@@ -873,6 +873,8 @@ document.addEventListener("DOMContentLoaded", function () {
         if (isCouponApplied.value === 'false') {
             const couponCode = pasteCouponInput.value.trim();
             const totalAmount = parseFloat(document.getElementById('subtotalAmount').textContent);
+			console.log(totalAmount,'totalakakakakak');
+			console.log('couponCode',couponCode);
             const userEmail = '<%= detail.email %>';
 
             if (couponCode) {

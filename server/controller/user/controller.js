@@ -40,9 +40,9 @@ const category = async (req, res) => {
         const categoryId = req.query.id;
         const searchQuery = req.query.q;
         const userEmail = await userdb.findOne({ email: req.session.email });
-        let products = await productdb.find({ category: categoryId }).populate('category');
+        const products = await productdb.find({ category: categoryId }).populate('category');
         const wishlist = await wishlistdb.findOne({ user: userEmail });
-        const Category = await Categorydb.find();
+        const Category = await Categorydb.find({list:'listed'});
 
         // Apply search filter if search query exists
         if (searchQuery) {

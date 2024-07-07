@@ -25,8 +25,8 @@ const port = process.env.PORT || 3006
 
 app.set('view engine', 'ejs')
 app.use(express.json())
-app.use(bodyparser.urlencoded({ extended: true }));
-app.use(bodyparser.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 
 app.use(nocache())

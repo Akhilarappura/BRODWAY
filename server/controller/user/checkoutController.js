@@ -309,6 +309,7 @@ const failurePayment = async (req, res) => {
         const parsedData = data;
         const { items, addressId, paymentMethod } = parsedData;
         console.log('amount', amount);
+        // const status= await orderdb.findOne({status})
 
         const userEmail = req.session.email;
         const user = await userdb.findOne({ email: userEmail });
@@ -426,6 +427,8 @@ const applyCoupon = async (req, res) => {
         const { couponCode, userEmail, totalAmount } = req.body;
         console.log(req.body);
         console.log(couponCode, "COUPONCODE");
+        console.log('totalAmount',totalAmount);
+        
 
         const user = await userdb.findOne({ email: userEmail });
         if (!user) {
@@ -450,7 +453,7 @@ const applyCoupon = async (req, res) => {
 
         const discount = parseInt((totalAmount) * (coupon.discountPercentage)) / 100
         console.log(discount, "discount");
-        const newTotalAmount = parseInt(cart.totalAmount) - discount;
+        const newTotalAmount = Math.round(parseInt(cart.totalAmount) - discount);
         console.log(newTotalAmount, discount, "oi");
         res.json({ newTotalAmount, discount });
 

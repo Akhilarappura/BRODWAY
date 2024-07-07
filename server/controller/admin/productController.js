@@ -2,6 +2,7 @@ const categorydb = require('../../model/categoryModel');
 const productdb = require('../../model/productModel');
 const offerdb = require('../../model/offerModel')
 const multer = require('multer')
+const path=require("path")
 
 
 

@@ -120,9 +120,9 @@
                       </button>
                     </div>
                     <div class="product-actions" style="display: flex; justify-content: space-between; margin-top: 20px;">
-                      <button type="button" class="btn btn-lg" style="background-color: #ff9f00; color: white; width: 48%;" <%= !prod.Stock ? 'disabled' : '' %>>
-                        <a href="<%= prod.Stock ? '/cart/' + prod._id : '#' %>" class="text-white" style="text-decoration: none; <%= !prod.Stock ? 'pointer-events: none;' : '' %>">
-                          <i class="fas fa-shopping-cart"></i> <%= prod.inStock ? 'ADD TO CART' : 'OUT OF STOCK' %>
+                      <button type="button" class="btn btn-lg" style="background-color: #ff9f00; color: white; width: 48%;" <%= !prod.stock ? 'disabled' : '' %>>
+                        <a href="<%= prod.stock ? '/cart/' + prod._id : '#' %>" class="text-white" style="text-decoration: none; <%= !prod.stock ? 'pointer-events: none;' : '' %>">
+                          <i class="fas fa-shopping-cart"></i> <%= prod.stock ? 'ADD TO CART' : 'OUT OF stock' %>
                         </a>
                       </button>
                       <% if (wishlist && wishlist.items.some(items => items.productId.toString() === prod._id.toString())) { %>

@@ -102,9 +102,9 @@ const index = async (req, res) => {
         let user = null;
         let cartCount = 0;
         let wishlist = null;
-        const products = await productdb.find().populate('category');
+        const products = await productdb.find({list:'listed'}).populate('category');
         const categoryId = req.query.id
-        const Category = await categorydb.find();
+        const Category = await categorydb.find({list:'listed'});
 
         for (const product of products) {
             await applyoffer(product);

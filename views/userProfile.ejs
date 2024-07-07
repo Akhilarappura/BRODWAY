@@ -333,9 +333,7 @@
       // Simulating form submission (replace with actual AJAX call if needed)
       setTimeout(function() {
         // Reset to "EDIT" mode after submission
-        isEditing = false;
-        editSaveText.textContent = 'EDIT';
-        alert('Profile picture updated successfully!');
+      window.location.reload()
       }, 1000);
     });
   });

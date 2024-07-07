@@ -159,7 +159,7 @@
             </label>
           </div>
           <input id="fileInput" name="images" type="file" class="file-input" accept="image/*" onchange="previewImage(event)">
-          <button type="submit" class="btn btn-primary btn-sm mt-2">Update Picture</button>
+ 
         </form>
         <h4 class="mt-3">Hello, <%= user.name %></h4>
 
@@ -278,14 +278,14 @@
                                                                  <%  }else if (order.status == 'Return Accepted') { %>
                                                                     <p class="text-danger">Returned</p>
                                                                 <% }else if (order.status == 'Cancelled') { %>
-                                                                    <p class="text-danger">Cancelled,Amount Refunded</p>
+                                                                    <p class="text-danger">Cancelled</p>
                                                                 <% }else if (order.status !== 'Delivered') { %>
                                                                   
                                                                     <button class="btn btn-danger text-white mb-2 cancel-btn" data-order-id="<%= order._id %>">Cancel</button>
                                                                       
                                                                 <% } else { %>
                                                                     <button class="btn btn-secondary text-white mb-2 return-btn" data-order-id="<%= order._id %>">Return</button>
-                                                                <% } if(order.status=='failed'){%>
+                                                                <% } if(order.status=='Pending'){%>
                                                                 <button class="btn btn-success text-white mb-2 retry-payment-btn" data-order-id="<%= order._id %>">Retry Payment</button>     
                                                                     <% }%>
                                                                 <a href="/viewsingleorder?id=<%= order._id %>">
@@ -297,6 +297,7 @@
                                                     </tr>
                                                 
                                                     <% }) %>
+                                                
                                                 
                                             </table>
                                         </div>
