@@ -18,21 +18,34 @@ const error = async (req, res) => {
 
 const applyoffer = async (product) => {
     if (!product) {
-        return null
+        return null;
     }
 
-    const productOffer = await offerdb.findOne({ product_name: product._id, status: 'active' })
-    const categoryOffer = await offerdb.findOne({ category_name: product.Category, status: 'active' });
+    try {
+        const productOffer = await offerdb.findOne({
+            product_name: product._id,
+            status: 'active'
+        });
 
-    if (productOffer && typeof productOffer.discount_Percentage === 'number') {
-        product.offerPrice = Math.round(product.price - (product.price * (productOffer.discount_Percentage / 100)));
-    } else if (categoryOffer && typeof categoryOffer.discount_Percentage === 'number') {
-        product.categoryOffer = categoryOffer;
-        product.offerPrice = Math.round(product.price - (product.price * (categoryOffer.discount_Percentage / 100)));
-    } else {
-        product.discountPercentage = 0;
-        product.offerPrice = product.price;
+        const categoryOffer = await offerdb.findOne({
+            category_name: product.category._id,
+            status: 'active'
+        });
+
+        if (productOffer && typeof productOffer.discount_Percentage === 'number') {
+            product.offerPrice = Math.round(product.price - (product.price * (productOffer.discount_Percentage / 100)));
+            console.log("Applied product offer");
+        } else if (categoryOffer && typeof categoryOffer.discount_Percentage === 'number') {
+            product.offerPrice = Math.round(product.price - (product.price * (categoryOffer.discount_Percentage / 100)));
+            console.log("Applied category offer");
+        } else {
+            product.offerPrice = product.price;
+            console.log("No offers applied");
+        }
+    } catch (error) {
+        console.error('Error applying offer:', error);
     }
+
     return product;
 };
 const category = async (req, res) => {
@@ -40,7 +53,7 @@ const category = async (req, res) => {
         const categoryId = req.query.id;
         const searchQuery = req.query.q;
         const userEmail = await userdb.findOne({ email: req.session.email });
-        const products = await productdb.find({ category: categoryId }).populate('category');
+        const products = await productdb.find({ category: categoryId,list:'listed' }).populate('category');
         const wishlist = await wishlistdb.findOne({ user: userEmail });
         const Category = await Categorydb.find({list:'listed'});
 
@@ -208,5 +221,5 @@ const block = async (req, res) => {
 
 
 module.exports = {
-    error, category, about, contact, getUser, user_delete, block
+    error, category, about, contact, getUser, user_delete, block,applyoffer
 }

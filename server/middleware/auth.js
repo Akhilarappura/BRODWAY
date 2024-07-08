@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken')
 const dotenv = require('dotenv')
 dotenv.config({ path: '.env' })
 
-const clientID='283362262673-hk8boalou32njckhuhc3vvtc9rki1sgb.apps.googleusercontent.com
+const clientID='283362262673-hk8boalou32njckhuhc3vvtc9rki1sgb.apps.googleusercontent.com'
 const clientSecret='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'
 
 

@@ -268,7 +268,8 @@
                                                                 <span class="alert alert-warning">Shipped</span>
                                                             <% } else if (order.status === 'Delivered') { %>
                                                                 <span class="alert alert-success">Delivered</span>
-                                                            <% } %>     
+                                                            <%} else if (order.status === 'failed') { %>
+                                                                <span class="alert alert-danger">failed</span> <% } %>     
                                                         </td>
                                                         <td scope="col" class="text-center align-middle">&#x20a8; <%= order.totalAmount %></td>
                                                         <td scope="col" class="text-center align-middle">
@@ -285,8 +286,8 @@
                                                                       
                                                                 <% } else { %>
                                                                     <button class="btn btn-secondary text-white mb-2 return-btn" data-order-id="<%= order._id %>">Return</button>
-                                                                <% } if(order.status=='Pending'){%>
-                                                                <button class="btn btn-success text-white mb-2 retry-payment-btn" data-order-id="<%= order._id %>">Retry Payment</button>     
+                                                                <% } if(order.status=='failed'){%>
+                                                                <button class="btn btn-success text-white mb-2 retry-payment-btn" data-order-id="<%= order._id %>">Retry</button>     
                                                                     <% }%>
                                                                 <a href="/viewsingleorder?id=<%= order._id %>">
                                                                     <button class="btn btn-success text-white view-order-btn">View</button>

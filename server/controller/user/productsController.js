@@ -64,6 +64,7 @@ const get_productDetail = async (req, res) => {
             const userId = userEmail._id;
 
             wishlist = await wishlistdb.findOne({ user: userId }).populate('items.productId');
+            console.log('wishlist',wishlist);
             const userCart = await cartdb.findOne({ user: userId });
 
             if (userCart) {

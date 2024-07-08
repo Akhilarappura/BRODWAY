@@ -437,6 +437,7 @@
 <% } else { %>
 
     <div class="col-md-12" style="margin-top: 7rem;">
+      <% let anyItemOutOfStock = false; %>
         <% user.items.forEach((item, index) => { %>
      
             <div class="row "  style="width: 100vw;">
@@ -468,7 +469,8 @@
                             </button>
                         </span>
                         <% } else { %>
-                          <span class="text-danger">Out of Stock</span>
+                       
+                          <span class="text-danger" id="outOfStock">Out of Stock</span>
                       <% } %>
                     </div>
                 </div>
@@ -507,8 +509,8 @@
         <span id="subtotal">₹<%= totalAmount %></span>
       </div> -->
       <button type="submit" class="btn btn-warning">
-          <a href="/checkout" class="checkout-link">Proceed to Checkout</a>
-      </button>
+        <a href="/checkout" class="checkout-link">Proceed to Checkout</a>
+    </button>
   </div>
 </div>
 <% } %>
@@ -656,7 +658,6 @@
 
     </article>
   </main>
-
 
 
 
